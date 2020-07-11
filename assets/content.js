@@ -39,7 +39,7 @@ chrome.storage.sync.get("profit", state => {
             setTimeout(() => {
               form.submit();
             },250)
-          }, Math.floor(Math.random()*1000)+1250)
+          }, Math.floor(Math.random()*1000)+250)
         }
 
         let header = $('.kt-subheader__title');
