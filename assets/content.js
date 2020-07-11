@@ -15,7 +15,7 @@ let states = {
 chrome.storage.sync.get("profit", state => {
   states.profit = state.profit || 0;
   chrome.storage.sync.get("isActive", state => {
-    states.isActive = state.isActive === 'true' ? 1 : 0;
+    states.isActive = state.isActive;
     chrome.storage.sync.get("baseline", bet => {
       states.baseline = bet.baseline || 1;
       chrome.storage.sync.get("current", bet => {
@@ -28,9 +28,11 @@ chrome.storage.sync.get("profit", state => {
           states.current = states.baseline;
         } else {
           states.profit = 0;
+          states.isActive = 0;
         }
         chrome.storage.sync.set({current: states.current});
         chrome.storage.sync.set({profit: states.profit});
+        chrome.storage.sync.set({isActive: states.isActive});
 
         function timeout() {
           setTimeout(() => {
@@ -64,9 +66,9 @@ chrome.storage.sync.get("profit", state => {
           .css({"margin-left": '1rem', "border-radius": "1rem"})
           .click(() => {
             if (states.isActive) {
-              chrome.storage.sync.set({isActive: 'false'})
+              chrome.storage.sync.set({isActive: 0})
             } else {
-              chrome.storage.sync.set({isActive: 'true'});
+              chrome.storage.sync.set({isActive: 1});
               timeout()
             }
           });
