@@ -16,21 +16,18 @@ chrome.storage.sync.get("isActive", state => {
   chrome.storage.sync.get("baseline", bet => {
     states.baseline = bet.baseline;
     chrome.storage.sync.get("current", bet => {
-      states.current = bet.current;
+      if (isFailure) {
+        states.current = bet.current*2;
+      } else if (isSuccess) {
+        states.current = states.baseline;
+      } else {
+        states.current = bet.current;
+      }
+      chrome.storage.sync.set({current: states.current});
 
       function timeout() {
         setTimeout(() => {
-          if (isSuccess) {
-            chrome.storage.sync.set({current: states.baseline});
-            input.val(states.baseline);
-          } else
-          if (isFailure) {
-            chrome.storage.sync.set({current: states.current*2});
-            input.val(states.current*2);
-          } else {
-            chrome.storage.sync.set({current: states.baseline});
-            input.val(states.baseline);
-          }
+          input.val(states.current);
 
           setTimeout(() => {
             form.submit();
