@@ -14,14 +14,14 @@ let states = {
 chrome.storage.sync.get("isActive", state => {
   states.isActive = state.isActive === 'true' ? 1 : 0;
   chrome.storage.sync.get("baseline", bet => {
-    states.baseline = bet.baseline;
+    states.baseline = bet.baseline || 1;
     chrome.storage.sync.get("current", bet => {
       if (isFailure) {
         states.current = bet.current*2;
       } else if (isSuccess) {
         states.current = states.baseline;
       } else {
-        states.current = bet.current;
+        states.current = bet.current || states.baseline;
       }
       chrome.storage.sync.set({current: states.current});
 
