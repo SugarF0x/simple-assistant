@@ -20,3 +20,4 @@ This plugin will append a small menu to the 50/50 gambling hall header:
 * :corn: Miscellaneous
 * :recycle: Refactor
 * :art: Style
+* :milky_way: Release
