@@ -27,7 +27,7 @@
         "https://web.simple-mmo.com/gamecentre/5050",
         "https://web.simple-mmo.com/travel/*"
       ],
-      "js": ["assets/jquery.js", "assets/content.js"]
+      "js": ["assets/lib/jquery.js", "assets/content.js"]
     }
   ]
 }
