@@ -1,16 +1,17 @@
-# SimpleGambler plugin for SimpleMMO
+# Assistant plugin for SimpleMMO
 
-This plugin automatically makes bets for you in 50/50 gambling hall.
-You can specify the baseline bet in button popup.
+This plugins makes certain aspects of SimpleMMO a bit easier.
 
-## Display
+* Auto-travel
+* Auto-attack
+* Auto-gamble (50/50)
 
-This plugin will append a small menu to the 50/50 gambling hall header:
-`Gambler: [a|b|c]`, where
+## Installation
 
-* a - script state (enabled=1/disabled=0)
-* b - baseline bet
-* c - current bet
+Head over to **tags** and download `.zip` under the latest version.
+Navigate over to `browser://extensions/` or `chrome://extensions/`,
+depending on the browser you are using. There, enable **Developer Mode**
+and click **Load Unpacked**. Select the downloaded `.zip` and that's it!
 
 ## Commit syntax
 
