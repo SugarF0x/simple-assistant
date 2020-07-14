@@ -4,18 +4,24 @@ const engine = {
   gamble: {
     oneInTwo: {
       data: {
+        $get: () => {
+          // update this.data as per local storage
+        },
+        $set: () => {
+          // update local storage as per this.data
+        },
         isActive: null,
         current:  null,
         baseline: null,
-        profit: null
+        profit:   null
       },
       roll:() => {
         let data = engine.gamble.oneInTwo.data;
         
-        let isSuccess = ($('.notice-success').length > 0);
-        let isFailure = ($('.notice-danger').length > 0);
-        let input = $('#sample1');
-        let form = $('#submit');
+        let isSuccess = $('.notice-success').length > 0;
+        let isFailure = $('.notice-danger').length > 0;
+        let input     = $('#sample1');
+        let form      = $('#submit');
 
         // TODO: add gold/min display
         // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
@@ -99,30 +105,60 @@ const engine = {
   },
   travel: {
     data: {
-
+      $get: () => {
+        // update this.data as per local storage
+      },
+      $set: () => {
+        // update local storage as per this.data
+      },
+      isAuto: true
     },
     step: () => {
-      let step   = document.getElementsByClassName('stepbuttonnew')[0];
-      let attack = document.getElementsByClassName('cta');
-      setInterval(() => {
-        if (attack[0].textContent === ' Attack') attack[0].click(); else
-        if (step.textContent === "Take another step") step.click()
-      }, 1000);
+      let data = engine.travel.data;
+
+      let step   = $('.stepbuttonnew')[0];
+      let attack = $('.cta');
+
+      if (data.isAuto) {
+        setInterval(() => {
+          if (attack[0].textContent.indexOf('Attack') !== -1) attack[0].click(); else
+          if (step.textContent.indexOf('step') !== -1) step.click()
+        }, 1000);
+      }
     }
   },
   battle: {
     data: {
-
+      $get: () => {
+        // update this.data as per local storage
+      },
+      $set: () => {
+        // update local storage as per this.data
+      },
+      isAuto: true
     },
     attack: () => {
+      let data = engine.battle.data;
 
+      let attack = $('#attackButton')[0];
+      let back   = $('.btn-info')[0];
+      let enemy  = $('#enemyBox')[0];
+
+      if (data.isAuto) {
+        setInterval(() => {
+          if (enemy.style.cssText === 'opacity: 0.1;') back.click(); else
+          if (attack.innerText === 'Attack') attack.click();
+        },2000)
+      }
     }
   }
 };
 
+// TODO: add auto dismiss level up popup
+
 function figureOut() {
-  if (tab !== '/travel' && tab.indexOf('travel') !== -1) {
-    engine.travel.battle();
+  if (tab.indexOf('npcs/attack') !== -1) {
+    engine.battle.attack();
   }
 }
 
