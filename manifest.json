@@ -24,8 +24,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://web.simple-mmo.com/gamecentre/5050",
-        "https://web.simple-mmo.com/travel/*"
+        "https://web.simple-mmo.com/*"
       ],
       "js": ["assets/lib/jquery.js", "assets/content.js"]
     }
