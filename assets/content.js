@@ -12,6 +12,14 @@ let states = {
   profit: null
 };
 
+// TODO: add gold/min display
+// TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
+// TODO: add longers win/lose streaks this runtime
+// TODO: add input for baseline value inside DOM
+// TODO: fix bug with storage overflow after long term use
+// TODO: add documentation
+// TODO: use async await? question mark?
+
 chrome.storage.sync.get("profit", state => {
   states.profit = state.profit || 0;
   chrome.storage.sync.get("isActive", state => {

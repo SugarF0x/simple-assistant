@@ -1,6 +1,6 @@
 {
   "name": "SimpleGambler",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Automatically make 50/50 bets in SMMO gambling hall",
   "manifest_version": 2,
   "icons": {
