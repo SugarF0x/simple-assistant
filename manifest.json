@@ -1,6 +1,6 @@
 {
   "name": "Simple Assistant",
-  "version": "1.2",
+  "version": "1.2.1",
   "description": "Automate some aspects of SimpleMMO",
   "manifest_version": 2,
   "icons": {
