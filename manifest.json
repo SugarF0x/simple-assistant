@@ -14,8 +14,7 @@
   },
   "permissions": [
     "storage",
-    "tabs",
-    "https://web.simple-mmo.com/gamecentre/5050"
+    "tabs"
   ],
   "background": {
     "scripts": ["assets/eventPage.js"],
