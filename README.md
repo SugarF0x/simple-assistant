@@ -8,6 +8,11 @@ This plugins makes certain aspects of SimpleMMO a bit easier.
 
 ## Installation
 
+Head over to [Chrome Store](https://chrome.google.com/webstore/detail/simple-assistant/dpljccfbkelkodmmbnahgimhombjemll?hl=en&authuser=0)
+and install a stable extension version there
+
+#### Alternatively
+
 Head over to **tags** and download `.zip` under the latest version.
 Navigate over to `browser://extensions/` or `chrome://extensions/`,
 depending on the browser you are using. There, enable **Developer Mode**
