@@ -119,11 +119,12 @@ const engine = {
     step: () => {
       let data = engine.travel.data;
 
-      let step   = $('.stepbuttonnew')[0];
-      let attack = $('.cta');
+      let step = $('.stepbuttonnew')[0];
 
       if (data.isAuto) {
         setInterval(() => {
+          // sometimes this does not proc, perhaps now it will work? question mark?
+          let attack = $('.cta');
           if (attack[0].textContent.indexOf('Attack') !== -1) attack[0].click(); else
           if (step.textContent.indexOf('step') !== -1) step.click()
         }, 1000);
@@ -151,7 +152,7 @@ const engine = {
         setInterval(() => {
           if (enemy.style.cssText === 'opacity: 0.1;') back.click(); else
           if (attack.innerText === 'Attack') attack.click();
-        },2000)
+        },Math.floor(Math.random()*400)+1200)
       }
     }
   }
