@@ -1,4 +1,7 @@
-chrome.runtime.sendMessage({todo: "showPageAction"});
+/* TODO: add market assistant
+     that would buy set amount of cheapest items
+     for daily tasks
+*/
 
 const engine = {
   gamble: {
@@ -25,7 +28,7 @@ const engine = {
 
         // TODO: add gold/min display
         // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
-        // TODO: add longers win/lose streaks this runtime
+        // TODO: add longest win/lose streaks this runtime
         // TODO: add input for baseline value inside DOM
         // TODO: fix bug with storage overflow after long term use
         // TODO: add documentation

@@ -13,13 +13,8 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "storage",
-    "tabs"
+    "storage"
   ],
-  "background": {
-    "scripts": ["assets/eventPage.js"],
-    "persistent": false
-  },
   "content_scripts": [
     {
       "matches": [
