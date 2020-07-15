@@ -123,11 +123,14 @@ const engine = {
 
       if (data.isAuto) {
         setInterval(() => {
-          // sometimes this does not proc, perhaps now it will work? question mark?
           let attack = $('.cta');
-          if (attack[0].textContent.indexOf('Attack') !== -1) attack[0].click(); else
-          if (step.textContent.indexOf('step') !== -1) step.click()
+          [].forEach.call(attack, entry => {
+            if (entry.textContent.indexOf('Attack') !== -1) entry.click();
+          });
+          if (step.textContent.indexOf('step') !== -1) step.click();
         }, 1000);
+
+
       }
     }
   },
