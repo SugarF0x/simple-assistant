@@ -3,9 +3,16 @@
      for daily tasks
 */
 
+/* TODO: add inventory assistant
+     that would sell all inventory items to NPC
+     and save a lot of time on clicking
+      not like anyone is gonna be buying that trash
+      (equip, not collectibles)
+ */
+
 // TODO: add auto dismiss level up popup
 
-const engine = {
+let engine = {
   gamble: {
     oneInTwo: {
       data: {
@@ -116,23 +123,45 @@ const engine = {
       $set: () => {
         // update local storage as per this.data
       },
-      isAuto: true
+      isAuto: {
+        type:  Boolean,
+        value: true,
+        desc: 'Take steps on cooldown'
+      },
+      skipEncounters: {
+        type:  Boolean,
+        value: false,
+        desc: 'Attack encountered NPCs'
+      },
+      stopOnEncounters: {
+        type:  Boolean,
+        value: false,
+        desc: 'Pause on enemy encounter'
+      },
+      slowMode: {
+        type:  Boolean,
+        value: true,
+        desc: 'Continue walking when out of steps'
+      }
     },
     step: () => {
       let data = engine.travel.data;
 
       let step = $('.stepbuttonnew')[0];
+      let slow = $('#slow-mode')[0];
 
-      if (data.isAuto) {
-        setInterval(() => {
+      if (data.isAuto.value) {
+        let interval = setInterval(() => {
           let attack = $('.cta');
           [].forEach.call(attack, entry => {
-            if (entry.textContent.indexOf('Attack') !== -1) entry.click();
+            if (entry.textContent.indexOf('Attack') !== -1) {
+              if (data.stopOnEncounters.value) clearInterval(interval); else
+              if (!data.skipEncounters.value) entry.click();
+            }
           });
+          if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
           if (step.textContent.indexOf('step') !== -1) step.click();
         }, 1000);
-
-
       }
     }
   },
@@ -144,7 +173,16 @@ const engine = {
       $set: () => {
         // update local storage as per this.data
       },
-      isAuto: true
+      isAuto: {
+        type:  Boolean,
+        value: true,
+        desc: 'Attack enemy on cooldown'
+      },
+      goBack: {
+        type:  Boolean,
+        value: true,
+        desc: 'Go back when enemy is defeated'
+      }
     },
     attack: () => {
       let data = engine.battle.data;
@@ -153,9 +191,12 @@ const engine = {
       let back   = $('.btn-info')[0];
       let enemy  = $('#enemyBox')[0];
 
-      if (data.isAuto) {
-        setInterval(() => {
-          if (enemy.style.cssText === 'opacity: 0.1;') back.click(); else
+      if (data.isAuto.value) {
+        let interval = setInterval(() => {
+          if (enemy.style.cssText === 'opacity: 0.1;') {
+            clearInterval(interval);
+            if (data.goBack.value) back.click();
+          } else
           if (attack.innerText === 'Attack') attack.click();
         },Math.floor(Math.random()*400)+1200)
       }
@@ -163,7 +204,7 @@ const engine = {
   }
 };
 
-function createPanel(content) {
+function createPanel(data) {
   /* TODO: add content switch
       so as to only load content
       based or page select
@@ -203,21 +244,24 @@ function createPanel(content) {
 function figureOut() {
   if (tab.indexOf('npcs/attack') !== -1) {
     engine.battle.attack();
+    createPanel('attack');
+  } else {
+    createPanel();
   }
 }
 
 //
-
-createPanel();
 
 let tab = window.location.pathname;
 
 switch (tab) {
   case '/gamecentre/5050':
     engine.gamble.oneInTwo.roll();
+    createPanel('oneInTwo');
     break;
   case '/travel':
     engine.travel.step();
+    createPanel('travel');
     break;
   default:
     figureOut();
