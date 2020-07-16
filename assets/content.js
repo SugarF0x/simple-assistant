@@ -128,9 +128,9 @@ let engine = {
         value: true,
         desc: 'Take steps on cooldown'
       },
-      skipEncounters: {
+      attackEncounters: {
         type:  Boolean,
-        value: false,
+        value: true,
         desc: 'Attack encountered NPCs'
       },
       stopOnEncounters: {
@@ -156,7 +156,7 @@ let engine = {
           [].forEach.call(attack, entry => {
             if (entry.textContent.indexOf('Attack') !== -1) {
               if (data.stopOnEncounters.value) clearInterval(interval); else
-              if (!data.skipEncounters.value) entry.click();
+              if (data.attackEncounters.value) entry.click();
             }
           });
           if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
