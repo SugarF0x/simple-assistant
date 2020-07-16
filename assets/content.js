@@ -3,6 +3,8 @@
      for daily tasks
 */
 
+// TODO: add auto dismiss level up popup
+
 const engine = {
   gamble: {
     oneInTwo: {
@@ -161,7 +163,42 @@ const engine = {
   }
 };
 
-// TODO: add auto dismiss level up popup
+function createPanel(content) {
+  /* TODO: add content switch
+      so as to only load content
+      based or page select
+        perhaps should make this one automatically fill out
+        based on current engine.data properties
+   */
+
+  let old = $('#sa-display');
+  if (old.length) old.remove();
+
+  let stats = $('.kt-container')[1].children[0];
+
+  let display = $('<div>')
+    .addClass('kt-portlet')
+    .attr('id','sa-display')
+    .insertAfter(stats);
+
+  let row = $('<div>')
+    .addClass('row')
+    .appendTo(display);
+
+  let col = $('<div>')
+    .addClass('col')
+    .css('padding', '1rem')
+    .appendTo(row);
+
+  // actual content starts here
+  // everything is to be appended to col
+
+  $('<h2>')
+    .text('Simple Assistant v1.2.3 +Dev')
+    .appendTo(col);
+
+
+}
 
 function figureOut() {
   if (tab.indexOf('npcs/attack') !== -1) {
@@ -170,6 +207,8 @@ function figureOut() {
 }
 
 //
+
+createPanel();
 
 let tab = window.location.pathname;
 
