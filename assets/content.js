@@ -204,7 +204,7 @@ let engine = {
   }
 };
 
-function createPanel(data) {
+function createPanel(page) {
   /* TODO: add content switch
       so as to only load content
       based or page select
@@ -238,19 +238,23 @@ function createPanel(data) {
     .text('Simple Assistant v1.2.3 +Dev')
     .appendTo(col);
 
-  if (data === undefined) {
+  if (page === undefined) {
     $('<p>')
       .text('This page is not supported by Simple Assistant')
       .appendTo(col);
-  } else if (data === 'travel') {
-    for (let key in engine.travel.data) {
-      if (engine.travel.data[key][0] !== '$') {
+  } else if (Object.keys(engine).join(' ').indexOf(page) === -1) {
+    $('<p>')
+      .text('Invalid page request')
+      .appendTo(col);
+  } else  {
+    for (let key in engine[page].data) {
+      if (engine[page].data[key][0] !== '$') {
         let tile = $('<div>')
           .appendTo(col);
 
-        if (engine.travel.data[key].type === Boolean) {
+        if (engine[page].data[key].type === Boolean) {
           let label = $('<label>')
-            .text(engine.travel.data[key].desc)
+            .text(engine[page].data[key].desc)
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
@@ -262,7 +266,7 @@ function createPanel(data) {
             .css('margin-right','.5rem')
             .appendTo(label);
 
-          if (engine.travel.data[key].value) checkbox.attr('checked', 'checked');
+          if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
         }
       }
     }
@@ -272,7 +276,7 @@ function createPanel(data) {
 function figureOut() {
   if (tab.indexOf('npcs/attack') !== -1) {
     engine.battle.attack();
-    createPanel('attack');
+    createPanel('battle');
   } else {
     createPanel();
   }
