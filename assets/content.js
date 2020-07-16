@@ -238,7 +238,35 @@ function createPanel(data) {
     .text('Simple Assistant v1.2.3 +Dev')
     .appendTo(col);
 
+  if (data === undefined) {
+    $('<p>')
+      .text('This page is not supported by Simple Assistant')
+      .appendTo(col);
+  } else if (data === 'travel') {
+    for (let key in engine.travel.data) {
+      if (engine.travel.data[key][0] !== '$') {
+        let tile = $('<div>')
+          .appendTo(col);
 
+        if (engine.travel.data[key].type === Boolean) {
+          let label = $('<label>')
+            .text(engine.travel.data[key].desc)
+            .css('display', 'flex')
+            .css('flex-direction', 'row-reverse')
+            .css('justify-content','flex-end')
+            .css('align-items','center')
+            .appendTo(col);
+
+          let checkbox = $('<input>')
+            .attr('type','checkbox')
+            .css('margin-right','.5rem')
+            .appendTo(label);
+
+          if (engine.travel.data[key].value) checkbox.attr('checked', 'checked');
+        }
+      }
+    }
+  }
 }
 
 function figureOut() {
