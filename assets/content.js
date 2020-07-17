@@ -300,6 +300,10 @@ function createPanel(page) {
           .css('flex-direction', 'row-reverse')
           .css('justify-content','flex-end')
           .css('align-items','center')
+          .click(() => {
+            engine[page].data[key].value = !engine[page].data[key].value;
+            engine.$set(page)
+          })
           .appendTo(col);
 
         let checkbox = $('<input>')
