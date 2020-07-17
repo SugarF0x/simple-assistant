@@ -6,22 +6,56 @@
 /* TODO: add inventory assistant
      that would sell all inventory items to NPC
      and save a lot of time on clicking
-      not like anyone is gonna be buying that trash
-      (equip, not collectibles)
+       not like anyone is gonna be buying that trash
+       (equip, not collectibles)
  */
+
+/* TODO: add quest assist
+     that being a button to spend all available quest points
+     on the last incomplete quest
+       (without COMPLETE tag)
+ */
+
+/* TODO: add battle assist
+     that being a button to spend all energy on generating
+     and fighting an enemy
+ */
+
+/* TODO: add travel statistics
+     gather travel data of gold collected,
+     items found, steps taken, enemies encountered
+        Have it also take timestamp and if the last stamp
+        was more than 5 minutes ago - dump stats
+            Make stats dump an optional thing
+            Or perhaps make total stats and latest session stats
+            so that there is no need in optionizing that
+*/
 
 // TODO: add auto dismiss level up popup
 
 let engine = {
+  $get: (page) => {
+    if (engine.hasOwnProperty(page)) {
+      let storage = JSON.parse(localStorage.getItem('SA_' + page));
+      if (!storage) {
+        for (let key in engine[page].data)
+          engine[page].data[key].value = engine[page].data[key].default;
+        engine.$set(page);
+      }
+      else for (let key in storage) {
+        engine[page].data[key].value = storage[key];
+      }
+    } else throw "engine.$get() error: property <" + page + "> was not found";
+  },
+  $set: (page) => {
+    let data = {};
+    for (let key in engine[page].data)
+      data[key] = engine[page].data[key].value;
+    localStorage.setItem('SA_travel', JSON.stringify(data));
+  },
   gamble: {
     oneInTwo: {
       data: {
-        $get: () => {
-          // update this.data as per local storage
-        },
-        $set: () => {
-          // update local storage as per this.data
-        },
         isActive: null,
         current:  null,
         baseline: null,
@@ -117,34 +151,33 @@ let engine = {
   },
   travel: {
     data: {
-      $get: () => {
-        // update this.data as per local storage
-      },
-      $set: () => {
-        // update local storage as per this.data
-      },
       isAuto: {
         type:  Boolean,
-        value: true,
+        value: null,
+        default: true,
         desc: 'Take steps on cooldown'
       },
       attackEncounters: {
         type:  Boolean,
-        value: true,
+        value: null,
+        default: true,
         desc: 'Attack encountered NPCs'
       },
       stopOnEncounters: {
         type:  Boolean,
-        value: false,
+        value: null,
+        default: false,
         desc: 'Pause on enemy encounter'
       },
       slowMode: {
         type:  Boolean,
-        value: true,
+        value: null,
+        default: true,
         desc: 'Continue walking when out of steps'
       }
     },
     step: () => {
+      engine.$get('travel');
       let data = engine.travel.data;
 
       let step = $('.stepbuttonnew')[0];
@@ -167,24 +200,21 @@ let engine = {
   },
   battle: {
     data: {
-      $get: () => {
-        // update this.data as per local storage
-      },
-      $set: () => {
-        // update local storage as per this.data
-      },
       isAuto: {
         type:  Boolean,
-        value: true,
+        value: null,
+        default: true,
         desc: 'Attack enemy on cooldown'
       },
       goBack: {
         type:  Boolean,
-        value: true,
+        value: null,
+        default: true,
         desc: 'Go back when enemy is defeated'
       }
     },
     attack: () => {
+      engine.$get('battle');
       let data = engine.battle.data;
 
       let attack = $('#attackButton')[0];
