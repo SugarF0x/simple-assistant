@@ -290,26 +290,24 @@ function createPanel(page) {
       .appendTo(col);
   } else  {
     for (let key in engine[page].data) {
-      if (engine[page].data[key][0] !== '$') {
-        let tile = $('<div>')
+      let tile = $('<div>')
+        .appendTo(col);
+
+      if (engine[page].data[key].type === Boolean) {
+        let label = $('<label>')
+          .text(engine[page].data[key].desc)
+          .css('display', 'flex')
+          .css('flex-direction', 'row-reverse')
+          .css('justify-content','flex-end')
+          .css('align-items','center')
           .appendTo(col);
 
-        if (engine[page].data[key].type === Boolean) {
-          let label = $('<label>')
-            .text(engine[page].data[key].desc)
-            .css('display', 'flex')
-            .css('flex-direction', 'row-reverse')
-            .css('justify-content','flex-end')
-            .css('align-items','center')
-            .appendTo(col);
+        let checkbox = $('<input>')
+          .attr('type','checkbox')
+          .css('margin-right','.5rem')
+          .appendTo(label);
 
-          let checkbox = $('<input>')
-            .attr('type','checkbox')
-            .css('margin-right','.5rem')
-            .appendTo(label);
-
-          if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
-        }
+        if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
       }
     }
   }
