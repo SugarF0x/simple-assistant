@@ -33,16 +33,26 @@
 
 // TODO: add auto dismiss level up popup
 
+/* TODO: add full options page
+     add button to top-right cornet of display that would lead to
+     lets say https://web.simple-mmo.com/simpleassistant
+     where the page would get fully replaced by one large card
+     with all the available settings for all modules
+     so that one could edit thwn without accessing said pages
+     in the first place
+       that would be good for them pages with isAuto: true
+ */
+
 /* TODO: !just a shower thought!
-    the engine object is beginning to look quite bulky if you ask me
-    and i begin to worry about it performance-wise
-    I have an idea of how to make it better but not yet sure if it's necessary
-    but I could make a function like startEngnie() that would fill engine
-    object with only required data (e.g. only travel or only battle)
-    thus freeing up quite some portion of space
-      Given the scale of this extension, i'd argues its not necessary but still
-      if i ever encounter some performance related problems,
-      I should probably give it a second thought
+     the engine object is beginning to look quite bulky if you ask me
+     and i begin to worry about it performance-wise
+     I have an idea of how to make it better but not yet sure if it's necessary
+     but I could make a function like startEngnie() that would fill engine
+     object with only required data (e.g. only travel or only battle)
+     thus freeing up quite some portion of space
+       Given the scale of this extension, i'd argues its not necessary but still
+       if i ever encounter some performance related problems,
+       I should probably give it a second thought
  */
 
 let engine = {
