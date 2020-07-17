@@ -189,7 +189,7 @@ let engine = {
         type:  Boolean,
         value: null,
         default: false,
-        desc: 'Pause on enemy encounter'
+        desc: 'Pause auto-step on enemy encounter'
       },
       slowMode: {
         type:  Boolean,
@@ -210,7 +210,8 @@ let engine = {
           let attack = $('.cta');
           [].forEach.call(attack, entry => {
             if (entry.textContent.indexOf('Attack') !== -1) {
-              if (data.stopOnEncounters.value) clearInterval(interval); else if (data.attackEncounters.value) entry.click();
+              if (data.stopOnEncounters.value) clearInterval(interval);
+              if (data.attackEncounters.value) entry.click();
             }
           });
           if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
