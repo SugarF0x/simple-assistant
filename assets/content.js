@@ -33,6 +33,18 @@
 
 // TODO: add auto dismiss level up popup
 
+/* TODO: !just a shower thought!
+    the engine object is beginning to look quite bulky if you ask me
+    and i begin to worry about it performance-wise
+    I have an idea of how to make it better but not yet sure if it's necessary
+    but I could make a function like startEngnie() that would fill engine
+    object with only required data (e.g. only travel or only battle)
+    thus freeing up quite some portion of space
+      Given the scale of this extension, i'd argues its not necessary but still
+      if i ever encounter some performance related problems,
+      I should probably give it a second thought
+ */
+
 let engine = {
   $get: (page) => {
     if (engine.hasOwnProperty(page)) {
@@ -51,7 +63,7 @@ let engine = {
     let data = {};
     for (let key in engine[page].data)
       data[key] = engine[page].data[key].value;
-    localStorage.setItem('SA_travel', JSON.stringify(data));
+    localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble: {
     oneInTwo: {
