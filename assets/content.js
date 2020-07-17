@@ -188,26 +188,25 @@ let engine = {
         desc: 'Continue walking when out of steps'
       }
     },
-    step: () => {
+    init: () => {
       engine.$get('travel');
       let data = engine.travel.data;
 
       let step = $('.stepbuttonnew')[0];
       let slow = $('#slow-mode')[0];
 
-      if (data.isAuto.value) {
-        let interval = setInterval(() => {
+      let interval = setInterval(() => {
+        if (data.isAuto.value) {
           let attack = $('.cta');
           [].forEach.call(attack, entry => {
             if (entry.textContent.indexOf('Attack') !== -1) {
-              if (data.stopOnEncounters.value) clearInterval(interval); else
-              if (data.attackEncounters.value) entry.click();
+              if (data.stopOnEncounters.value) clearInterval(interval); else if (data.attackEncounters.value) entry.click();
             }
           });
           if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
           if (step.textContent.indexOf('step') !== -1) step.click();
-        }, 1000);
-      }
+        } else clearInterval(interval);
+      }, 1000);
     }
   },
   battle: {
@@ -225,7 +224,7 @@ let engine = {
         desc: 'Go back when enemy is defeated'
       }
     },
-    attack: () => {
+    init: () => {
       engine.$get('battle');
       let data = engine.battle.data;
 
@@ -233,15 +232,14 @@ let engine = {
       let back   = $('.btn-info')[0];
       let enemy  = $('#enemyBox')[0];
 
-      if (data.isAuto.value) {
-        let interval = setInterval(() => {
+      let interval = setInterval(() => {
+        if (data.isAuto.value) {
           if (enemy.style.cssText === 'opacity: 0.1;') {
             clearInterval(interval);
             if (data.goBack.value) back.click();
-          } else
-          if (attack.innerText === 'Attack') attack.click();
-        },Math.floor(Math.random()*400)+1200)
-      }
+          } else if (attack.innerText === 'Attack') attack.click();
+        } else clearInterval(interval)
+      },Math.floor(Math.random()*400)+1200)
     }
   }
 };
@@ -302,7 +300,8 @@ function createPanel(page) {
           .css('align-items','center')
           .click(() => {
             engine[page].data[key].value = !engine[page].data[key].value;
-            engine.$set(page)
+            engine.$set(page);
+            engine[page].init();
           })
           .appendTo(col);
 
@@ -319,7 +318,7 @@ function createPanel(page) {
 
 function figureOut() {
   if (tab.indexOf('npcs/attack') !== -1) {
-    engine.battle.attack();
+    engine.battle.init();
     createPanel('battle');
   } else {
     createPanel();
@@ -336,7 +335,7 @@ switch (tab) {
     createPanel('oneInTwo');
     break;
   case '/travel':
-    engine.travel.step();
+    engine.travel.init();
     createPanel('travel');
     break;
   default:
