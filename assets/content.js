@@ -256,13 +256,6 @@ let engine = {
 };
 
 function createPanel(page) {
-  /* TODO: add content switch
-      so as to only load content
-      based or page select
-        perhaps should make this one automatically fill out
-        based on current engine.data properties
-   */
-
   let old = $('#sa-display');
   if (old.length) old.remove();
 
@@ -312,7 +305,6 @@ function createPanel(page) {
           .click(() => {
             engine[page].data[key].value = !engine[page].data[key].value;
             engine.$set(page);
-            engine[page].init();
           })
           .appendTo(col);
 
@@ -324,6 +316,11 @@ function createPanel(page) {
         if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
       }
     }
+
+    $('<small>')
+      .text('*Some changes may require a page refresh to take affect')
+      .css('opacity','0.7')
+      .appendTo(col);
   }
 }
 
