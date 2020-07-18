@@ -318,7 +318,7 @@ function createPanel(page) {
     }
 
     $('<small>')
-      .text('*Some changes may require a page refresh to take affect')
+      .text('*Some changes may require a page refresh to take effect')
       .css('opacity','0.7')
       .appendTo(col);
   }
