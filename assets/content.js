@@ -174,28 +174,28 @@ let engine = {
   travel: {
     data: {
       isAuto: {
-        type:  Boolean,
-        value: null,
+        type:    Boolean,
+        value:   null,
         default: true,
-        desc: 'Take steps on cooldown'
+        desc:    'Take steps on cooldown'
       },
       attackEncounters: {
-        type:  Boolean,
-        value: null,
+        type:    Boolean,
+        value:   null,
         default: true,
-        desc: 'Attack encountered NPCs'
+        desc:    'Attack encountered NPCs'
       },
       stopOnEncounters: {
-        type:  Boolean,
-        value: null,
+        type:    Boolean,
+        value:   null,
         default: false,
-        desc: 'Pause auto-step on enemy encounter'
+        desc:    'Pause auto-step on enemy encounter'
       },
       slowMode: {
-        type:  Boolean,
-        value: null,
+        type:    Boolean,
+        value:   null,
         default: false,
-        desc: 'Continue walking when out of steps'
+        desc:    'Continue walking when out of steps'
       }
     },
     init: () => {
@@ -223,16 +223,16 @@ let engine = {
   battle: {
     data: {
       isAuto: {
-        type:  Boolean,
-        value: null,
+        type:    Boolean,
+        value:   null,
         default: true,
-        desc: 'Attack enemy on cooldown'
+        desc:    'Attack enemy on cooldown'
       },
       goBack: {
-        type:  Boolean,
-        value: null,
+        type:    Boolean,
+        value:   null,
         default: true,
-        desc: 'Go back when enemy is defeated'
+        desc:    'Go back when enemy is defeated'
       }
     },
     init: () => {
