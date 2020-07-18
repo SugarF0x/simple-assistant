@@ -279,7 +279,7 @@ function createPanel(page) {
   // everything is to be appended to col
 
   $('<h2>')
-    .text('Simple Assistant')
+    .text('Simple Assistant ' + chrome.runtime.getManifest().version_name)
     .appendTo(col);
 
   if (page === undefined) {
