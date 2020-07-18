@@ -194,7 +194,7 @@ let engine = {
       slowMode: {
         type:  Boolean,
         value: null,
-        default: true,
+        default: false,
         desc: 'Continue walking when out of steps'
       }
     },
