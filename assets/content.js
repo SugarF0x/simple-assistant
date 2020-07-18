@@ -75,102 +75,100 @@ let engine = {
       data[key] = engine[page].data[key].value;
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
-  // gamble: {
-  //   oneInTwo: {
-  //     data: {
-  //       isActive: null,
-  //       current:  null,
-  //       baseline: null,
-  //       profit:   null
-  //     },
-  //     roll:() => {
-  //       let data = engine.gamble.oneInTwo.data;
-  //
-  //       let isSuccess = $('.notice-success').length > 0;
-  //       let isFailure = $('.notice-danger').length > 0;
-  //       let input     = $('#sample1');
-  //       let form      = $('#submit');
-  //
-  //       // TODO: add gold/min display
-  //       // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
-  //       // TODO: add longest win/lose streaks this runtime
-  //       // TODO: add input for baseline value inside DOM
-  //       // TODO: fix bug with storage overflow after long term use
-  //       // TODO: add documentation
-  //       // TODO: use async await? question mark?
-  //
-  //       chrome.storage.sync.get("profit", state => {
-  //         data.profit = state.profit || 0;
-  //         chrome.storage.sync.get("isActive", state => {
-  //           data.isActive = state.isActive;
-  //           chrome.storage.sync.get("baseline", bet => {
-  //             data.baseline = bet.baseline || 1;
-  //             chrome.storage.sync.get("current", bet => {
-  //               data.current = parseInt(bet.current) || parseInt(data.baseline);
-  //               if (isFailure) {
-  //                 data.profit -= data.current;
-  //                 data.current = bet.current*2;
-  //               } else if (isSuccess) {
-  //                 data.profit += data.current;
-  //                 data.current = data.baseline;
-  //               } else {
-  //                 data.profit = 0;
-  //                 data.isActive = 0;
-  //               }
-  //               chrome.storage.sync.set({current: data.current});
-  //               chrome.storage.sync.set({profit: data.profit});
-  //               chrome.storage.sync.set({isActive: data.isActive});
-  //
-  //               function timeout() {
-  //                 setTimeout(() => {
-  //                   input.val(data.current);
-  //
-  //                   setTimeout(() => {
-  //                     form.submit();
-  //                   },250)
-  //                 }, Math.floor(Math.random()*1000)+250)
-  //               }
-  //
-  //               let header = $('.kt-subheader__title');
-  //               let newHeader = ` | Gambler: [ ${data.isActive} | ${data.baseline} | ${data.current} ]`;
-  //               header.append(newHeader);
-  //
-  //               let profitDisplay = $('<span></span>');
-  //               if (data.profit > 0) {
-  //                 profitDisplay.text(`+${data.profit}`);
-  //                 profitDisplay.css({"color": "green"})
-  //               } else if (data.profit < 0) {
-  //                 profitDisplay.text(`${data.profit}`);
-  //                 profitDisplay.css({"color": "red"})
-  //               } else {
-  //                 profitDisplay.text(data.profit);
-  //               }
-  //               profitDisplay.css({"margin-left": '1rem'});
-  //               header.append(profitDisplay);
-  //
-  //               let initButton = $('<button></button>')
-  //                 .text(data.isActive ? 'Stop' : 'Begin')
-  //                 .css({"margin-left": '1rem', "border-radius": "1rem"})
-  //                 .click(() => {
-  //                   if (data.isActive) {
-  //                     chrome.storage.sync.set({isActive: 0})
-  //                   } else {
-  //                     chrome.storage.sync.set({isActive: 1});
-  //                     timeout()
-  //                   }
-  //                 });
-  //               header.append(initButton);
-  //
-  //               if (data.isActive) {
-  //                 timeout();
-  //               }
-  //             });
-  //           });
-  //         });
-  //       });
-  //     }
-  //   }
-  // },
+  gamble5050: {
+    data: {
+      isAuto: {
+        type:    'checkbox',
+        value:   null,
+        default: false,
+        desc:    'Automatically place bets'
+      },
+      baseline: {
+        type:    'input',
+        value:   null,
+        default: 100,
+        name:    'Baseline',
+        desc:    'A base bet to go off of',
+        action:  (newValue) => {
+          if (!isNaN(newValue)) {
+            engine.gamble5050.data.baseline.value = parseInt(newValue);
+            engine.gamble5050.data.current.value  = parseInt(newValue);
+            engine.$set('gamble5050');
+            createPanel('gamble5050');
+          }
+        }
+      },
+      current: {
+        type:    'display',
+        value:   null,
+        default: 100,
+        name:    'Current',
+        desc:    'A bet to be placed this bout'
+      },
+      profitRuntime: {
+        type:    'display',
+        value:   null,
+        default: 0,
+        name:    'Runtime profit',
+        desc:    'The amount of gold made/lost this runtime'
+      },
+      profitTotal: {
+        type:    'display',
+        value:   null,
+        default: 0,
+        name:    'Total profit',
+        desc:    'The amount of gold made/lost overall'
+      },
+      streak: {
+        type:    'display',
+        value:   null,
+        default: 0,
+        name:    'Streak',
+        desc:    'Current win/lose streak'
+      }
+    },
+    init:() => {
+      engine.$get('gamble5050');
+      let data = engine.gamble5050.data;
+
+      let isSuccess = $('.notice-success').length > 0;
+      let isFailure = $('.notice-danger').length  > 0;
+      let input     = $('#sample1');
+      let form      = $('#submit');
+
+      // TODO: add gold/min display
+      // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
+      // TODO: add longest win/lose streaks this runtime
+
+      if (isFailure) {
+        data.profitRuntime.value -= data.current.value;
+        data.profitTotal.value   -= data.current.value;
+        data.current.value       *= 2;
+        if (data.streak.value < 0)  data.streak.value--;
+        else data.streak.value    = -1;
+      } else if (isSuccess) {
+        data.profitRuntime.value += data.current.value;
+        data.profitTotal.value   += data.current.value;
+        data.current.value        = data.baseline.value;
+        if (data.streak.value > 0)  data.streak.value++;
+        else data.streak.value    = 1;
+      } else {
+        data.profitRuntime.value = 0;
+        data.streak.value        = 0;
+      }
+      engine.$set('gamble5050');
+
+      if (data.isAuto.value) {
+        setTimeout(() => {
+          input.val(data.current.value);
+
+          setTimeout(() => {
+            form.submit();
+          },250)
+        }, Math.floor(Math.random()*1000)+250)
+      }
+    }
+  },
   travel: {
     data: {
       isAuto: {
@@ -296,24 +294,70 @@ function createPanel(page) {
         .appendTo(col);
 
       if (engine[page].data[key].type === 'checkbox') {
-        let label = $('<label>')
-          .text(engine[page].data[key].desc)
-          .css('display', 'flex')
-          .css('flex-direction', 'row-reverse')
-          .css('justify-content','flex-end')
-          .css('align-items','center')
-          .click(() => {
-            engine[page].data[key].value = !engine[page].data[key].value;
-            engine.$set(page);
-          })
-          .appendTo(col);
 
-        let checkbox = $('<input>')
-          .attr('type','checkbox')
-          .css('margin-right','.5rem')
-          .appendTo(label);
+      }
 
-        if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
+      // TODO: refactor label element into a universal one? question mark?
+
+      switch(engine[page].data[key].type) {
+        case 'checkbox':
+          let cLabel = $('<label>')
+            .text(engine[page].data[key].desc)
+            .css('display', 'flex')
+            .css('flex-direction', 'row-reverse')
+            .css('justify-content','flex-end')
+            .css('align-items','center')
+            .click(() => {
+              engine[page].data[key].value = !engine[page].data[key].value;
+              engine.$set(page);
+            })
+            .appendTo(col);
+
+          let checkbox = $('<input>')
+            .attr('type','checkbox')
+            .css('margin-right','.5rem')
+            .appendTo(cLabel);
+
+          if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
+
+          break;
+        case 'input':
+          let iLabel = $('<label>')
+            .text(engine[page].data[key].name)
+            .css('display', 'flex')
+            .css('flex-direction', 'row-reverse')
+            .css('justify-content','flex-end')
+            .css('align-items','center')
+            .attr('title',engine[page].data[key].desc)
+            .appendTo(col);
+
+          let input = $('<input>')
+            .val(engine[page].data[key].value)
+            .css('margin-right','.5rem')
+            .css('color','black')
+            .on("keyup", e => {
+              if (e.which === 13)
+                engine[page].data[key].action(input.val());
+            })
+            .appendTo(iLabel);
+
+          break;
+        case 'display':
+          let dLabel = $('<label>')
+            .text(engine[page].data[key].value)
+            .css('display', 'flex')
+            .css('flex-direction', 'row-reverse')
+            .css('justify-content','flex-end')
+            .css('align-items','center')
+            .attr('title',engine[page].data[key].desc)
+            .appendTo(col);
+
+          let display = $('<span>')
+            .text(engine[page].data[key].name + ':')
+            .css('margin-right','.5rem')
+            .appendTo(dLabel);
+
+          break;
       }
     }
 
@@ -339,8 +383,8 @@ let tab = window.location.pathname;
 
 switch (tab) {
   case '/gamecentre/5050':
-    engine.gamble.oneInTwo.roll();
-    createPanel('oneInTwo');
+    engine.gamble5050.init();
+    createPanel('gamble5050');
     break;
   case '/travel':
     engine.travel.init();
