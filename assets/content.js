@@ -174,25 +174,25 @@ let engine = {
   travel: {
     data: {
       isAuto: {
-        type:    Boolean,
+        type:    'checkbox',
         value:   null,
         default: true,
         desc:    'Take steps on cooldown'
       },
       attackEncounters: {
-        type:    Boolean,
+        type:    'checkbox',
         value:   null,
         default: true,
         desc:    'Attack encountered NPCs'
       },
       stopOnEncounters: {
-        type:    Boolean,
+        type:    'checkbox',
         value:   null,
         default: false,
         desc:    'Pause auto-step on enemy encounter'
       },
       slowMode: {
-        type:    Boolean,
+        type:    'checkbox',
         value:   null,
         default: false,
         desc:    'Continue walking when out of steps'
@@ -223,13 +223,13 @@ let engine = {
   battle: {
     data: {
       isAuto: {
-        type:    Boolean,
+        type:    'checkbox',
         value:   null,
         default: true,
         desc:    'Attack enemy on cooldown'
       },
       goBack: {
-        type:    Boolean,
+        type:    'checkbox',
         value:   null,
         default: true,
         desc:    'Go back when enemy is defeated'
@@ -295,7 +295,7 @@ function createPanel(page) {
       let tile = $('<div>')
         .appendTo(col);
 
-      if (engine[page].data[key].type === Boolean) {
+      if (engine[page].data[key].type === 'checkbox') {
         let label = $('<label>')
           .text(engine[page].data[key].desc)
           .css('display', 'flex')
