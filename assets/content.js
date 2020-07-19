@@ -344,7 +344,7 @@ function createPanel(page) {
           break;
         case 'display':
           let dLabel = $('<label>')
-            .text(engine[page].data[key].value)
+            .text(engine[page].data[key].value.toLocaleString().split(' ').join(','))
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
