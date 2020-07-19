@@ -293,10 +293,6 @@ function createPanel(page) {
       let tile = $('<div>')
         .appendTo(col);
 
-      if (engine[page].data[key].type === 'checkbox') {
-
-      }
-
       // TODO: refactor label element into a universal one? question mark?
 
       switch(engine[page].data[key].type) {
