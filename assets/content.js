@@ -286,7 +286,7 @@ let engine = {
               } else
                 if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
                   button.click()
-            }, Math.floor(Math.random()*1000)+250)
+            }, Math.floor(Math.random()*500)+250)
           },500)
         }
       });
