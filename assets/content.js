@@ -49,6 +49,12 @@
        I should probably give it a second thought
  */
 
+// TODO: refactor data instances and engine params into separate classes
+
+// TODO: refactor all element [0] queries to use .first() instead
+
+// TODO: create function for searching index of and returning boolean
+
 let engine = {
   $get: (page) => {
     if (engine.hasOwnProperty(page)) {
@@ -291,6 +297,48 @@ let engine = {
         }
       });
     }
+  },
+  arena: {
+    data: {
+      isAuto: {
+        type:    'checkbox',
+        value:   null,
+        default: true,
+        desc:    'Auto-accept enemy generation prompts'
+      },
+      fightAll: {
+        type: 'button',
+        name: 'Fight',
+        desc: 'Spend all available energy on arena',
+        action: () => {
+          localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
+          $('.btn-custom')[0].click();
+        }
+      }
+    },
+    init: () => {
+      engine.$get('arena');
+      let data = engine.arena.data;
+
+      let generate = $('.btn-custom').first();
+
+      let storage = JSON.parse(localStorage.getItem('SA_arena_tmp'));
+      if (storage && storage.fightAll)
+        if ($('#current_energy').text() > 0)
+          setTimeout(() => {generate.click()}, 250);
+        else
+          localStorage.removeItem('SA_arena_tmp');
+
+      generate.click(() => {
+        if (data.isAuto.value) {
+          let interval = setInterval(() => {
+            let button = $('.swal2-confirm')[0];
+            if (button.innerText.indexOf('generate') !== -1 || button.innerText.indexOf('Attack') !== -1)
+              button.click()
+          }, Math.floor(Math.random() * 500) + 750)
+        }
+      });
+    }
   }
 };
 
@@ -434,8 +482,8 @@ function figureOut() {
 
 //
 
+// TODO: move createPanel() functions to appropriate init()s
 let tab = window.location.pathname;
-
 switch (tab) {
   case '/gamecentre/5050':
     engine.gamble5050.init();
@@ -448,6 +496,10 @@ switch (tab) {
   case '/quests/viewall':
     engine.quests.init();
     createPanel('quests');
+    break;
+  case '/battlearena':
+    engine.arena.init();
+    createPanel('arena');
     break;
   default:
     figureOut();
