@@ -55,7 +55,8 @@ let engine = {
       let storage = JSON.parse(localStorage.getItem('SA_' + page));
       if (!storage) {
         for (let key in engine[page].data)
-          engine[page].data[key].value = engine[page].data[key].default;
+          if (engine[page].data[key].hasOwnProperty('value'))
+            engine[page].data[key].value = engine[page].data[key].default;
         engine.$set(page);
       }
       else for (let key in storage) {
@@ -66,7 +67,8 @@ let engine = {
   $set: (page) => {
     let data = {};
     for (let key in engine[page].data)
-      data[key] = engine[page].data[key].value;
+      if (engine[page].data[key].hasOwnProperty('value'))
+        data[key] = engine[page].data[key].value;
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble5050: {
