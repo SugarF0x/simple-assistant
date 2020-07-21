@@ -10,12 +10,6 @@
        (equip, not collectibles)
  */
 
-/* TODO: add quest assist
-     that being a button to spend all available quest points
-     on the last incomplete quest
-       (without COMPLETE tag)
- */
-
 /* TODO: add battle assist
      that being a button to spend all energy on generating
      and fighting an enemy
@@ -250,6 +244,54 @@ let engine = {
         } else clearInterval(interval)
       },Math.floor(Math.random()*400)+1200)
     }
+  },
+  quests: {
+    data: {
+      isAuto: {
+        type:    'checkbox',
+        value:   null,
+        default: true,
+        desc:    'Auto-repeat selected quest'
+      },
+      doLast: {
+        type: 'button',
+        name: 'Select',
+        desc: 'Find last incomplete quest',
+        action: () => {
+          try {
+            [].forEach.call([].reverse.call($('.kt-widget5__title')), entry => {
+              if (!entry.children.length) {
+                entry.parentElement.parentElement.parentElement.children[1].children[0].children[0].click();
+                throw 'Break forEach'
+              }
+            });
+          } catch {}
+        }
+      }
+    },
+    init: () => {
+      engine.$get('quests');
+      let data = engine.quests.data;
+
+      $('.btn-info').click(() => {
+        if (data.isAuto.value) {
+          setTimeout(() => {
+            let interval = setInterval(() => {
+              let button = $('.swal2-confirm')[0];
+              if (button.innerText.indexOf('Repeat') !== -1)
+                button.click(); else
+              if (button.innerText.indexOf('Perform') !== -1) {
+                if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
+                  clearInterval(interval);
+                  window.location.reload();
+                } else
+                  button.click();
+              }
+            }, Math.floor(Math.random()*1000)+250)
+          },500)
+        }
+      });
+    }
   }
 };
 
@@ -354,6 +396,23 @@ function createPanel(page) {
             .appendTo(dLabel);
 
           break;
+        case 'button':
+          let bLabel = $('<label>')
+            .text(data.desc)
+            .css('display', 'flex')
+            .css('flex-direction', 'row-reverse')
+            .css('justify-content','flex-end')
+            .css('align-items','center')
+            .appendTo(col);
+
+          let button = $('<button>')
+            .text(data.name)
+            .css('margin-right','.5rem')
+            .css('color','black')
+            .click(() => data.action())
+            .appendTo(bLabel);
+
+          break;
       }
     }
 
@@ -385,6 +444,10 @@ switch (tab) {
   case '/travel':
     engine.travel.init();
     createPanel('travel');
+    break;
+  case '/quests/viewall':
+    engine.quests.init();
+    createPanel('quests');
     break;
   default:
     figureOut();
