@@ -337,16 +337,17 @@ function createPanel(page) {
 
       // TODO: refactor label element into a universal one? question mark?
 
-      switch(engine[page].data[key].type) {
+      let data = engine[page].data[key];
+      switch(data.type) {
         case 'checkbox':
           let cLabel = $('<label>')
-            .text(engine[page].data[key].desc)
+            .text(data.desc)
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
             .css('align-items','center')
             .click(() => {
-              engine[page].data[key].value = !engine[page].data[key].value;
+              engine[page].data[key].value = !data.value;
               engine.$set(page);
             })
             .appendTo(col);
@@ -356,42 +357,42 @@ function createPanel(page) {
             .css('margin-right','.5rem')
             .appendTo(cLabel);
 
-          if (engine[page].data[key].value) checkbox.attr('checked', 'checked');
+          if (data.value) checkbox.attr('checked', 'checked');
 
           break;
         case 'input':
           let iLabel = $('<label>')
-            .text(engine[page].data[key].name)
+            .text(data.name)
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
             .css('align-items','center')
-            .attr('title',engine[page].data[key].desc)
+            .attr('title',data.desc)
             .appendTo(col);
 
           let input = $('<input>')
-            .val(engine[page].data[key].value)
+            .val(data.value)
             .css('margin-right','.5rem')
             .css('color','black')
             .on("keyup", e => {
               if (e.which === 13)
-                engine[page].data[key].action(input.val());
+                data.action(input.val());
             })
             .appendTo(iLabel);
 
           break;
         case 'display':
           let dLabel = $('<label>')
-            .text(engine[page].data[key].value.toLocaleString().split(' ').join(','))
+            .text(data.value.toLocaleString().split(' ').join(','))
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
             .css('align-items','center')
-            .attr('title',engine[page].data[key].desc)
+            .attr('title',data.desc)
             .appendTo(col);
 
           let display = $('<span>')
-            .text(engine[page].data[key].name + ':')
+            .text(data.name + ':')
             .css('margin-right','.5rem')
             .appendTo(dLabel);
 
