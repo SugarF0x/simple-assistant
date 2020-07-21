@@ -278,15 +278,12 @@ let engine = {
           setTimeout(() => {
             let interval = setInterval(() => {
               let button = $('.swal2-confirm')[0];
-              if (button.innerText.indexOf('Repeat') !== -1)
-                button.click(); else
-              if (button.innerText.indexOf('Perform') !== -1) {
-                if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
-                  clearInterval(interval);
-                  window.location.reload();
-                } else
-                  button.click();
-              }
+              if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
+                clearInterval(interval);
+                window.location.reload();
+              } else
+                if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
+                  button.click()
             }, Math.floor(Math.random()*1000)+250)
           },500)
         }
