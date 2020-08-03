@@ -10,11 +10,6 @@
        (equip, not collectibles)
  */
 
-/* TODO: add battle assist
-     that being a button to spend all energy on generating
-     and fighting an enemy
- */
-
 /* TODO: add travel statistics
      gather travel data of gold collected,
      items found, steps taken, enemies encountered
@@ -56,7 +51,7 @@
 // TODO: create function for searching index of and returning boolean
 
 let engine = {
-  $get: (page) => {
+  $get(page) {
     if (engine.hasOwnProperty(page)) {
       let storage = JSON.parse(localStorage.getItem('SA_' + page));
       if (!storage) {
@@ -70,7 +65,7 @@ let engine = {
       }
     } else throw "engine.$get() error: property <" + page + "> was not found";
   },
-  $set: (page) => {
+  $set(page) {
     let data = {};
     for (let key in engine[page].data)
       if (engine[page].data[key].hasOwnProperty('value'))
@@ -129,7 +124,7 @@ let engine = {
         desc:    'Current win/lose streak'
       }
     },
-    init:() => {
+    init() {
       engine.$get('gamble5050');
       let data = engine.gamble5050.data;
 
@@ -198,7 +193,7 @@ let engine = {
         desc:    'Continue walking when out of steps'
       }
     },
-    init: () => {
+    init() {
       engine.$get('travel');
       let data = engine.travel.data;
 
@@ -235,7 +230,7 @@ let engine = {
         desc:    'Go back when enemy is defeated'
       }
     },
-    init: () => {
+    init() {
       engine.$get('battle');
       let data = engine.battle.data;
 
@@ -277,7 +272,7 @@ let engine = {
         }
       }
     },
-    init: () => {
+    init() {
       engine.$get('quests');
       let data = engine.quests.data;
 
@@ -316,7 +311,7 @@ let engine = {
         }
       }
     },
-    init: () => {
+    init() {
       engine.$get('arena');
       let data = engine.arena.data;
 
@@ -338,6 +333,42 @@ let engine = {
           }, Math.floor(Math.random() * 500) + 750)
         }
       });
+    }
+  },
+  home: {
+    data: {
+      desc: {
+        type: 'description',
+        text: 'A cycle is a completion of all available tasks in succession, that being',
+      },
+      list: {
+        type: 'list',
+        text: [
+          'Spend all quest points on latest incomplete quest',
+          'Spend all energy on arena',
+          'Take all steps',
+          'Go to work for 50 minutes'
+        ]
+      },
+      isAuto: {
+        type:    'checkbox',
+        value:   null,
+        default: false,
+        desc:    'Auto-repeat cycle after job is finished'
+      },
+      performCycle: {
+        type: 'button',
+        name: 'Start',
+        desc: 'Cycle through all aforementioned tasks',
+        action: () => {
+          localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
+          $('.btn-custom')[0].click();
+        }
+      }
+    },
+    init() {
+      engine.$get('home');
+      let data = engine.home.data;
     }
   }
 };
@@ -439,7 +470,7 @@ function createPanel(page) {
           break;
         case 'display':
           let dLabel = $('<label>')
-            .text(data.value.toLocaleString().split(' ').join(','))
+            .text(data.value ? data.value.toLocaleString().split(' ').join(',') : '')
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
@@ -468,6 +499,25 @@ function createPanel(page) {
             .css('color','black')
             .click(() => data.action())
             .appendTo(bLabel);
+
+          break;
+        case 'description':
+          $('<div>')
+            .text(data.text)
+            .css('font-size','1.5em')
+            .appendTo(col);
+
+          break;
+        case 'list':
+          let ul = $('<ul>')
+            .text(data.value ? data.value.toLocaleString().split(' ').join(',') : '')
+            .appendTo(col);
+
+          for (let i of data.text) {
+            $('<li>')
+              .text(i)
+              .appendTo(ul);
+          }
 
           break;
       }
@@ -509,6 +559,10 @@ switch (tab) {
   case '/battlearena':
     engine.arena.init();
     createPanel('arena');
+    break;
+  case '/':
+    engine.home.init();
+    createPanel('home');
     break;
   default:
     figureOut();
