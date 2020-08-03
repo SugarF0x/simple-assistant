@@ -365,9 +365,18 @@ function createPanel(page) {
   // actual content starts here
   // everything is to be appended to col
 
-  $('<h2>')
+  let header = $('<h2>')
     .text(`Simple Assistant ${chrome.runtime.getManifest().version} ${chrome.runtime.getManifest().version_name}`)
+    .css('display', 'flex')
+    .css('justify-content', 'space-between')
     .appendTo(col);
+
+  $('<span>')
+    .text(page)
+    .css('opacity','0.5')
+    .css('margin-left', 'auto')
+    .css('text-transform','uppercase')
+    .appendTo(header);
 
   if (page === undefined) {
     $('<p>')
