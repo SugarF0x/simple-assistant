@@ -425,6 +425,17 @@ let engine = {
           engine.home.init();
         }
       },
+      breakCycle: {
+        type: 'button',
+        name: 'Stop',
+        desc: 'Stop current cycle',
+        action: () => {
+          engine.home.data.state.value = 'disabled';
+          engine.home.data.stage.value = 0;
+          engine.$set('home');
+          window.location.reload();
+        }
+      },
       stage: {
         type:    'display',
         value:   null,
@@ -469,7 +480,7 @@ let engine = {
             }
             break;
           case 'pending':
-            data.stage.value++;
+            data.stage.value < 5 ? data.stage.value++ : data.stage.value = 1;
             data.state.value = 'standby';
             engine.$set('home');
             window.location.href=data.modules[data.stage.value].href;
