@@ -20,8 +20,6 @@
             so that there is no need in optionizing that
 */
 
-// TODO: add auto dismiss level up popup
-
 /* TODO: add full options page
      add button to top-right cornet of display that would lead to
      lets say https://web.simple-mmo.com/simpleassistant
@@ -45,6 +43,7 @@
  */
 
 // TODO: refactor data instances and engine params into separate classes
+//          split engine keys into js modules? question mark?
 
 // TODO: refactor all element [0] queries to use .first() instead
 
@@ -53,6 +52,8 @@
 // TODO: add arena skip if insufficient funds
 
 // TODO: add settings reset when update hits
+
+// TODO: force default settings for cycle and then set them back? question mark?
 
 let engine = {
   $get(page) {
@@ -198,6 +199,7 @@ let engine = {
       }
     },
     init() {
+      engine.home.init();
       engine.$get('travel');
       let data = engine.travel.data;
 
@@ -216,6 +218,13 @@ let engine = {
           if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
           if (step.textContent.indexOf('step') !== -1) step.click();
         } else clearInterval(interval);
+
+        if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
+          if ($('#current_steps').text() <= 0) {
+            engine.home.data.state.value = 'pending';
+            engine.$set('home');
+          }
+        }
       }, 1000);
     }
   },
@@ -277,6 +286,7 @@ let engine = {
       }
     },
     init() {
+      engine.home.init();
       engine.$get('quests');
       let data = engine.quests.data;
 
@@ -295,6 +305,17 @@ let engine = {
           },500)
         }
       });
+
+      if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 1) {
+        if ($('#current_quest_points').text() > 0)
+          setTimeout(() => {
+            data.doLast.action();
+          }, 1000);
+        else {
+          engine.home.data.state.value = 'pending';
+          engine.$set('home');
+        }
+      }
     }
   },
   arena: {
@@ -316,6 +337,7 @@ let engine = {
       }
     },
     init() {
+      engine.home.init();
       engine.$get('arena');
       let data = engine.arena.data;
 
@@ -337,6 +359,17 @@ let engine = {
           }, Math.floor(Math.random() * 500) + 750)
         }
       });
+
+      if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 2) {
+        if ($('#current_energy').text() > 0)
+          setTimeout(() => {
+            generate.click();
+          }, 1000);
+        else {
+          engine.home.data.state.value = 'pending';
+          engine.$set('home');
+        }
+      }
     }
   },
   home: {
@@ -411,17 +444,14 @@ let engine = {
       engine.$get('home');
       let data = engine.home.data;
 
-      // TODO: set this init() to run on every engine instance
-
-      /*
-        1. check if on needed page based on stage
-        2. go to needed page if not
-
-          // modules themselves  will be taking control over based on home.data.stage
-
-        3. proceed if not
-       */
-
+      if (data.isAuto.value) {
+        console.log('Proceeding with step in 3 seconds...');
+        setTimeout(() => {
+          switcher()
+        }, 3000)
+      } else {
+        switcher()
+      }
 
       /**
        * disabled - cycle not initiated
@@ -429,47 +459,39 @@ let engine = {
        * standby  - on needed page, awaiting state change
        * finished - break cycle or repeat if isAuto
        */
-      switch (data.state.value) {
-        case 'disabled':
-
-          break;
-        case 'pending':
-          if (data.modules.findIndex(p => p.href === window.location.pathname) >= 0) {
-
-          } else
-            window.location.href=data.modules[data.stage.value].href;
-          break;
-        case 'standby':
-          setTimeout(() => {
-            engine.home.init();
-          },1000);
-          break;
-        case 'finished':
-          if (data.isAuto.value) {
-            data.state.value = 'pending';
+      function switcher() {
+        switch (data.state.value) {
+          case 'disabled':
+            if (data.isAuto.value) {
+              data.state.value = 'pending';
+              engine.$set('home');
+              window.location.reload();
+            }
+            break;
+          case 'pending':
+            data.stage.value++;
+            data.state.value = 'standby';
             engine.$set('home');
-            engine.home.init();
-          }
-          break;
+            window.location.href=data.modules[data.stage.value].href;
+            break;
+          case 'standby':
+            setInterval(() => {
+              if (data.state.value !== 'standby') {
+                window.location.reload();
+              }
+            },1000);
+            break;
+          case 'finished':
+            data.stage.value = 0;
+            if (data.isAuto.value)
+              data.state.value = 'pending';
+            else
+              data.state.value = 'disabled';
+            engine.$set('home');
+            window.location.href = '/';
+            break;
+        }
       }
-
-      // repeat cycle
-
-      // if (data.isAuto.value) {
-      //   console.log('Proceeding with cycle in 3 seconds...');
-      //   setTimeout(() => {
-      //     if (data.isAuto.value) {
-      //       if  (data.stage.value !== 4 && data.stage.value !== 0
-      //         || data.stage.value === 0 && data.isAuto.value) {
-      //         data.stage.value++;
-      //       } else {
-      //         data.stage.value = 0;
-      //       }
-      //       engine.$set('home');
-      //       window.location.href=data.modules[data.stage.value].href;
-      //     }
-      //   },3000)
-      // }
     },
   },
   job: {
@@ -482,15 +504,20 @@ let engine = {
           localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
           if (window.location.href.indexOf('viewall') !== -1)
             $('a.btn-success')[0].click();
-          else
+          else if (engine.home.data.state.value === 'disabled')
             engine.job.init();
         }
       }
     },
     init() {
-      // TODO: cycle code
-
+      engine.home.init();
       let temp = JSON.parse(localStorage.getItem('SA_work_tmp')) || {work: false};
+      if (engine.home.data.stage.value === 4
+       && engine.home.data.state.value === 'standby'
+       && !temp.work) {
+        engine.job.data.work.action();
+      }
+
       if (temp.work === 'pending') {
         setTimeout(() => {
           [].filter.call($('a.btn-success'), entry => entry.text.indexOf('Start') !== -1)[0].click();
@@ -502,9 +529,13 @@ let engine = {
         }, 500)
       } else if (temp.work === 'working') {
         localStorage.removeItem('SA_work_tmp');
+        let mins = 51;
+        setInterval(() => {
+          console.log('Working. Time remaining: ' + --mins);
+        }, 1000 * 60);
         setTimeout(() => {
-          // proceed with cycle
-          // go to home
+          engine.home.data.state.value = 'finished';
+          engine.$set('home');
         }, 1000 * 60 * 51)
       }
     }
