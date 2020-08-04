@@ -376,7 +376,6 @@ let engine = {
           href: '/jobs/viewall'
         }
       ],
-
       isAuto: {
         type:    'checkbox',
         value:   null,
@@ -472,6 +471,43 @@ let engine = {
       //   },3000)
       // }
     },
+  },
+  job: {
+    data: {
+      work: {
+        type: 'button',
+        name: 'Work',
+        desc: 'Go to work for 50 minutes',
+        action: () => {
+          localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
+          if (window.location.href.indexOf('viewall') !== -1)
+            $('a.btn-success')[0].click();
+          else
+            engine.job.init();
+        }
+      }
+    },
+    init() {
+      // TODO: cycle code
+
+      let temp = JSON.parse(localStorage.getItem('SA_work_tmp')) || {work: false};
+      if (temp.work === 'pending') {
+        setTimeout(() => {
+          [].filter.call($('a.btn-success'), entry => entry.text.indexOf('Start') !== -1)[0].click();
+          localStorage.setItem('SA_work_tmp', JSON.stringify({work:'working'}));
+          setTimeout(() => {
+            $('input[type=range]').val(5);
+            $('.swal2-confirm').click()
+          },500)
+        }, 500)
+      } else if (temp.work === 'working') {
+        localStorage.removeItem('SA_work_tmp');
+        setTimeout(() => {
+          // proceed with cycle
+          // go to home
+        }, 1000 * 60 * 51)
+      }
+    }
   }
 };
 
@@ -636,6 +672,9 @@ function figureOut() {
   if (tab.indexOf('npcs/attack') !== -1) {
     engine.battle.init();
     createPanel('battle');
+  } else if (tab.indexOf('jobs') !== -1) {
+    engine.job.init();
+    createPanel('job')
   } else {
     createPanel();
   }
