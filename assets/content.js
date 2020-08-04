@@ -50,6 +50,10 @@
 
 // TODO: create function for searching index of and returning boolean
 
+// TODO: add arena skip if insufficient funds
+
+// TODO: add settings reset when update hits
+
 let engine = {
   $get(page) {
     if (engine.hasOwnProperty(page)) {
@@ -339,7 +343,7 @@ let engine = {
     data: {
       desc: {
         type: 'description',
-        text: 'A cycle is a completion of all available tasks in succession, that being',
+        text: 'A cycle is a completion of all available tasks in succession, that being'
       },
       list: {
         type: 'list',
@@ -350,6 +354,29 @@ let engine = {
           'Go to work for 50 minutes'
         ]
       },
+      modules: [
+        {
+          page: 'home',
+          href: '/'
+        },
+        {
+          page: 'quests',
+          href: '/quests/viewall'
+        },
+        {
+          page: 'arena',
+          href: '/battlearena'
+        },
+        {
+          page: 'travel',
+          href: '/travel'
+        },
+        {
+          page: 'job',
+          href: '/jobs/viewall'
+        }
+      ],
+
       isAuto: {
         type:    'checkbox',
         value:   null,
@@ -361,15 +388,90 @@ let engine = {
         name: 'Start',
         desc: 'Cycle through all aforementioned tasks',
         action: () => {
-          localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
-          $('.btn-custom')[0].click();
+          engine.home.data.state.value = 'pending';
+          engine.$set('home');
+          engine.home.init();
         }
+      },
+      stage: {
+        type:    'display',
+        value:   null,
+        default: 0,
+        name:    'Stage',
+        desc:    'Current cycle stage'
+      },
+      state: {
+        type:    'display',
+        value:   null,
+        default: 'disabled',
+        name:    'State',
+        desc:    'State of current stage'
       }
     },
     init() {
       engine.$get('home');
       let data = engine.home.data;
-    }
+
+      // TODO: set this init() to run on every engine instance
+
+      /*
+        1. check if on needed page based on stage
+        2. go to needed page if not
+
+          // modules themselves  will be taking control over based on home.data.stage
+
+        3. proceed if not
+       */
+
+
+      /**
+       * disabled - cycle not initiated
+       * pending  - awaiting page change
+       * standby  - on needed page, awaiting state change
+       * finished - break cycle or repeat if isAuto
+       */
+      switch (data.state.value) {
+        case 'disabled':
+
+          break;
+        case 'pending':
+          if (data.modules.findIndex(p => p.href === window.location.pathname) >= 0) {
+
+          } else
+            window.location.href=data.modules[data.stage.value].href;
+          break;
+        case 'standby':
+          setTimeout(() => {
+            engine.home.init();
+          },1000);
+          break;
+        case 'finished':
+          if (data.isAuto.value) {
+            data.state.value = 'pending';
+            engine.$set('home');
+            engine.home.init();
+          }
+          break;
+      }
+
+      // repeat cycle
+
+      // if (data.isAuto.value) {
+      //   console.log('Proceeding with cycle in 3 seconds...');
+      //   setTimeout(() => {
+      //     if (data.isAuto.value) {
+      //       if  (data.stage.value !== 4 && data.stage.value !== 0
+      //         || data.stage.value === 0 && data.isAuto.value) {
+      //         data.stage.value++;
+      //       } else {
+      //         data.stage.value = 0;
+      //       }
+      //       engine.$set('home');
+      //       window.location.href=data.modules[data.stage.value].href;
+      //     }
+      //   },3000)
+      // }
+    },
   }
 };
 
@@ -470,7 +572,7 @@ function createPanel(page) {
           break;
         case 'display':
           let dLabel = $('<label>')
-            .text(data.value ? data.value.toLocaleString().split(' ').join(',') : '')
+            .text(data.value.toLocaleString().split(' ').join(','))
             .css('display', 'flex')
             .css('flex-direction', 'row-reverse')
             .css('justify-content','flex-end')
