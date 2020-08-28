@@ -299,8 +299,8 @@ let engine = {
                 clearInterval(interval);
                 window.location.reload();
               } else
-                if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
-                  button.click()
+              if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
+                button.click()
             }, Math.floor(Math.random()*500)+250)
           },500)
         }
@@ -472,6 +472,8 @@ let engine = {
        */
       function switcher() {
         switch (data.state.value) {
+
+          // TODO: fix this bit here as even when disabled it still proceedes given isAuto is true
           case 'disabled':
             if (data.isAuto.value) {
               data.state.value = 'pending';
@@ -524,8 +526,8 @@ let engine = {
       engine.home.init();
       let temp = JSON.parse(localStorage.getItem('SA_work_tmp')) || {work: false};
       if (engine.home.data.stage.value === 4
-       && engine.home.data.state.value === 'standby'
-       && !temp.work) {
+        && engine.home.data.state.value === 'standby'
+        && !temp.work) {
         engine.job.data.work.action();
       }
 
@@ -552,6 +554,36 @@ let engine = {
     }
   }
 };
+
+// TODO: add these values to every engine element and make it populate pages array on startup
+
+const pages = [
+  { type: 'match', in: '/gamecentre/5050', out: 'gamble5050' },
+  { type: 'match', in: '/travel',          out: 'travel' },
+  { type: 'match', in: '/quests/viewall',  out: 'quests' },
+  { type: 'match', in: '/battlearena',     out: 'arena' },
+  { type: 'match', in: '/home',            out: 'home' },
+  { type: 'match', in: '/',                out: 'home' },
+
+  { type: 'contains', in: 'npcs/attack', out: 'battle' },
+  { type: 'contains', in: 'jobs',        out: 'job' },
+];
+
+function getModule() {
+  let tab = window.location.pathname;
+  let module = undefined;
+  pages.forEach(entry => {
+    if (entry.type === 'match') {
+      if (entry.in === tab)
+        module = entry.out;
+    } else
+    if (entry.type === 'contains') {
+      if (tab.indexOf(entry.in) !== -1)
+        module = entry.out;
+    }
+  });
+  return module;
+}
 
 function createPanel(page) {
   let old = $('#sa-display');
@@ -599,43 +631,37 @@ function createPanel(page) {
       .appendTo(col);
   } else  {
     for (let key in engine[page].data) {
-      let tile = $('<div>')
+      let data = engine[page].data[key];
+
+      let label = $('<label>')
+        .css('display', 'flex')
+        .css('flex-direction', 'row-reverse')
+        .css('justify-content','flex-end')
+        .css('align-items','center')
         .appendTo(col);
 
-      // TODO: refactor label element into a universal one? question mark?
-
-      let data = engine[page].data[key];
       switch(data.type) {
         case 'checkbox':
-          let cLabel = $('<label>')
+          label
             .text(data.desc)
-            .css('display', 'flex')
-            .css('flex-direction', 'row-reverse')
-            .css('justify-content','flex-end')
-            .css('align-items','center')
             .click(() => {
               engine[page].data[key].value = !data.value;
               engine.$set(page);
-            })
-            .appendTo(col);
+            });
 
           let checkbox = $('<input>')
             .attr('type','checkbox')
             .css('margin-right','.5rem')
-            .appendTo(cLabel);
+            .appendTo(label);
 
-          if (data.value) checkbox.attr('checked', 'checked');
+          if (data.value)
+            checkbox.attr('checked', 'checked');
 
           break;
         case 'input':
-          let iLabel = $('<label>')
+          label
             .text(data.name)
-            .css('display', 'flex')
-            .css('flex-direction', 'row-reverse')
-            .css('justify-content','flex-end')
-            .css('align-items','center')
-            .attr('title',data.desc)
-            .appendTo(col);
+            .attr('title',data.desc);
 
           let input = $('<input>')
             .val(data.value)
@@ -645,40 +671,30 @@ function createPanel(page) {
               if (e.which === 13)
                 data.action(input.val());
             })
-            .appendTo(iLabel);
+            .appendTo(label);
 
           break;
         case 'display':
-          let dLabel = $('<label>')
+          label
             .text(data.value.toLocaleString().split(' ').join(','))
-            .css('display', 'flex')
-            .css('flex-direction', 'row-reverse')
-            .css('justify-content','flex-end')
-            .css('align-items','center')
-            .attr('title',data.desc)
-            .appendTo(col);
+            .attr('title',data.desc);
 
-          let display = $('<span>')
+          $('<span>')
             .text(data.name + ':')
             .css('margin-right','.5rem')
-            .appendTo(dLabel);
+            .appendTo(label);
 
           break;
         case 'button':
-          let bLabel = $('<label>')
-            .text(data.desc)
-            .css('display', 'flex')
-            .css('flex-direction', 'row-reverse')
-            .css('justify-content','flex-end')
-            .css('align-items','center')
-            .appendTo(col);
+          label
+            .text(data.desc);
 
-          let button = $('<button>')
+          $('<button>')
             .text(data.name)
             .css('margin-right','.5rem')
             .css('color','black')
             .click(() => data.action())
-            .appendTo(bLabel);
+            .appendTo(label);
 
           break;
         case 'description':
@@ -710,43 +726,8 @@ function createPanel(page) {
   }
 }
 
-function figureOut() {
-  if (tab.indexOf('npcs/attack') !== -1) {
-    engine.battle.init();
-    createPanel('battle');
-  } else if (tab.indexOf('jobs') !== -1) {
-    engine.job.init();
-    createPanel('job')
-  } else {
-    createPanel();
-  }
-}
-
 //
 
-// TODO: move createPanel() functions to appropriate init()s
-let tab = window.location.pathname;
-switch (tab) {
-  case '/gamecentre/5050':
-    engine.gamble5050.init();
-    createPanel('gamble5050');
-    break;
-  case '/travel':
-    engine.travel.init();
-    createPanel('travel');
-    break;
-  case '/quests/viewall':
-    engine.quests.init();
-    createPanel('quests');
-    break;
-  case '/battlearena':
-    engine.arena.init();
-    createPanel('arena');
-    break;
-  case '/':
-    engine.home.init();
-    createPanel('home');
-    break;
-  default:
-    figureOut();
-}
+if (getModule())
+  engine[getModule()].init();
+createPanel(getModule());
