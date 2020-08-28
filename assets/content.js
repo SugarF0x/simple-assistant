@@ -55,6 +55,13 @@
 
 // TODO: force default settings for cycle and then set them back? question mark?
 
+class sad {
+  constructor(type, path) {
+    this.type = type;
+    this.path = path;
+  }
+}
+
 let engine = {
   $get(page) {
     if (engine.hasOwnProperty(page)) {
@@ -78,10 +85,7 @@ let engine = {
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble5050: {
-    sad: {
-      type: 'match',
-      path: ['/gamecentre/5050']
-    },
+    sad: new sad('match', ['/gamecentre/5050']),
     data: {
       isAuto: {
         type:    'checkbox',
@@ -176,10 +180,7 @@ let engine = {
     }
   },
   travel: {
-    sad: {
-      type: 'match',
-      path: ['/travel']
-    },
+    sad: new sad('match',['/travel']),
     data: {
       isAuto: {
         type:    'checkbox',
@@ -237,10 +238,7 @@ let engine = {
     }
   },
   battle: {
-    sad: {
-      type: 'contain',
-      path: 'npcs/attack'
-    },
+    sad: new sad('contain','npcs/attack'),
     data: {
       isAuto: {
         type:    'checkbox',
@@ -274,10 +272,7 @@ let engine = {
     }
   },
   quests: {
-    sad: {
-      type: 'match',
-      path: ['/quests/viewall']
-    },
+    sad: new sad('match',['/quests/viewall']),
     data: {
       isAuto: {
         type:    'checkbox',
@@ -335,10 +330,7 @@ let engine = {
     }
   },
   arena: {
-    sad: {
-      type: 'match',
-      path: ['/battlearena']
-    },
+    sad: new sad('match', ['/battlearena']),
     data: {
       isAuto: {
         type:    'checkbox',
@@ -393,13 +385,7 @@ let engine = {
     }
   },
   home: {
-    sad: {
-      type: 'match',
-      path: [
-        '/home',
-        '/'
-      ]
-    },
+    sad: new sad('match', ['/home','/']),
     data: {
       desc: {
         type: 'description',
@@ -535,10 +521,7 @@ let engine = {
     },
   },
   job: {
-    sad: {
-      type: 'contain',
-      path: 'jobs'
-    },
+    sad: new sad('contain', 'jobs'),
     data: {
       work: {
         type: 'button',
