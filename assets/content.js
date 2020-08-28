@@ -78,6 +78,10 @@ let engine = {
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble5050: {
+    sad: {
+      type: 'match',
+      path: ['/gamecentre/5050']
+    },
     data: {
       isAuto: {
         type:    'checkbox',
@@ -172,6 +176,10 @@ let engine = {
     }
   },
   travel: {
+    sad: {
+      type: 'match',
+      path: ['/travel']
+    },
     data: {
       isAuto: {
         type:    'checkbox',
@@ -229,6 +237,10 @@ let engine = {
     }
   },
   battle: {
+    sad: {
+      type: 'contain',
+      path: 'npcs/attack'
+    },
     data: {
       isAuto: {
         type:    'checkbox',
@@ -262,6 +274,10 @@ let engine = {
     }
   },
   quests: {
+    sad: {
+      type: 'match',
+      path: ['/quests/viewall']
+    },
     data: {
       isAuto: {
         type:    'checkbox',
@@ -319,6 +335,10 @@ let engine = {
     }
   },
   arena: {
+    sad: {
+      type: 'match',
+      path: ['/battlearena']
+    },
     data: {
       isAuto: {
         type:    'checkbox',
@@ -373,6 +393,13 @@ let engine = {
     }
   },
   home: {
+    sad: {
+      type: 'match',
+      path: [
+        '/home',
+        '/'
+      ]
+    },
     data: {
       desc: {
         type: 'description',
@@ -508,6 +535,10 @@ let engine = {
     },
   },
   job: {
+    sad: {
+      type: 'contain',
+      path: 'jobs'
+    },
     data: {
       work: {
         type: 'button',
@@ -555,33 +586,23 @@ let engine = {
   }
 };
 
-// TODO: add these values to every engine element and make it populate pages array on startup
-
-const pages = [
-  { type: 'match', in: '/gamecentre/5050', out: 'gamble5050' },
-  { type: 'match', in: '/travel',          out: 'travel' },
-  { type: 'match', in: '/quests/viewall',  out: 'quests' },
-  { type: 'match', in: '/battlearena',     out: 'arena' },
-  { type: 'match', in: '/home',            out: 'home' },
-  { type: 'match', in: '/',                out: 'home' },
-
-  { type: 'contains', in: 'npcs/attack', out: 'battle' },
-  { type: 'contains', in: 'jobs',        out: 'job' },
-];
-
 function getModule() {
   let tab = window.location.pathname;
   let module = undefined;
-  pages.forEach(entry => {
-    if (entry.type === 'match') {
-      if (entry.in === tab)
-        module = entry.out;
-    } else
-    if (entry.type === 'contains') {
-      if (tab.indexOf(entry.in) !== -1)
-        module = entry.out;
+  for (let key in engine) {
+    if (key[0] !== '$') {
+      if (engine[key].sad.type === 'match') {
+        engine[key].sad.path.forEach(entry => {
+          if (entry === tab)
+            module = key;
+        })
+      } else
+      if (engine[key].sad.type === 'contain') {
+        if (tab.indexOf(engine[key].sad.path) !== -1)
+          module = key;
+      }
     }
-  });
+  }
   return module;
 }
 
