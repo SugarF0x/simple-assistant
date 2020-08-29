@@ -362,23 +362,27 @@ let engine = {
       let slow = $('#slow-mode')[0];
 
       let interval = setInterval(() => {
-        if (data.isAuto.value) {
-          let attack = $('.cta');
-          [].forEach.call(attack, entry => {
-            if (contains(entry.textContent, 'Attack')) {
-              if (data.stopOnEncounters.value) clearInterval(interval);
-              if (data.attackEncounters.value) entry.click();
-            }
-          });
-          if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
-          if (contains(step.textContent, 'step')) step.click();
-        } else clearInterval(interval);
+        try {
+          if (data.isAuto.value) {
+            let attack = $('.cta');
+            [].forEach.call(attack, entry => {
+              if (contains(entry.textContent, 'Attack')) {
+                if (data.stopOnEncounters.value) clearInterval(interval);
+                if (data.attackEncounters.value) entry.click();
+              }
+            });
+            if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
+            if (contains(step.textContent, 'step')) step.click();
+          } else clearInterval(interval);
 
-        if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
-          if ($('#current_steps').text() <= 0) {
-            engine.home.data.state.value = 'pending';
-            engine.$set('home');
+          if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
+            if ($('#current_steps').text() <= 0) {
+              engine.home.data.state.value = 'pending';
+              engine.$set('home');
+            }
           }
+        } catch (err) {
+          clearInterval(interval);
         }
       }, 1000);
     }
@@ -398,12 +402,16 @@ let engine = {
       let enemy  = $('#enemyBox')[0];
 
       let interval = setInterval(() => {
-        if (data.isAuto.value) {
-          if (enemy.style.cssText === 'opacity: 0.1;') {
-            clearInterval(interval);
-            if (data.goBack.value) back.click();
-          } else if (attack.innerText === 'Attack') attack.click();
-        } else clearInterval(interval)
+        try {
+          if (data.isAuto.value) {
+            if (enemy.style.cssText === 'opacity: 0.1;') {
+              clearInterval(interval);
+              if (data.goBack.value) back.click();
+            } else if (attack.innerText === 'Attack') attack.click();
+          } else clearInterval(interval)
+        } catch (err) {
+          clearInterval(interval);
+        }
       },Math.floor(Math.random()*400)+1200)
     }
   },
@@ -431,13 +439,17 @@ let engine = {
         if (data.isAuto.value) {
           setTimeout(() => {
             let interval = setInterval(() => {
-              let button = $('.swal2-confirm')[0];
-              if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
-                clearInterval(interval);
-                window.location.reload();
-              } else
-              if (contains(button.innerText, 'Repeat') || contains(button.innerText, 'Perform'))
-                button.click()
+              try {
+                let button = $('.swal2-confirm')[0];
+                if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
+                  clearInterval(interval);
+                  window.location.reload();
+                } else
+                if (contains(button.innerText, 'Repeat') || contains(button.innerText, 'Perform'))
+                  button.click()
+              } catch (err) {
+                clearInterval(interval)
+              }
             }, Math.floor(Math.random()*500)+250)
           },500)
         }
@@ -481,9 +493,13 @@ let engine = {
       generate.click(() => {
         if (data.isAuto.value) {
           let interval = setInterval(() => {
-            let button = $('.swal2-confirm')[0];
-            if (contains(button.innerText, 'generate') || contains(button.innerText, 'Attack'))
-              button.click()
+            try {
+              let button = $('.swal2-confirm')[0];
+              if (contains(button.innerText, 'generate') || contains(button.innerText, 'Attack'))
+                button.click()
+            } catch (err) {
+              clearInterval(interval)
+            }
           }, Math.floor(Math.random() * 500) + 750)
         }
       });
@@ -584,9 +600,13 @@ let engine = {
             window.location.href=data.modules[data.stage.value].href;
             break;
           case 'standby':
-            setInterval(() => {
-              if (data.state.value !== 'standby') {
-                window.location.reload();
+            let interval = setInterval(() => {
+              try {
+                if (data.state.value !== 'standby') {
+                  window.location.reload();
+                }
+              } catch (err) {
+                clearInterval(interval)
               }
             },1000);
             break;
@@ -635,6 +655,7 @@ let engine = {
       } else if (temp.work === 'working') {
         localStorage.removeItem('SA_work_tmp');
         let mins = 51;
+          // TODO: have this update actual timer in DOM
         setInterval(() => {
           console.log('Working. Time remaining: ' + --mins);
         }, 1000 * 60);
