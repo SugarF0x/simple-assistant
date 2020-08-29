@@ -69,6 +69,15 @@ class Input{
     this.action = action;
   }
 }
+class Display {
+  constructor(name, def, desc) {
+    this.type    = 'display';
+    this.value   = null;
+    this.name    = name;
+    this.default = def;
+    this.desc    = desc;
+  }
+}
 
 let engine = {
   $get(page) {
@@ -96,44 +105,18 @@ let engine = {
     sad: new Sad('match', ['/gamecentre/5050']),
     data: {
       isAuto: new Checkbox(false, 'Automatically place bets'),
-      baseline: new Input('Baseline', 100, 'A base bet to go off of',
-        (newValue) => {
+      baseline: new Input('Baseline', 100, 'A base bet to go off of', (newValue) => {
           if (!isNaN(newValue)) {
             engine.gamble5050.data.baseline.value = parseInt(newValue);
             engine.gamble5050.data.current.value  = parseInt(newValue);
             engine.$set('gamble5050');
             createPanel('gamble5050');
           }
-        }
-      ),
-      current: {
-        type:    'display',
-        value:   null,
-        default: 100,
-        name:    'Current',
-        desc:    'A bet to be placed this bout'
-      },
-      profitRuntime: {
-        type:    'display',
-        value:   null,
-        default: 0,
-        name:    'Runtime profit',
-        desc:    'The amount of gold made/lost this runtime'
-      },
-      profitTotal: {
-        type:    'display',
-        value:   null,
-        default: 0,
-        name:    'Total profit',
-        desc:    'The amount of gold made/lost overall'
-      },
-      streak: {
-        type:    'display',
-        value:   null,
-        default: 0,
-        name:    'Streak',
-        desc:    'Current win/lose streak'
-      }
+        }),
+      current: new Display('Current', 100, 'A bet to be placed this bout'),
+      profitRuntime: new Display('Runtime profit', 0, 'The amount of gold made/lost this runtime'),
+      profitTotal: new Display('Total profit', 0, 'The amount of gold made/lost overall'),
+      streak: new Display('Streak', 0, 'Current win/lose streak')
     },
     init() {
       engine.$get('gamble5050');
@@ -402,20 +385,8 @@ let engine = {
           window.location.reload();
         }
       },
-      stage: {
-        type:    'display',
-        value:   null,
-        default: 0,
-        name:    'Stage',
-        desc:    'Current cycle stage'
-      },
-      state: {
-        type:    'display',
-        value:   null,
-        default: 'disabled',
-        name:    'State',
-        desc:    'State of current stage'
-      }
+      stage: new Display('Stage', 0, 'Current cycle stage'),
+      state: new Display('State', 'disabled', 'State of current stage')
     },
     init() {
       engine.$get('home');
