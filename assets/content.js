@@ -37,7 +37,6 @@
        if i ever encounter some performance related problems,
        I should probably give it a second thought
  */
-// TODO: refactor all element [0] queries to use .first() instead
 // TODO: add arena skip if insufficient funds
 // TODO: add settings reset when update hits
 // TODO: force default settings for cycle and then set them back? question mark?
