@@ -2,14 +2,12 @@
      that would buy set amount of cheapest items
      for daily tasks
 */
-
 /* TODO: add inventory assistant
      that would sell all inventory items to NPC
      and save a lot of time on clicking
        not like anyone is gonna be buying that trash
        (equip, not collectibles)
  */
-
 /* TODO: add travel statistics
      gather travel data of gold collected,
      items found, steps taken, enemies encountered
@@ -19,7 +17,6 @@
             Or perhaps make total stats and latest session stats
             so that there is no need in optionizing that
 */
-
 /* TODO: add full options page
      add button to top-right cornet of display that would lead to
      lets say https://web.simple-mmo.com/simpleassistant
@@ -29,7 +26,6 @@
      in the first place
        that would be good for them pages with isAuto: true
  */
-
 /* TODO: !just a shower thought!
      the engine object is beginning to look quite bulky if you ask me
      and i begin to worry about it performance-wise
@@ -41,18 +37,12 @@
        if i ever encounter some performance related problems,
        I should probably give it a second thought
  */
-
 // TODO: refactor data instances and engine params into separate classes
 //          split engine keys into js modules? question mark?
-
 // TODO: refactor all element [0] queries to use .first() instead
-
 // TODO: create function for searching index of and returning boolean
-
 // TODO: add arena skip if insufficient funds
-
 // TODO: add settings reset when update hits
-
 // TODO: force default settings for cycle and then set them back? question mark?
 
 class Sad {
@@ -61,7 +51,6 @@ class Sad {
     this.path = path;
   }
 }
-
 class Checkbox {
   constructor(def, desc) {
     this.type    = 'checkbox';
@@ -70,7 +59,6 @@ class Checkbox {
     this.desc    = desc;
   }
 }
-
 class Input{
   constructor(name, def, desc, action) {
     this.type   = 'input';
@@ -553,7 +541,6 @@ function getModule() {
   }
   return module;
 }
-
 function createPanel(page) {
   let old = $('#sa-display');
   if (old.length) old.remove();
