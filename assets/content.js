@@ -71,6 +71,17 @@ class Checkbox {
   }
 }
 
+class Input{
+  constructor(name, def, desc, action) {
+    this.type   = 'input';
+    this.value  = null;
+    this.name   = name;
+    this.def    = def;
+    this.desc   = desc;
+    this.action = action;
+  }
+}
+
 let engine = {
   $get(page) {
     if (engine.hasOwnProperty(page)) {
@@ -97,13 +108,8 @@ let engine = {
     sad: new Sad('match', ['/gamecentre/5050']),
     data: {
       isAuto: new Checkbox(false, 'Automatically place bets'),
-      baseline: {
-        type:    'input',
-        value:   null,
-        default: 100,
-        name:    'Baseline',
-        desc:    'A base bet to go off of',
-        action:  (newValue) => {
+      baseline: new Input('Baseline', 100, 'A base bet to go off of',
+        (newValue) => {
           if (!isNaN(newValue)) {
             engine.gamble5050.data.baseline.value = parseInt(newValue);
             engine.gamble5050.data.current.value  = parseInt(newValue);
@@ -111,7 +117,7 @@ let engine = {
             createPanel('gamble5050');
           }
         }
-      },
+      ),
       current: {
         type:    'display',
         value:   null,
