@@ -92,6 +92,12 @@ class List {
     this.text = text;
   }
 }
+class Description {
+  constructor(text) {
+    this.type = 'description';
+    this.text = text;
+  }
+}
 
 let engine = {
   $get(page) {
@@ -332,10 +338,7 @@ let engine = {
   home: {
     sad: new Sad('match', ['/home','/']),
     data: {
-      desc: {
-        type: 'description',
-        text: 'A cycle is a completion of all available tasks in succession, that being'
-      },
+      desc: new Description('A cycle is a completion of all available tasks in succession, that being'),
       list: new List([
         'Spend all quest points on latest incomplete quest',
         'Spend all energy on arena',
