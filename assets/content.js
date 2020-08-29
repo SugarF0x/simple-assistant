@@ -55,10 +55,19 @@
 
 // TODO: force default settings for cycle and then set them back? question mark?
 
-class sad {
+class Sad {
   constructor(type, path) {
     this.type = type;
     this.path = path;
+  }
+}
+
+class Checkbox {
+  constructor(def, desc) {
+    this.type    = 'checkbox';
+    this.value   = null;
+    this.default = def;
+    this.desc    = desc;
   }
 }
 
@@ -85,14 +94,9 @@ let engine = {
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble5050: {
-    sad: new sad('match', ['/gamecentre/5050']),
+    sad: new Sad('match', ['/gamecentre/5050']),
     data: {
-      isAuto: {
-        type:    'checkbox',
-        value:   null,
-        default: false,
-        desc:    'Automatically place bets'
-      },
+      isAuto: new Checkbox(false, 'Automatically place bets'),
       baseline: {
         type:    'input',
         value:   null,
@@ -180,32 +184,12 @@ let engine = {
     }
   },
   travel: {
-    sad: new sad('match',['/travel']),
+    sad: new Sad('match',['/travel']),
     data: {
-      isAuto: {
-        type:    'checkbox',
-        value:   null,
-        default: true,
-        desc:    'Take steps on cooldown'
-      },
-      attackEncounters: {
-        type:    'checkbox',
-        value:   null,
-        default: true,
-        desc:    'Attack encountered NPCs'
-      },
-      stopOnEncounters: {
-        type:    'checkbox',
-        value:   null,
-        default: false,
-        desc:    'Pause auto-step on enemy encounter'
-      },
-      slowMode: {
-        type:    'checkbox',
-        value:   null,
-        default: false,
-        desc:    'Continue walking when out of steps'
-      }
+      isAuto:           new Checkbox(true,  'Take steps on cooldown'),
+      attackEncounters: new Checkbox(true,  'Attack encountered NPCs'),
+      stopOnEncounters: new Checkbox(false, 'Pause auto-step on enemy encounter'),
+      slowMode:         new Checkbox(false, 'Continue walking when out of steps')
     },
     init() {
       engine.home.init();
@@ -238,20 +222,10 @@ let engine = {
     }
   },
   battle: {
-    sad: new sad('contain','npcs/attack'),
+    sad: new Sad('contain','npcs/attack'),
     data: {
-      isAuto: {
-        type:    'checkbox',
-        value:   null,
-        default: true,
-        desc:    'Attack enemy on cooldown'
-      },
-      goBack: {
-        type:    'checkbox',
-        value:   null,
-        default: true,
-        desc:    'Go back when enemy is defeated'
-      }
+      isAuto: new Checkbox(true, 'Attack enemy on cooldown'),
+      goBack: new Checkbox(true, 'Go back when enemy is defeated')
     },
     init() {
       engine.$get('battle');
@@ -272,14 +246,9 @@ let engine = {
     }
   },
   quests: {
-    sad: new sad('match',['/quests/viewall']),
+    sad: new Sad('match',['/quests/viewall']),
     data: {
-      isAuto: {
-        type:    'checkbox',
-        value:   null,
-        default: true,
-        desc:    'Auto-repeat selected quest'
-      },
+      isAuto: new Checkbox(true, 'Auto-repeat selected quest'),
       doLast: {
         type: 'button',
         name: 'Select',
@@ -330,14 +299,9 @@ let engine = {
     }
   },
   arena: {
-    sad: new sad('match', ['/battlearena']),
+    sad: new Sad('match', ['/battlearena']),
     data: {
-      isAuto: {
-        type:    'checkbox',
-        value:   null,
-        default: true,
-        desc:    'Auto-accept enemy generation prompts'
-      },
+      isAuto: new Checkbox(true, 'Auto-accept enemy generation prompts'),
       fightAll: {
         type: 'button',
         name: 'Fight',
@@ -385,7 +349,7 @@ let engine = {
     }
   },
   home: {
-    sad: new sad('match', ['/home','/']),
+    sad: new Sad('match', ['/home','/']),
     data: {
       desc: {
         type: 'description',
@@ -422,12 +386,7 @@ let engine = {
           href: '/jobs/viewall'
         }
       ],
-      isAuto: {
-        type:    'checkbox',
-        value:   null,
-        default: false,
-        desc:    'Auto-repeat cycle after job is finished'
-      },
+      isAuto: new Checkbox(false, 'Auto-repeat cycle after job is finished'),
       performCycle: {
         type: 'button',
         name: 'Start',
@@ -521,7 +480,7 @@ let engine = {
     },
   },
   job: {
-    sad: new sad('contain', 'jobs'),
+    sad: new Sad('contain', 'jobs'),
     data: {
       work: {
         type: 'button',
