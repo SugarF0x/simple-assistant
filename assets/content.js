@@ -37,13 +37,13 @@
        if i ever encounter some performance related problems,
        I should probably give it a second thought
  */
-// TODO: refactor data instances and engine params into separate classes
-//          split engine keys into js modules? question mark?
 // TODO: refactor all element [0] queries to use .first() instead
 // TODO: create function for searching index of and returning boolean
 // TODO: add arena skip if insufficient funds
 // TODO: add settings reset when update hits
 // TODO: force default settings for cycle and then set them back? question mark?
+
+  // CLASSES
 
 class Sad {
   constructor(type, path) {
@@ -99,388 +99,7 @@ class Description {
   }
 }
 
-let engine = {
-  $get(page) {
-    if (engine.hasOwnProperty(page)) {
-      let storage = JSON.parse(localStorage.getItem('SA_' + page));
-      if (!storage) {
-        for (let key in engine[page].data)
-          if (engine[page].data[key].hasOwnProperty('value'))
-            engine[page].data[key].value = engine[page].data[key].default;
-        engine.$set(page);
-      }
-      else for (let key in storage) {
-        engine[page].data[key].value = storage[key];
-      }
-    } else throw "engine.$get() error: property <" + page + "> was not found";
-  },
-  $set(page) {
-    let data = {};
-    for (let key in engine[page].data)
-      if (engine[page].data[key].hasOwnProperty('value'))
-        data[key] = engine[page].data[key].value;
-    localStorage.setItem('SA_' + page, JSON.stringify(data));
-  },
-  gamble5050: {
-    sad: new Sad('match', ['/gamecentre/5050']),
-    data: {
-      isAuto: new Checkbox(false, 'Automatically place bets'),
-      baseline: new Input('Baseline', 100, 'A base bet to go off of', (newValue) => {
-          if (!isNaN(newValue)) {
-            engine.gamble5050.data.baseline.value = parseInt(newValue);
-            engine.gamble5050.data.current.value  = parseInt(newValue);
-            engine.$set('gamble5050');
-            createPanel('gamble5050');
-          }
-        }),
-      current: new Display('Current', 100, 'A bet to be placed this bout'),
-      profitRuntime: new Display('Runtime profit', 0, 'The amount of gold made/lost this runtime'),
-      profitTotal: new Display('Total profit', 0, 'The amount of gold made/lost overall'),
-      streak: new Display('Streak', 0, 'Current win/lose streak')
-    },
-    init() {
-      engine.$get('gamble5050');
-      let data = engine.gamble5050.data;
-
-      let isSuccess = $('.notice-success').length > 0;
-      let isFailure = $('.notice-danger').length  > 0;
-      let input     = $('#sample1');
-      let form      = $('#submit');
-
-      // TODO: add gold/min display
-      // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
-      // TODO: add longest win/lose streaks this runtime
-
-      if (isFailure) {
-        data.profitRuntime.value -= data.current.value;
-        data.profitTotal.value   -= data.current.value;
-        data.current.value       *= 2;
-        if (data.streak.value < 0)  data.streak.value--;
-        else data.streak.value    = -1;
-      } else if (isSuccess) {
-        data.profitRuntime.value += data.current.value;
-        data.profitTotal.value   += data.current.value;
-        data.current.value        = data.baseline.value;
-        if (data.streak.value > 0)  data.streak.value++;
-        else data.streak.value    = 1;
-      } else {
-        data.profitRuntime.value = 0;
-        data.streak.value        = 0;
-      }
-      engine.$set('gamble5050');
-
-      if (data.isAuto.value) {
-        setTimeout(() => {
-          input.val(data.current.value);
-
-          setTimeout(() => {
-            form.submit();
-          },250)
-        }, Math.floor(Math.random()*1000)+250)
-      }
-    }
-  },
-  travel: {
-    sad: new Sad('match',['/travel']),
-    data: {
-      isAuto:           new Checkbox(true,  'Take steps on cooldown'),
-      attackEncounters: new Checkbox(true,  'Attack encountered NPCs'),
-      stopOnEncounters: new Checkbox(false, 'Pause auto-step on enemy encounter'),
-      slowMode:         new Checkbox(false, 'Continue walking when out of steps')
-    },
-    init() {
-      engine.home.init();
-      engine.$get('travel');
-      let data = engine.travel.data;
-
-      let step = $('.stepbuttonnew')[0];
-      let slow = $('#slow-mode')[0];
-
-      let interval = setInterval(() => {
-        if (data.isAuto.value) {
-          let attack = $('.cta');
-          [].forEach.call(attack, entry => {
-            if (entry.textContent.indexOf('Attack') !== -1) {
-              if (data.stopOnEncounters.value) clearInterval(interval);
-              if (data.attackEncounters.value) entry.click();
-            }
-          });
-          if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
-          if (step.textContent.indexOf('step') !== -1) step.click();
-        } else clearInterval(interval);
-
-        if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
-          if ($('#current_steps').text() <= 0) {
-            engine.home.data.state.value = 'pending';
-            engine.$set('home');
-          }
-        }
-      }, 1000);
-    }
-  },
-  battle: {
-    sad: new Sad('contain','npcs/attack'),
-    data: {
-      isAuto: new Checkbox(true, 'Attack enemy on cooldown'),
-      goBack: new Checkbox(true, 'Go back when enemy is defeated')
-    },
-    init() {
-      engine.$get('battle');
-      let data = engine.battle.data;
-
-      let attack = $('#attackButton')[0];
-      let back   = $('.btn-info')[0];
-      let enemy  = $('#enemyBox')[0];
-
-      let interval = setInterval(() => {
-        if (data.isAuto.value) {
-          if (enemy.style.cssText === 'opacity: 0.1;') {
-            clearInterval(interval);
-            if (data.goBack.value) back.click();
-          } else if (attack.innerText === 'Attack') attack.click();
-        } else clearInterval(interval)
-      },Math.floor(Math.random()*400)+1200)
-    }
-  },
-  quests: {
-    sad: new Sad('match',['/quests/viewall']),
-    data: {
-      isAuto: new Checkbox(true, 'Auto-repeat selected quest'),
-      doLast: new Button('Select','Find last incomplete quest', () => {
-        try {
-          [].forEach.call([].reverse.call($('.kt-widget5__title')), entry => {
-            if (!entry.children.length) {
-              entry.parentElement.parentElement.parentElement.children[1].children[0].children[0].click();
-              throw 'Break forEach'
-            }
-          });
-        } catch {}
-      })
-    },
-    init() {
-      engine.home.init();
-      engine.$get('quests');
-      let data = engine.quests.data;
-
-      $('.btn-info').click(() => {
-        if (data.isAuto.value) {
-          setTimeout(() => {
-            let interval = setInterval(() => {
-              let button = $('.swal2-confirm')[0];
-              if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
-                clearInterval(interval);
-                window.location.reload();
-              } else
-              if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
-                button.click()
-            }, Math.floor(Math.random()*500)+250)
-          },500)
-        }
-      });
-
-      if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 1) {
-        if ($('#current_quest_points').text() > 0)
-          setTimeout(() => {
-            data.doLast.action();
-          }, 1000);
-        else {
-          engine.home.data.state.value = 'pending';
-          engine.$set('home');
-        }
-      }
-    }
-  },
-  arena: {
-    sad: new Sad('match', ['/battlearena']),
-    data: {
-      isAuto: new Checkbox(true, 'Auto-accept enemy generation prompts'),
-      fightAll: new Button('Fight', 'Spend all available energy on arena', () => {
-        localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
-        $('.btn-custom')[0].click();
-      })
-    },
-    init() {
-      engine.home.init();
-      engine.$get('arena');
-      let data = engine.arena.data;
-
-      let generate = $('.btn-custom').first();
-
-      let storage = JSON.parse(localStorage.getItem('SA_arena_tmp'));
-      if (storage && storage.fightAll)
-        if ($('#current_energy').text() > 0)
-          setTimeout(() => {generate.click()}, 250);
-        else
-          localStorage.removeItem('SA_arena_tmp');
-
-      generate.click(() => {
-        if (data.isAuto.value) {
-          let interval = setInterval(() => {
-            let button = $('.swal2-confirm')[0];
-            if (button.innerText.indexOf('generate') !== -1 || button.innerText.indexOf('Attack') !== -1)
-              button.click()
-          }, Math.floor(Math.random() * 500) + 750)
-        }
-      });
-
-      if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 2) {
-        if ($('#current_energy').text() > 0)
-          setTimeout(() => {
-            generate.click();
-          }, 1000);
-        else {
-          engine.home.data.state.value = 'pending';
-          engine.$set('home');
-        }
-      }
-    }
-  },
-  home: {
-    sad: new Sad('match', ['/home','/']),
-    data: {
-      desc: new Description('A cycle is a completion of all available tasks in succession, that being'),
-      list: new List([
-        'Spend all quest points on latest incomplete quest',
-        'Spend all energy on arena',
-        'Take all steps',
-        'Go to work for 50 minutes'
-      ]),
-      modules: [
-        {
-          page: 'home',
-          href: '/'
-        },
-        {
-          page: 'quests',
-          href: '/quests/viewall'
-        },
-        {
-          page: 'arena',
-          href: '/battlearena'
-        },
-        {
-          page: 'travel',
-          href: '/travel'
-        },
-        {
-          page: 'job',
-          href: '/jobs/viewall'
-        }
-      ],
-      isAuto: new Checkbox(false, 'Auto-repeat cycle after job is finished'),
-      performCycle: new Button('Start', 'Cycle through all aforementioned tasks', () => {
-        engine.home.data.state.value = 'pending';
-        engine.$set('home');
-        engine.home.init();
-      }),
-      breakCycle: new Button('Stop', 'Stop current cycle', () => {
-        engine.home.data.state.value = 'disabled';
-        engine.home.data.stage.value = 0;
-        engine.$set('home');
-        window.location.reload();
-      }),
-      stage: new Display('Stage', 0, 'Current cycle stage'),
-      state: new Display('State', 'disabled', 'State of current stage')
-    },
-    init() {
-      engine.$get('home');
-      let data = engine.home.data;
-
-      if (data.isAuto.value) {
-        console.log('Proceeding with step in 3 seconds...');
-        setTimeout(() => {
-          switcher()
-        }, 3000)
-      } else {
-        switcher()
-      }
-
-      /**
-       * disabled - cycle not initiated
-       * pending  - awaiting page change
-       * standby  - on needed page, awaiting state change
-       * finished - break cycle or repeat if isAuto
-       */
-      function switcher() {
-        switch (data.state.value) {
-
-          // TODO: fix this bit here as even when disabled it still proceedes given isAuto is true
-          case 'disabled':
-            if (data.isAuto.value) {
-              data.state.value = 'pending';
-              engine.$set('home');
-              window.location.reload();
-            }
-            break;
-          case 'pending':
-            data.stage.value < 5 ? data.stage.value++ : data.stage.value = 1;
-            data.state.value = 'standby';
-            engine.$set('home');
-            window.location.href=data.modules[data.stage.value].href;
-            break;
-          case 'standby':
-            setInterval(() => {
-              if (data.state.value !== 'standby') {
-                window.location.reload();
-              }
-            },1000);
-            break;
-          case 'finished':
-            data.stage.value = 0;
-            if (data.isAuto.value)
-              data.state.value = 'pending';
-            else
-              data.state.value = 'disabled';
-            engine.$set('home');
-            window.location.href = '/';
-            break;
-        }
-      }
-    },
-  },
-  job: {
-    sad: new Sad('contain', 'jobs'),
-    data: {
-      work: new Button('Work', 'Go to work for 50 minutes', () => {
-        localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
-        if (window.location.href.indexOf('viewall') !== -1)
-          $('a.btn-success')[0].click();
-        else if (engine.home.data.state.value === 'disabled')
-          engine.job.init();
-      })
-    },
-    init() {
-      engine.home.init();
-      let temp = JSON.parse(localStorage.getItem('SA_work_tmp')) || {work: false};
-      if (engine.home.data.stage.value === 4
-        && engine.home.data.state.value === 'standby'
-        && !temp.work) {
-        engine.job.data.work.action();
-      }
-
-      if (temp.work === 'pending') {
-        setTimeout(() => {
-          [].filter.call($('a.btn-success'), entry => entry.text.indexOf('Start') !== -1)[0].click();
-          localStorage.setItem('SA_work_tmp', JSON.stringify({work:'working'}));
-          setTimeout(() => {
-            $('input[type=range]').val(5);
-            $('.swal2-confirm').click()
-          },500)
-        }, 500)
-      } else if (temp.work === 'working') {
-        localStorage.removeItem('SA_work_tmp');
-        let mins = 51;
-        setInterval(() => {
-          console.log('Working. Time remaining: ' + --mins);
-        }, 1000 * 60);
-        setTimeout(() => {
-          engine.home.data.state.value = 'finished';
-          engine.$set('home');
-        }, 1000 * 60 * 51)
-      }
-    }
-  }
-};
+  // FUNCTION
 
 function getModule() {
   let tab = window.location.pathname;
@@ -642,7 +261,392 @@ function createPanel(page) {
   }
 }
 
-//
+  // ENGINE
+
+let engine = {
+  $get(page) {
+    if (engine.hasOwnProperty(page)) {
+      let storage = JSON.parse(localStorage.getItem('SA_' + page));
+      if (!storage) {
+        for (let key in engine[page].data)
+          if (engine[page].data[key].hasOwnProperty('value'))
+            engine[page].data[key].value = engine[page].data[key].default;
+        engine.$set(page);
+      }
+      else for (let key in storage) {
+        engine[page].data[key].value = storage[key];
+      }
+    } else throw "engine.$get() error: property <" + page + "> was not found";
+  },
+  $set(page) {
+    let data = {};
+    for (let key in engine[page].data)
+      if (engine[page].data[key].hasOwnProperty('value'))
+        data[key] = engine[page].data[key].value;
+    localStorage.setItem('SA_' + page, JSON.stringify(data));
+  },
+  gamble5050: {
+    sad: new Sad ('match', ['/gamecentre/5050']),
+    data: {
+      isAuto:        new Checkbox (false, 'Automatically place bets'),
+      baseline:      new Input    ('Baseline', 100, 'A base bet to go off of', (newValue) => {
+        if (!isNaN(newValue)) {
+          engine.gamble5050.data.baseline.value = parseInt(newValue);
+          engine.gamble5050.data.current.value  = parseInt(newValue);
+          engine.$set('gamble5050');
+          createPanel('gamble5050');
+        }
+      }),
+      current:       new Display  ('Current',        100, 'A bet to be placed this bout'),
+      profitRuntime: new Display  ('Runtime profit', 0,   'The amount of gold made/lost this runtime'),
+      profitTotal:   new Display  ('Total profit',   0,   'The amount of gold made/lost overall'),
+      streak:        new Display  ('Streak',         0,   'Current win/lose streak')
+    },
+    init() {
+      engine.$get('gamble5050');
+      let data = engine.gamble5050.data;
+
+      let isSuccess = $('.notice-success').length > 0;
+      let isFailure = $('.notice-danger').length  > 0;
+      let input     = $('#sample1');
+      let form      = $('#submit');
+
+      // TODO: add gold/min display
+      // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
+      // TODO: add longest win/lose streaks this runtime
+
+      if (isFailure) {
+        data.profitRuntime.value -= data.current.value;
+        data.profitTotal.value   -= data.current.value;
+        data.current.value       *= 2;
+        if (data.streak.value < 0)  data.streak.value--;
+        else data.streak.value    = -1;
+      } else if (isSuccess) {
+        data.profitRuntime.value += data.current.value;
+        data.profitTotal.value   += data.current.value;
+        data.current.value        = data.baseline.value;
+        if (data.streak.value > 0)  data.streak.value++;
+        else data.streak.value    = 1;
+      } else {
+        data.profitRuntime.value = 0;
+        data.streak.value        = 0;
+      }
+      engine.$set('gamble5050');
+
+      if (data.isAuto.value) {
+        setTimeout(() => {
+          input.val(data.current.value);
+
+          setTimeout(() => {
+            form.submit();
+          },250)
+        }, Math.floor(Math.random()*1000)+250)
+      }
+    }
+  },
+  travel: {
+    sad: new Sad ('match',['/travel']),
+    data: {
+      isAuto:           new Checkbox (true,  'Take steps on cooldown'),
+      attackEncounters: new Checkbox (true,  'Attack encountered NPCs'),
+      stopOnEncounters: new Checkbox (false, 'Pause auto-step on enemy encounter'),
+      slowMode:         new Checkbox (false, 'Continue walking when out of steps')
+    },
+    init() {
+      engine.home.init();
+      engine.$get('travel');
+      let data = engine.travel.data;
+
+      let step = $('.stepbuttonnew')[0];
+      let slow = $('#slow-mode')[0];
+
+      let interval = setInterval(() => {
+        if (data.isAuto.value) {
+          let attack = $('.cta');
+          [].forEach.call(attack, entry => {
+            if (entry.textContent.indexOf('Attack') !== -1) {
+              if (data.stopOnEncounters.value) clearInterval(interval);
+              if (data.attackEncounters.value) entry.click();
+            }
+          });
+          if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
+          if (step.textContent.indexOf('step') !== -1) step.click();
+        } else clearInterval(interval);
+
+        if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
+          if ($('#current_steps').text() <= 0) {
+            engine.home.data.state.value = 'pending';
+            engine.$set('home');
+          }
+        }
+      }, 1000);
+    }
+  },
+  battle: {
+    sad: new Sad ('contain','npcs/attack'),
+    data: {
+      isAuto: new Checkbox (true, 'Attack enemy on cooldown'),
+      goBack: new Checkbox (true, 'Go back when enemy is defeated')
+    },
+    init() {
+      engine.$get('battle');
+      let data = engine.battle.data;
+
+      let attack = $('#attackButton')[0];
+      let back   = $('.btn-info')[0];
+      let enemy  = $('#enemyBox')[0];
+
+      let interval = setInterval(() => {
+        if (data.isAuto.value) {
+          if (enemy.style.cssText === 'opacity: 0.1;') {
+            clearInterval(interval);
+            if (data.goBack.value) back.click();
+          } else if (attack.innerText === 'Attack') attack.click();
+        } else clearInterval(interval)
+      },Math.floor(Math.random()*400)+1200)
+    }
+  },
+  quests: {
+    sad: new Sad ('match',['/quests/viewall']),
+    data: {
+      isAuto: new Checkbox (true, 'Auto-repeat selected quest'),
+      doLast: new Button   ('Select','Find last incomplete quest', () => {
+        try {
+          [].forEach.call([].reverse.call($('.kt-widget5__title')), entry => {
+            if (!entry.children.length) {
+              entry.parentElement.parentElement.parentElement.children[1].children[0].children[0].click();
+              throw 'Break forEach'
+            }
+          });
+        } catch {}
+      })
+    },
+    init() {
+      engine.home.init();
+      engine.$get('quests');
+      let data = engine.quests.data;
+
+      $('.btn-info').click(() => {
+        if (data.isAuto.value) {
+          setTimeout(() => {
+            let interval = setInterval(() => {
+              let button = $('.swal2-confirm')[0];
+              if ($('.swal2-validation-message')[0].attributeStyleMap.size === 3) {
+                clearInterval(interval);
+                window.location.reload();
+              } else
+              if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
+                button.click()
+            }, Math.floor(Math.random()*500)+250)
+          },500)
+        }
+      });
+
+      if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 1) {
+        if ($('#current_quest_points').text() > 0)
+          setTimeout(() => {
+            data.doLast.action();
+          }, 1000);
+        else {
+          engine.home.data.state.value = 'pending';
+          engine.$set('home');
+        }
+      }
+    }
+  },
+  arena: {
+    sad: new Sad ('match', ['/battlearena']),
+    data: {
+      isAuto:   new Checkbox (true, 'Auto-accept enemy generation prompts'),
+      fightAll: new Button   ('Fight', 'Spend all available energy on arena', () => {
+        localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
+        $('.btn-custom')[0].click();
+      })
+    },
+    init() {
+      engine.home.init();
+      engine.$get('arena');
+      let data = engine.arena.data;
+
+      let generate = $('.btn-custom').first();
+
+      let storage = JSON.parse(localStorage.getItem('SA_arena_tmp'));
+      if (storage && storage.fightAll)
+        if ($('#current_energy').text() > 0)
+          setTimeout(() => {generate.click()}, 250);
+        else
+          localStorage.removeItem('SA_arena_tmp');
+
+      generate.click(() => {
+        if (data.isAuto.value) {
+          let interval = setInterval(() => {
+            let button = $('.swal2-confirm')[0];
+            if (button.innerText.indexOf('generate') !== -1 || button.innerText.indexOf('Attack') !== -1)
+              button.click()
+          }, Math.floor(Math.random() * 500) + 750)
+        }
+      });
+
+      if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 2) {
+        if ($('#current_energy').text() > 0)
+          setTimeout(() => {
+            generate.click();
+          }, 1000);
+        else {
+          engine.home.data.state.value = 'pending';
+          engine.$set('home');
+        }
+      }
+    }
+  },
+  home: {
+    sad: new Sad ('match', ['/home','/']),
+    data: {
+      modules: [
+        {
+          page: 'home',
+          href: '/'
+        },
+        {
+          page: 'quests',
+          href: '/quests/viewall'
+        },
+        {
+          page: 'arena',
+          href: '/battlearena'
+        },
+        {
+          page: 'travel',
+          href: '/travel'
+        },
+        {
+          page: 'job',
+          href: '/jobs/viewall'
+        }
+      ],
+      desc:         new Description ('A cycle is a completion of all available tasks in succession, that being'),
+      list:         new List        ([
+        'Spend all quest points on latest incomplete quest',
+        'Spend all energy on arena',
+        'Take all steps',
+        'Go to work for 50 minutes'
+      ]),
+      isAuto:       new Checkbox    (false, 'Auto-repeat cycle after job is finished'),
+      performCycle: new Button      ('Start', 'Cycle through all aforementioned tasks', () => {
+        engine.home.data.state.value = 'pending';
+        engine.$set('home');
+        engine.home.init();
+      }),
+      breakCycle:   new Button      ('Stop',  'Stop current cycle',                     () => {
+        engine.home.data.state.value = 'disabled';
+        engine.home.data.stage.value = 0;
+        engine.$set('home');
+        window.location.reload();
+      }),
+      stage:        new Display     ('Stage', 0,          'Current cycle stage'),
+      state:        new Display     ('State', 'disabled', 'State of current stage')
+    },
+    init() {
+      engine.$get('home');
+      let data = engine.home.data;
+
+      if (data.isAuto.value) {
+        console.log('Proceeding with step in 3 seconds...');
+        setTimeout(() => {
+          switcher()
+        }, 3000)
+      } else {
+        switcher()
+      }
+
+      /**
+       * disabled - cycle not initiated
+       * pending  - awaiting page change
+       * standby  - on needed page, awaiting state change
+       * finished - break cycle or repeat if isAuto
+       */
+      function switcher() {
+        switch (data.state.value) {
+
+          // TODO: fix this bit here as even when disabled it still proceedes given isAuto is true
+          case 'disabled':
+            if (data.isAuto.value) {
+              data.state.value = 'pending';
+              engine.$set('home');
+              window.location.reload();
+            }
+            break;
+          case 'pending':
+            data.stage.value < 5 ? data.stage.value++ : data.stage.value = 1;
+            data.state.value = 'standby';
+            engine.$set('home');
+            window.location.href=data.modules[data.stage.value].href;
+            break;
+          case 'standby':
+            setInterval(() => {
+              if (data.state.value !== 'standby') {
+                window.location.reload();
+              }
+            },1000);
+            break;
+          case 'finished':
+            data.stage.value = 0;
+            if (data.isAuto.value)
+              data.state.value = 'pending';
+            else
+              data.state.value = 'disabled';
+            engine.$set('home');
+            window.location.href = '/';
+            break;
+        }
+      }
+    },
+  },
+  job: {
+    sad: new Sad ('contain', 'jobs'),
+    data: {
+      work: new Button ('Work', 'Go to work for 50 minutes', () => {
+        localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
+        if (window.location.href.indexOf('viewall') !== -1)
+          $('a.btn-success')[0].click();
+        else if (engine.home.data.state.value === 'disabled')
+          engine.job.init();
+      })
+    },
+    init() {
+      engine.home.init();
+      let temp = JSON.parse(localStorage.getItem('SA_work_tmp')) || {work: false};
+      if (engine.home.data.stage.value === 4
+        && engine.home.data.state.value === 'standby'
+        && !temp.work) {
+        engine.job.data.work.action();
+      }
+
+      if (temp.work === 'pending') {
+        setTimeout(() => {
+          [].filter.call($('a.btn-success'), entry => entry.text.indexOf('Start') !== -1)[0].click();
+          localStorage.setItem('SA_work_tmp', JSON.stringify({work:'working'}));
+          setTimeout(() => {
+            $('input[type=range]').val(5);
+            $('.swal2-confirm').click()
+          },500)
+        }, 500)
+      } else if (temp.work === 'working') {
+        localStorage.removeItem('SA_work_tmp');
+        let mins = 51;
+        setInterval(() => {
+          console.log('Working. Time remaining: ' + --mins);
+        }, 1000 * 60);
+        setTimeout(() => {
+          engine.home.data.state.value = 'finished';
+          engine.$set('home');
+        }, 1000 * 60 * 51)
+      }
+    }
+  }
+};
+
+  // CONTENT INIT
 
 if (getModule())
   engine[getModule()].init();
