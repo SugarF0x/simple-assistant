@@ -38,7 +38,6 @@
        I should probably give it a second thought
  */
 // TODO: refactor all element [0] queries to use .first() instead
-// TODO: create function for searching index of and returning boolean
 // TODO: add arena skip if insufficient funds
 // TODO: add settings reset when update hits
 // TODO: force default settings for cycle and then set them back? question mark?
@@ -101,6 +100,9 @@ class Description {
 
   // FUNCTION
 
+function contains(text, part) {
+  if (text.indexOf(part) !== -1) return true;
+}
 function getModule() {
   let tab = window.location.pathname;
   let module = undefined;
@@ -113,7 +115,7 @@ function getModule() {
         })
       } else
       if (engine[key].sad.type === 'contain') {
-        if (tab.indexOf(engine[key].sad.path) !== -1)
+        if (contains(tab, engine[key].sad.path))
           module = key;
       }
     }
@@ -160,7 +162,7 @@ function createPanel(page) {
     $('<p>')
       .text('This page is not supported by Simple Assistant')
       .appendTo(col);
-  } else if (Object.keys(engine).join(' ').indexOf(page) === -1) {
+  } else if (!contains(Object.keys(engine).join(' '), page)) {
     $('<p>')
       .text('Invalid page request')
       .appendTo(col);
@@ -364,13 +366,13 @@ let engine = {
         if (data.isAuto.value) {
           let attack = $('.cta');
           [].forEach.call(attack, entry => {
-            if (entry.textContent.indexOf('Attack') !== -1) {
+            if (contains(entry.textContent, 'Attack')) {
               if (data.stopOnEncounters.value) clearInterval(interval);
               if (data.attackEncounters.value) entry.click();
             }
           });
           if (slow.style.display !== 'none' && !data.slowMode.value) clearInterval(interval);
-          if (step.textContent.indexOf('step') !== -1) step.click();
+          if (contains(step.textContent, 'step')) step.click();
         } else clearInterval(interval);
 
         if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
@@ -435,7 +437,7 @@ let engine = {
                 clearInterval(interval);
                 window.location.reload();
               } else
-              if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
+              if (contains(button.innerText, 'Repeat') || contains(button.innerText, 'Perform'))
                 button.click()
             }, Math.floor(Math.random()*500)+250)
           },500)
@@ -481,7 +483,7 @@ let engine = {
         if (data.isAuto.value) {
           let interval = setInterval(() => {
             let button = $('.swal2-confirm')[0];
-            if (button.innerText.indexOf('generate') !== -1 || button.innerText.indexOf('Attack') !== -1)
+            if (contains(button.innerText, 'generate') || contains(button.innerText, 'Attack'))
               button.click()
           }, Math.floor(Math.random() * 500) + 750)
         }
@@ -607,7 +609,7 @@ let engine = {
     data: {
       work: new Button ('Work', 'Go to work for 50 minutes', () => {
         localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
-        if (window.location.href.indexOf('viewall') !== -1)
+        if (contains(window.location.href, 'viewall'))
           $('a.btn-success')[0].click();
         else if (engine.home.data.state.value === 'disabled')
           engine.job.init();
@@ -624,7 +626,7 @@ let engine = {
 
       if (temp.work === 'pending') {
         setTimeout(() => {
-          [].filter.call($('a.btn-success'), entry => entry.text.indexOf('Start') !== -1)[0].click();
+          [].filter.call($('a.btn-success'), entry => contains(entry.text, 'Start'))[0].click();
           localStorage.setItem('SA_work_tmp', JSON.stringify({work:'working'}));
           setTimeout(() => {
             $('input[type=range]').val(5);
