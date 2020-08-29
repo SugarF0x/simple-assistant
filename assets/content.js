@@ -78,6 +78,14 @@ class Display {
     this.desc    = desc;
   }
 }
+class Button {
+  constructor(name, desc, action) {
+    this.type   = 'button';
+    this.name   = name;
+    this.desc   = desc;
+    this.action = action;
+  }
+}
 
 let engine = {
   $get(page) {
@@ -226,21 +234,16 @@ let engine = {
     sad: new Sad('match',['/quests/viewall']),
     data: {
       isAuto: new Checkbox(true, 'Auto-repeat selected quest'),
-      doLast: {
-        type: 'button',
-        name: 'Select',
-        desc: 'Find last incomplete quest',
-        action: () => {
-          try {
-            [].forEach.call([].reverse.call($('.kt-widget5__title')), entry => {
-              if (!entry.children.length) {
-                entry.parentElement.parentElement.parentElement.children[1].children[0].children[0].click();
-                throw 'Break forEach'
-              }
-            });
-          } catch {}
-        }
-      }
+      doLast: new Button('Select','Find last incomplete quest', () => {
+        try {
+          [].forEach.call([].reverse.call($('.kt-widget5__title')), entry => {
+            if (!entry.children.length) {
+              entry.parentElement.parentElement.parentElement.children[1].children[0].children[0].click();
+              throw 'Break forEach'
+            }
+          });
+        } catch {}
+      })
     },
     init() {
       engine.home.init();
@@ -279,15 +282,10 @@ let engine = {
     sad: new Sad('match', ['/battlearena']),
     data: {
       isAuto: new Checkbox(true, 'Auto-accept enemy generation prompts'),
-      fightAll: {
-        type: 'button',
-        name: 'Fight',
-        desc: 'Spend all available energy on arena',
-        action: () => {
-          localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
-          $('.btn-custom')[0].click();
-        }
-      }
+      fightAll: new Button('Fight', 'Spend all available energy on arena', () => {
+        localStorage.setItem('SA_arena_tmp', JSON.stringify({fightAll:true}));
+        $('.btn-custom')[0].click();
+      })
     },
     init() {
       engine.home.init();
@@ -364,27 +362,17 @@ let engine = {
         }
       ],
       isAuto: new Checkbox(false, 'Auto-repeat cycle after job is finished'),
-      performCycle: {
-        type: 'button',
-        name: 'Start',
-        desc: 'Cycle through all aforementioned tasks',
-        action: () => {
-          engine.home.data.state.value = 'pending';
-          engine.$set('home');
-          engine.home.init();
-        }
-      },
-      breakCycle: {
-        type: 'button',
-        name: 'Stop',
-        desc: 'Stop current cycle',
-        action: () => {
-          engine.home.data.state.value = 'disabled';
-          engine.home.data.stage.value = 0;
-          engine.$set('home');
-          window.location.reload();
-        }
-      },
+      performCycle: new Button('Start', 'Cycle through all aforementioned tasks', () => {
+        engine.home.data.state.value = 'pending';
+        engine.$set('home');
+        engine.home.init();
+      }),
+      breakCycle: new Button('Stop', 'Stop current cycle', () => {
+        engine.home.data.state.value = 'disabled';
+        engine.home.data.stage.value = 0;
+        engine.$set('home');
+        window.location.reload();
+      }),
       stage: new Display('Stage', 0, 'Current cycle stage'),
       state: new Display('State', 'disabled', 'State of current stage')
     },
@@ -447,18 +435,13 @@ let engine = {
   job: {
     sad: new Sad('contain', 'jobs'),
     data: {
-      work: {
-        type: 'button',
-        name: 'Work',
-        desc: 'Go to work for 50 minutes',
-        action: () => {
-          localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
-          if (window.location.href.indexOf('viewall') !== -1)
-            $('a.btn-success')[0].click();
-          else if (engine.home.data.state.value === 'disabled')
-            engine.job.init();
-        }
-      }
+      work: new Button('Work', 'Go to work for 50 minutes', () => {
+        localStorage.setItem('SA_work_tmp', JSON.stringify({work:'pending'}));
+        if (window.location.href.indexOf('viewall') !== -1)
+          $('a.btn-success')[0].click();
+        else if (engine.home.data.state.value === 'disabled')
+          engine.job.init();
+      })
     },
     init() {
       engine.home.init();
