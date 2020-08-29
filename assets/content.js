@@ -86,6 +86,12 @@ class Button {
     this.action = action;
   }
 }
+class List {
+  constructor(text) {
+    this.type = 'list';
+    this.text = text;
+  }
+}
 
 let engine = {
   $get(page) {
@@ -330,15 +336,12 @@ let engine = {
         type: 'description',
         text: 'A cycle is a completion of all available tasks in succession, that being'
       },
-      list: {
-        type: 'list',
-        text: [
-          'Spend all quest points on latest incomplete quest',
-          'Spend all energy on arena',
-          'Take all steps',
-          'Go to work for 50 minutes'
-        ]
-      },
+      list: new List([
+        'Spend all quest points on latest incomplete quest',
+        'Spend all energy on arena',
+        'Take all steps',
+        'Go to work for 50 minutes'
+      ]),
       modules: [
         {
           page: 'home',
