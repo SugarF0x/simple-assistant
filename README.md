@@ -1,10 +1,13 @@
 # Assistant plugin for SimpleMMO
 
-This plugins makes certain aspects of SimpleMMO a bit easier.
-
-* Auto-travel
-* Auto-attack
-* Auto-gamble (50/50)
+This plugin assists you in many aspects of SimpleMMO:
+* Travel assist
+* Battle assist
+* Arena assist
+* Questing assist
+* Job assist
+* Gambling assist (50/50)
+* AFK loop grind
 
 ## Installation
 
