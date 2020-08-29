@@ -654,10 +654,10 @@ let engine = {
         }, 500)
       } else if (temp.work === 'working') {
         localStorage.removeItem('SA_work_tmp');
-        let mins = 51;
-          // TODO: have this update actual timer in DOM
+        let mins = 50;
+        $('.btn-pill').first().text('Simple Assistant is currently working for you');
         setInterval(() => {
-          console.log('Working. Time remaining: ' + --mins);
+          $('.kt-portlet__foot').children('strong').text(--mins)
         }, 1000 * 60);
         setTimeout(() => {
           engine.home.data.state.value = 'finished';
