@@ -10,8 +10,7 @@
     "16": "static/icon-16.png"
   },
   "page_action": {
-    "default_icon": "static/icon-16.png",
-    "default_popup": "popup.html"
+    "default_icon": "static/icon-16.png"
   },
   "content_scripts": [
     {

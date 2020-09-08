@@ -1,0 +1,23 @@
+{
+  "name": "Simple Assistant",
+  "version": "1.4.1",
+  "version_name": "",
+  "description": "Automate some aspects of SimpleMMO",
+  "manifest_version": 2,
+  "icons": {
+    "128": "img/icon-128.png",
+    "48": "img/icon-48.png",
+    "16": "img/icon-16.png"
+  },
+  "page_action": {
+    "default_icon": "static/icon-16.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.simple-mmo.com/*"
+      ],
+      "js": "index.js"
+    }
+  ]
+}

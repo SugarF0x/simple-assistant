@@ -1,0 +1,32 @@
+{
+  "name": "simple-assistant",
+  "version": "1.5.0",
+  "description": "Chrome extension for SimpleMMO that automates certain aspects of the game",
+  "main": "src/assets/content.js",
+  "scripts": {
+    "clean": "IF EXIST dist rmdir /Q /S dist",
+    "buildDev": "webpack --mode development --config webpack.dev.config.js",
+    "buildProd": "npm run clean && webpack --mode production --config webpack.prod.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SugarF0x/simple-assistant.git"
+  },
+  "author": "Sugar_F0x",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SugarF0x/simple-assistant/issues"
+  },
+  "homepage": "https://github.com/SugarF0x/simple-assistant#readme",
+  "dependencies": {
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.1",
+    "copy-webpack-plugin": "^6.1.0",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
