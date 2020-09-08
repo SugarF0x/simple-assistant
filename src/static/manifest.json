@@ -10,14 +10,14 @@
     "16": "img/icon-16.png"
   },
   "page_action": {
-    "default_icon": "static/icon-16.png"
+    "default_icon": "img/icon-16.png"
   },
   "content_scripts": [
     {
       "matches": [
         "https://web.simple-mmo.com/*"
       ],
-      "js": "index.js"
+      "js": ["index.js"]
     }
   ]
 }
