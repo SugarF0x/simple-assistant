@@ -11,15 +11,29 @@ This plugin assists you in many aspects of SimpleMMO:
 
 ## Installation
 
-Head over to [Chrome Store](https://chrome.google.com/webstore/detail/simple-assistant/dpljccfbkelkodmmbnahgimhombjemll?hl=en&authuser=0)
-and install a stable extension version there
+```bash
+# install dependencies
+$ npm install
+
+# compile dev build
+$ npm run buildDev
+
+# compile production build
+$ npm run buildProd
+```
+
+Head over to **tags** and download `.zip` under the latest version.
+Then, _install dependencies_ and run a _production build compilation_.
+A `dist` directory containing working build will be created.
+
+Navigate over to `browser://extensions/` or `chrome://extensions/`,
+depending on the browser you are using. There, enable **Developer Mode**
+and click **Load Unpacked**. Select the compiled `dist` directory.
 
 #### Alternatively
 
-Head over to **tags** and download `.zip` under the latest version.
-Navigate over to `browser://extensions/` or `chrome://extensions/`,
-depending on the browser you are using. There, enable **Developer Mode**
-and click **Load Unpacked**. Select the downloaded `.zip` and that's it!
+Head over to [Chrome Store](https://chrome.google.com/webstore/detail/simple-assistant/dpljccfbkelkodmmbnahgimhombjemll?hl=en&authuser=0)
+and install a stable extension version there
 
 ## Commit syntax
 
