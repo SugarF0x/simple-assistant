@@ -1,7 +1,7 @@
 {
   "name": "Simple Assistant",
-  "version": "1.4.1",
-  "version_name": "",
+  "version": "0",
+  "version_name": "TBD",
   "description": "Automate some aspects of SimpleMMO",
   "manifest_version": 2,
   "icons": {
