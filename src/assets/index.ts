@@ -1,104 +1,187 @@
-// /* TODO: add market assistant
-//      that would buy set amount of cheapest items
-//      for daily tasks
-// */
-// /* TODO: add inventory assistant
-//      that would sell all inventory items to NPC
-//      and save a lot of time on clicking
-//        not like anyone is gonna be buying that trash
-//        (equip, not collectibles)
-//  */
-// /* TODO: add travel statistics
-//      gather travel data of gold collected,
-//      items found, steps taken, enemies encountered
-//         Have it also take timestamp and if the last stamp
-//         was more than 5 minutes ago - dump stats
-//             Make stats dump an optional thing
-//             Or perhaps make total stats and latest session stats
-//             so that there is no need in optionizing that
-// */
-// /* TODO: add full options page
-//      add button to top-right cornet of display that would lead to
-//      lets say https://web.simple-mmo.com/simpleassistant
-//      where the page would get fully replaced by one large card
-//      with all the available settings for all modules
-//      so that one could edit thwn without accessing said pages
-//      in the first place
-//        that would be good for them pages with isAuto: true
-//  */
-// /* TODO: !just a shower thought!
-//      the engine object is beginning to look quite bulky if you ask me
-//      and i begin to worry about it performance-wise
-//      I have an idea of how to make it better but not yet sure if it's necessary
-//      but I could make a function like startEngnie() that would fill engine
-//      object with only required data (e.g. only travel or only battle)
-//      thus freeing up quite some portion of space
-//        Given the scale of this extension, i'd argues its not necessary but still
-//        if i ever encounter some performance related problems,
-//        I should probably give it a second thought
-//  */
-// // TODO: add arena skip if insufficient funds
-// // TODO: add settings reset when update hits
-// // TODO: force default settings for cycle and then set them back? question mark?
-//
-// // CLASSES
-//
-// class Sad {
-//     constructor(type, path) {
-//         this.type = type;
-//         this.path = path;
-//     }
-// }
-// class Checkbox {
-//     constructor(def, desc) {
-//         this.type    = 'checkbox';
-//         this.value   = null;
-//         this.default = def;
-//         this.desc    = desc;
-//     }
-// }
-// class Input{
-//     constructor(name, def, desc, action) {
-//         this.type   = 'input';
-//         this.value  = null;
-//         this.name   = name;
-//         this.def    = def;
-//         this.desc   = desc;
-//         this.action = action;
-//     }
-// }
-// class Display {
-//     constructor(name, def, desc) {
-//         this.type    = 'display';
-//         this.value   = null;
-//         this.name    = name;
-//         this.default = def;
-//         this.desc    = desc;
-//     }
-// }
-// class Button {
-//     constructor(name, desc, action) {
-//         this.type   = 'button';
-//         this.name   = name;
-//         this.desc   = desc;
-//         this.action = action;
-//     }
-// }
-// class List {
-//     constructor(text) {
-//         this.type = 'list';
-//         this.text = text;
-//     }
-// }
-// class Description {
-//     constructor(text) {
-//         this.type = 'description';
-//         this.text = text;
-//     }
-// }
-//
-// // FUNCTION
-//
+/* TODO: add market assistant
+     that would buy set amount of cheapest items
+     for daily tasks
+*/
+/* TODO: add inventory assistant
+     that would sell all inventory items to NPC
+     and save a lot of time on clicking
+       not like anyone is gonna be buying that trash
+       (equip, not collectibles)
+ */
+/* TODO: add travel statistics
+     gather travel data of gold collected,
+     items found, steps taken, enemies encountered
+        Have it also take timestamp and if the last stamp
+        was more than 5 minutes ago - dump stats
+            Make stats dump an optional thing
+            Or perhaps make total stats and latest session stats
+            so that there is no need in optionizing that
+*/
+/* TODO: add full options page
+     add button to top-right cornet of display that would lead to
+     lets say https://web.simple-mmo.com/simpleassistant
+     where the page would get fully replaced by one large card
+     with all the available settings for all modules
+     so that one could edit thwn without accessing said pages
+     in the first place
+       that would be good for them pages with isAuto: true
+ */
+/* TODO: !just a shower thought!
+     the engine object is beginning to look quite bulky if you ask me
+     and i begin to worry about it performance-wise
+     I have an idea of how to make it better but not yet sure if it's necessary
+     but I could make a function like startEngnie() that would fill engine
+     object with only required data (e.g. only travel or only battle)
+     thus freeing up quite some portion of space
+       Given the scale of this extension, i'd argues its not necessary but still
+       if i ever encounter some performance related problems,
+       I should probably give it a second thought
+ */
+// TODO: add arena skip if insufficient funds
+// TODO: add settings reset when update hits
+// TODO: force default settings for cycle and then set them back? question mark?
+
+//    TYPES
+
+/**
+ * Simple Assistant Data Type
+ */
+type SADT = 'checkbox' | 'input' | 'display' | 'button' | 'list' | 'description';
+
+//    INTERFACES
+
+// wow such empty
+
+//    CLASSES
+
+/**
+ * Simple Assistant Display Configuration
+ */
+class SADC {
+  path: string;
+  type: 'match' | 'contain';
+
+  constructor(type: 'match' | 'contain', path: string) {
+    this.type = type;
+    this.path = path;
+  }
+}
+
+// TODO: depricate object.type property and move over to object.constructor.name instead? Question mark?
+
+/**
+ * Engine Data
+ */
+class ED {
+  type: SADT;
+
+  constructor(type: SADT) {
+    this.type = type;
+  }
+}
+
+/**
+ * Engine Data Checkbox
+ */
+class Checkbox extends ED {
+  value: boolean;
+  def:   boolean;
+  desc:  string;
+
+  constructor(def: boolean, desc: string) {
+    super('checkbox');
+
+    this.value = false;
+    this.def   = def;
+    this.desc  = desc;
+  }
+}
+
+/**
+ * Engine Data Input
+ */
+class Input extends ED {
+  value:  string;
+  name:   string;
+  def:    string;
+  desc:   string;
+  action: Function;
+
+  constructor(name: string, def: string, desc: string, action: Function) {
+    super('input');
+
+    this.value  = '';
+    this.name   = name;
+    this.def    = def;
+    this.desc   = desc;
+    this.action = action;
+  }
+}
+
+// TODO: perhaps make Display a parent class and extend Input to it? Question mark?
+
+/**
+ * Engine Data Display
+ */
+class Display extends ED {
+  name: string;
+  def:  string;
+  desc: string;
+
+  constructor(name: string, def: string, desc: string) {
+    super('display');
+
+    this.name = name;
+    this.def  = def;
+    this.desc = desc;
+  }
+}
+
+/**
+ * Engine Data Button
+ */
+class Button extends ED {
+  name:   string;
+  desc:   string;
+  action: Function;
+
+  constructor(name: string, desc: string, action: Function) {
+    super('button');
+
+    this.type   = 'button';
+    this.name   = name;
+    this.desc   = desc;
+    this.action = action;
+  }
+}
+
+/**
+ * Engine Data List
+ */
+class List extends ED {
+  text: string[];
+
+  constructor(text: string[]) {
+    super('list')
+
+    this.text = text;
+  }
+}
+
+/**
+ * Engine Data Description
+ */
+class Description extends ED {
+  text: string;
+
+  constructor(text: string) {
+    super('description')
+    this.text = text;
+  }
+}
+
+//      FUNCTIONS
+
 // function contains(text, part) {
 //     if (text.indexOf(part) !== -1) return true;
 // }
@@ -261,9 +344,9 @@
 //             .appendTo(col);
 //     }
 // }
-//
-// // ENGINE
-//
+
+// ENGINE
+
 // let engine = {
 //     $get(page) {
 //         if (engine.hasOwnProperty(page)) {
@@ -667,9 +750,9 @@
 //         }
 //     }
 // };
-//
-// // CONTENT INIT
-//
+
+// CONTENT INIT
+
 // if (getModule())
 //     engine[getModule()].init();
 // createPanel(getModule());
