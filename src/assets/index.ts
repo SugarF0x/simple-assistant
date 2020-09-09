@@ -270,7 +270,7 @@ function createPanel(page: string): void {
   // everything is to be appended to col
 
   let header = $('<h2>')
-    .text(`Simple Assistant ${chrome.runtime.getManifest().version} ${chrome.runtime.getManifest().version_name}`)
+    .text(`Simple Assistant v${chrome.runtime.getManifest().version_name}`)
     .css('display', 'flex')
     .css('justify-content', 'space-between')
     .appendTo(col);

@@ -34,7 +34,7 @@ module.exports = {
             if (path.indexOf('manifest') !== -1) {
               let manifest = JSON.parse(content.toString());
                   manifest.version = VERSION;
-                  manifest.version_name = 'IN-DEV';
+                  manifest.version_name = VERSION + ' IN-DEV';
               return Buffer.from(JSON.stringify(manifest));
             }
             return content;
