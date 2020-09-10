@@ -41,6 +41,7 @@
 // TODO: add settings reset when update hits
 // TODO: force default settings for cycle and then set them back? question mark?
 // TODO: refactor deprecated click()
+// TODO: fix issue with SA_* store data generating empty on first run
 
 import * as $ from 'jquery';
 
@@ -671,27 +672,28 @@ let engine = {
           href: '/jobs/viewall'
         }
       ],
-      desc:         new Description ('A cycle is a completion of all available tasks in succession, that being'),
-      list:         new List        ([
+      desc: new Description('A cycle is a completion of all available tasks in succession, that being'),
+      list: new List([
         'Spend all quest points on latest incomplete quest',
         'Spend all energy on arena',
         'Take all steps',
         'Go to work for 50 minutes'
       ]),
-      isAuto:       new Checkbox    (false, 'Auto-repeat cycle after job is finished'),
-      performCycle: new Button      ('Start', 'Cycle through all aforementioned tasks', () => {
+      isAuto: new Checkbox(false, 'Auto-repeat cycle after job is finished'),
+      performCycle: new Button('Start', 'Cycle through all aforementioned tasks', () => {
         engine.home.data.state.value = 'pending';
         engine.$set('home');
         engine.home.init();
       }),
-      breakCycle:   new Button      ('Stop',  'Stop current cycle',                     () => {
+      breakCycle: new Button('Stop', 'Stop current cycle', () => {
         engine.home.data.state.value = 'disabled';
         engine.home.data.stage.value = 0;
         engine.$set('home');
         window.location.reload();
       }),
-      stage:        new Display     ('Stage', 0,          'Current cycle stage'),
-      state:        new Display     ('State', 'disabled', 'State of current stage')
+      stage: new Display('Stage', 0, 'Current cycle stage'),
+      state: new Display('State', 'disabled', 'State of current stage'),
+      warning: new Display('WARNING', 'AFK CYCLE LOOP MAY CAUSE SUSPICION AND LEAD TO YOUR ACCOUNT BEING LOCKED', 'you have been warned')
     },
     init() {
       engine.$get('home');
