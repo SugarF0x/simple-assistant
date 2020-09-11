@@ -358,7 +358,7 @@ function createPanel(page: string): void {
           $('<button>')
             .text(data.name)
             .css('margin-right','.5rem')
-            .css('color','black')
+            .addClass('btn btn-primary')
             .click(() => data.action())
             .appendTo(label);
 
@@ -367,6 +367,7 @@ function createPanel(page: string): void {
           $('<div>')
             .text(data.text)
             .css('font-size','1.5em')
+            .css('margin-bottom','1rem')
             .appendTo(col);
 
           break;
@@ -682,6 +683,7 @@ let engine = {
         'Take all steps',
         'Go to work for 50 minutes'
       ]),
+      warning: new Description('!WARNING! AFK CYCLE LOOP MAY CAUSE SUSPICION AND LEAD TO YOUR ACCOUNT BEING LOCKED'),
       isAuto: new Checkbox(false, 'Auto-repeat cycle after job is finished'),
       performCycle: new Button('Start', 'Cycle through all aforementioned tasks', () => {
         engine.home.data.state.value = 'pending';
@@ -695,8 +697,7 @@ let engine = {
         window.location.reload();
       }),
       stage: new Display('Stage', 0, 'Current cycle stage'),
-      state: new Display('State', 'disabled', 'State of current stage'),
-      warning: new Display('WARNING', 'AFK CYCLE LOOP MAY CAUSE SUSPICION AND LEAD TO YOUR ACCOUNT BEING LOCKED', 'you have been warned')
+      state: new Display('State', 'disabled', 'State of current stage')
     },
     init() {
       engine.$get('home');
