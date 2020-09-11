@@ -401,7 +401,7 @@ let engine = {
       if (!storage) {
         for (let key in engine[page].data)
           if (engine[page].data[key].hasOwnProperty('value'))
-            engine[page].data[key].value = engine[page].data[key].default;
+            engine[page].data[key].value = engine[page].data[key].def;
         engine.$set(page);
       }
       else for (let key in storage) {
@@ -414,6 +414,7 @@ let engine = {
     for (let key in engine[page].data)
       if (engine[page].data[key].hasOwnProperty('value'))
         data[key] = engine[page].data[key].value;
+      console.log('data: ', data);
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble5050: {
