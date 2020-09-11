@@ -2,12 +2,6 @@
      that would buy set amount of cheapest items
      for daily tasks
 */
-/* TODO: add inventory assistant
-     that would sell all inventory items to NPC
-     and save a lot of time on clicking
-       not like anyone is gonna be buying that trash
-       (equip, not collectibles)
- */
 /* TODO: add travel statistics
      gather travel data of gold collected,
      items found, steps taken, enemies encountered
@@ -15,32 +9,26 @@
         was more than 5 minutes ago - dump stats
             Make stats dump an optional thing
             Or perhaps make total stats and latest session stats
-            so that there is no need in optionizing that
 */
 /* TODO: add full options page
      add button to top-right cornet of display that would lead to
      lets say https://web.simple-mmo.com/simpleassistant
      where the page would get fully replaced by one large card
      with all the available settings for all modules
-     so that one could edit thwn without accessing said pages
+     so that one could edit then without accessing said pages
      in the first place
        that would be good for them pages with isAuto: true
- */
-/* TODO: !just a shower thought!
-     the engine object is beginning to look quite bulky if you ask me
-     and i begin to worry about it performance-wise
-     I have an idea of how to make it better but not yet sure if it's necessary
-     but I could make a function like startEngnie() that would fill engine
-     object with only required data (e.g. only travel or only battle)
-     thus freeing up quite some portion of space
-       Given the scale of this extension, i'd argues its not necessary but still
-       if i ever encounter some performance related problems,
-       I should probably give it a second thought
  */
 // TODO: add arena skip if insufficient funds
 // TODO: add settings reset when update hits
 // TODO: force default settings for cycle and then set them back? question mark?
-// TODO: refactor deprecated click()
+// TODO: add timeout multiplier
+// TODO: add radio checkbox to quests selecting either manual completion or knight hire
+/* TODO: add gift assistant
+     when pressing 'send item' it would remember level of the recipient
+     and automatically sort things by a +-5 level margin of said player
+*/
+// TODO: add profile comment copy-pasta, that being an editable message you can auto paste on one's profile
 
 import * as $ from 'jquery';
 
@@ -58,9 +46,16 @@ type SADT = 'checkbox' | 'input' | 'display' | 'button' | 'list' | 'description'
  */
 interface Module {
   sad: SADC;
+  /**
+   * Engine unit data property.
+   * May contain any of ED extension classes
+   */
   data: {
     [property: string]: Checkbox | Input | Display | Button | List | Description;
   };
+  /**
+   * This function is ran on module mount
+   */
   init: Function;
 }
 
@@ -412,7 +407,6 @@ let engine = {
     for (let key in engine[page].data)
       if (engine[page].data[key].hasOwnProperty('value'))
         data[key] = engine[page].data[key].value;
-      console.log('data: ', data);
     localStorage.setItem('SA_' + page, JSON.stringify(data));
   },
   gamble5050: {
