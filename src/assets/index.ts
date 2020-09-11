@@ -55,18 +55,18 @@ type SADT = 'checkbox' | 'input' | 'display' | 'button' | 'list' | 'description'
 
 /**
  * Engine module instance interface
- * It was a good idea to have such a module, but given my data structure,
- * it is impossible to use it, at least at the current state of the project
  */
-// interface Module {
-//   sad: SADC;
-//   data: {
-//     [property: string]: Checkbox | Input | Display | Button | List | Description;
-//   };
-//   init: Function;
-// }
+interface Module {
+  sad: SADC;
+  data: {
+    [property: string]: Checkbox | Input | Display | Button | List | Description;
+  };
+  init: Function;
+}
 
 interface Engine {
+  $get: Function,
+  $set: Function,
   [property: string]: any
 }
 
@@ -475,7 +475,7 @@ let engine = {
         }, Math.floor(Math.random()*1000)+250)
       }
     }
-  },
+  } as Module,
   travel: {
     sad: new SADC ('match',['/travel']),
     data: {
@@ -517,7 +517,7 @@ let engine = {
         }
       }, 1000);
     }
-  },
+  } as Module,
   battle: {
     sad: new SADC ('contain','npcs/attack'),
     data: {
@@ -598,7 +598,7 @@ let engine = {
         }
       }
     }
-  },
+  } as Module,
   arena: {
     sad: new SADC ('match', ['/battlearena']),
     data: {
@@ -647,32 +647,10 @@ let engine = {
         }
       }
     }
-  },
+  } as Module,
   home: {
     sad: new SADC ('match', ['/home','/']),
     data: {
-      modules: [
-        {
-          page: 'home',
-          href: '/'
-        },
-        {
-          page: 'quests',
-          href: '/quests/viewall'
-        },
-        {
-          page: 'arena',
-          href: '/battlearena'
-        },
-        {
-          page: 'travel',
-          href: '/travel'
-        },
-        {
-          page: 'job',
-          href: '/jobs/viewall'
-        }
-      ],
       desc: new Description('A cycle is a completion of all available tasks in succession, that being'),
       list: new List([
         'Spend all quest points on latest incomplete quest',
@@ -699,6 +677,29 @@ let engine = {
     init() {
       engine.$get('home');
       let data = engine.home.data;
+
+      let modules = [
+            {
+              page: 'home',
+              href: '/'
+            },
+            {
+              page: 'quests',
+              href: '/quests/viewall'
+            },
+            {
+              page: 'arena',
+              href: '/battlearena'
+            },
+            {
+              page: 'travel',
+              href: '/travel'
+            },
+            {
+              page: 'job',
+              href: '/jobs/viewall'
+            }
+          ];
 
       if (data.isAuto.value) {
         console.log('Proceeding with step in 3 seconds...');
@@ -730,7 +731,7 @@ let engine = {
             data.stage.value < 5 ? data.stage.value++ : data.stage.value = 1;
             data.state.value = 'standby';
             engine.$set('home');
-            window.location.href=data.modules[data.stage.value].href;
+            window.location.href=modules[data.stage.value].href;
             break;
           case 'standby':
             let interval = setInterval(() => {
@@ -755,7 +756,7 @@ let engine = {
         }
       }
     },
-  },
+  } as Module,
   job: {
     sad: new SADC ('contain', 'jobs'),
     data: {
@@ -798,7 +799,7 @@ let engine = {
         }, 1000 * 60 * 51)
       }
     }
-  }
+  } as Module
 } as Engine;
 
 //    CONTENT INIT
