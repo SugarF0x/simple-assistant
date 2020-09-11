@@ -1,6 +1,6 @@
 {
   "name": "simple-assistant",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Chrome extension for SimpleMMO that automates certain aspects of the game",
   "main": "src/assets/content.js",
   "scripts": {
