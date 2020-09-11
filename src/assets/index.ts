@@ -42,9 +42,6 @@
 // TODO: force default settings for cycle and then set them back? question mark?
 // TODO: refactor deprecated click()
 
-// TODO: fix issue with SA_* store data generating empty on first run
-// TODO: fix 'page not supported' not displaying
-
 import * as $ from 'jquery';
 
 //    TYPES
@@ -285,7 +282,7 @@ function createPanel(page: string): void {
     .css('text-transform','uppercase')
     .appendTo(header);
 
-  if (page === undefined) {
+  if (page === null) {
     $('<p>')
       .text('This page is not supported by Simple Assistant')
       .appendTo(col);
