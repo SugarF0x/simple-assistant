@@ -23,11 +23,14 @@ module.exports = {
       patterns: [
         {
           from: 'src/static',
+          globOptions: {
+            ignore: ['**/dev/**'],
+          },
           transform(content, path) {
             if (path.indexOf('manifest') !== -1) {
               let manifest = JSON.parse(content.toString());
-                manifest.version = VERSION;
-                manifest.version_name = VERSION;
+                  manifest.version = VERSION;
+                  manifest.version_name = VERSION;
               return Buffer.from(JSON.stringify(manifest));
             }
             return content;
