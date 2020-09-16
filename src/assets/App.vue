@@ -1,5 +1,11 @@
 <template>
-  <div class="kt-portlet">{{ text }}</div>
+  <div class="kt-portlet">
+    <div class="row">
+      <div class="col test">
+        test
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -7,12 +13,22 @@ export default {
   name: "App",
   data() {
     return {
-      text: 'fuck me jerry'
+      tab: window.location.pathname,
+      paths: {
+        module: 'Home',
+
+      }
     }
+  },
+
+  mounted() {
+
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+  .col {
+    padding: 1rem;
+  }
 </style>

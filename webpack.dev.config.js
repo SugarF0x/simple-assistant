@@ -20,22 +20,33 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         loader: 'ts-loader',
-        exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/]
         }
       },
       {
-        test: /\.vue?$/,
-        use: 'vue-loader',
-        exclude: /node_modules/
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'styles.css'
+            }
+          },
+          'extract-loader',
+          'css-loader',
+          'less-loader'
+        ],
       }
     ]
   },
   plugins: [
-    new VueLoaderPlugin(),
     new CopyPlugin({
       patterns: [
         {
@@ -58,9 +69,10 @@ module.exports = {
           from: 'src/static/dev'
         }
       ],
-    })
+    }),
+    new VueLoaderPlugin()
   ],
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js', '.vue' ],
+    extensions: [ '.tsx', '.ts', '.js', '.vue'],
   },
 };
