@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/SugarF0x/simple-assistant#readme",
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "vue": "^2.6.12"
   },
   "devDependencies": {
     "@types/chrome": "0.0.122",
@@ -27,6 +28,8 @@
     "copy-webpack-plugin": "^6.1.0",
     "ts-loader": "^8.0.3",
     "typescript": "^4.0.2",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   }
