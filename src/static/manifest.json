@@ -9,7 +9,8 @@
       "matches": [
         "https://web.simple-mmo.com/*"
       ],
-      "js": ["index.js"]
+      "js": ["index.js"],
+      "css": ["styles.css"]
     }
   ]
 }

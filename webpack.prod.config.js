@@ -2,6 +2,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const VERSION = require('./package.json').version;
 
+  // TODO: UPDATE PRODUCTION CONFIG
+
 module.exports = {
   entry: path.resolve(__dirname, 'src/assets/index.ts'),
   output: {
