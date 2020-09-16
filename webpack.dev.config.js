@@ -1,6 +1,7 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const VERSION = require('./package.json').version;
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   watch: true,
@@ -10,7 +11,7 @@ module.exports = {
       /node_modules/
     ]
   },
-  entry: path.resolve(__dirname, 'src/assets/index.ts'),
+  entry: path.resolve(__dirname, 'src/assets/rewrite.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: "index.js"
@@ -23,9 +24,15 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.vue?$/,
+        use: 'vue-loader',
+        exclude: /node_modules/
+      }
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new CopyPlugin({
       patterns: [
         {
