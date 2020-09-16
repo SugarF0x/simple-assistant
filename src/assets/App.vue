@@ -1,10 +1,15 @@
 <template>
-  <div class="kt-portlet">test test</div>
+  <div class="kt-portlet">{{ text }}</div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: "App"
+  name: "App",
+  data() {
+    return {
+      text: 'fuck me jerry'
+    }
+  }
 }
 </script>
 
