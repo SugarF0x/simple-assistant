@@ -2,7 +2,7 @@
   <div>
     <h2>
       <span>
-        Simple Assistant v{{ version }}
+        Simple Assistant <span class="version">v{{ version }}</span>
       </span>
       <span class="module">
         {{ module }}
@@ -33,5 +33,9 @@ export default {
   .module {
     opacity: .5;
     text-transform: uppercase;
+  }
+  .version {
+    opacity: .7;
+    font-size: .7em;
   }
 </style>
