@@ -4,13 +4,19 @@
       <div class="col test">
         test
       </div>
+      <Home/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import Home from './modules/Home.vue';
+
 export default {
   name: "App",
+  components: {
+    Home
+  },
   data() {
     return {
       tab: window.location.pathname,

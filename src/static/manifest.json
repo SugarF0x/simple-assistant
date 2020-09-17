@@ -6,9 +6,7 @@
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": [
-        "https://web.simple-mmo.com/*"
-      ],
+      "matches": ["https://web.simple-mmo.com/*"],
       "js": ["index.js"],
       "css": ["styles.css"]
     }

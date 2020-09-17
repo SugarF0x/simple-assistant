@@ -1,4 +1,5 @@
 const CopyPlugin = require('copy-webpack-plugin');
+const CssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const VERSION = require('./package.json').version;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -33,13 +34,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'styles.css'
-            }
-          },
-          'extract-loader',
+          CssExtractPlugin.loader,
           'css-loader',
           'less-loader'
         ],
@@ -47,6 +42,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new CssExtractPlugin({
+      filename: 'styles.css'
+    }),
     new CopyPlugin({
       patterns: [
         {
