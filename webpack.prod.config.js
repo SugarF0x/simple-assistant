@@ -1,11 +1,11 @@
 const CopyPlugin = require('copy-webpack-plugin');
+const CssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const VERSION = require('./package.json').version;
-
-  // TODO: UPDATE PRODUCTION CONFIG
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/assets/index.ts'),
+  entry: path.resolve(__dirname, 'src/assets/rewrite.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: "index.js"
@@ -14,13 +14,30 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.less$/,
+        use: [
+          CssExtractPlugin.loader,
+          'css-loader',
+          'less-loader'
+        ],
+      }
     ]
   },
   plugins: [
+    new CssExtractPlugin({
+      filename: 'styles.css'
+    }),
     new CopyPlugin({
       patterns: [
         {
@@ -39,9 +56,10 @@ module.exports = {
           },
         }
       ],
-    })
+    }),
+    new VueLoaderPlugin()
   ],
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: [ '.tsx', '.ts', '.js', '.vue'],
   },
 };
