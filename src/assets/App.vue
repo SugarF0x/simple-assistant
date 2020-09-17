@@ -1,29 +1,24 @@
 <template>
   <div class="kt-portlet">
     <div class="row">
-      <div class="col test">
-        test
+      <div class="col">
+        <Header module="test"/>
       </div>
-      <Home/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Home from './modules/Home.vue';
+import Header from './components/Header.vue';
 
 export default {
   name: "App",
   components: {
-    Home
+    Header
   },
   data() {
     return {
       tab: window.location.pathname,
-      paths: {
-        module: 'Home',
-
-      }
     }
   },
 
