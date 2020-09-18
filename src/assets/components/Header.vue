@@ -30,6 +30,9 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+  div {
+    margin-bottom: 1rem;
+  }
   .module {
     opacity: .5;
     text-transform: uppercase;
