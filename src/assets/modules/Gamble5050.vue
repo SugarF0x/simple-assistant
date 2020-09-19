@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="checkbox">
-      <label><input type="checkbox" v-model="data.isAuto"></label>
+      <label><input type="checkbox" v-model="isAuto"></label>
       <span>Automatically place bets</span>
     </div>
     <div class="input">
-      <label><input type="text" @keypress.enter="enter" v-model="data.baseline"></label>
+      <label><input type="text" @keypress.enter="enter" v-model="baseline"></label>
       <span></span>
     </div>
-    <div><span class="display">Current: </span>{{ data.current }}</div>
-    <div><span class="display">Runtime Profit: </span>{{ data.profitRuntime }}</div>
-    <div><span class="display">Total Profit: </span>{{ data.profitTotal }}</div>
-    <div><span class="display">Streak: </span>{{ data.streak }}</div>
+    <div><span class="display">Current: </span>{{ current }}</div>
+    <div><span class="display">Runtime Profit: </span>{{ profitRuntime }}</div>
+    <div><span class="display">Total Profit: </span>{{ profitTotal }}</div>
+    <div><span class="display">Streak: </span>{{ streak }}</div>
   </div>
 </template>
 
@@ -21,14 +21,12 @@ export default {
 
   data() {
     return {
-      data: {
-        isAuto:         false,
-        baseline:       100,
-        current:        0,
-        profitRuntime:  0,
-        profitTotal:    0,
-        streak:         0
-      }
+      isAuto:         false,
+      baseline:       100,
+      current:        0,
+      profitRuntime:  0,
+      profitTotal:    0,
+      streak:         0
     }
   },
 

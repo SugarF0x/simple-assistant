@@ -9,15 +9,15 @@
       <li>Go to work for 50 minutes</li>
     </ul>
     <div class="checkbox">
-      <label><input type="checkbox" v-model="data.isAuto"></label>
+      <label><input type="checkbox" v-model="isAuto"></label>
       <span>Auto-repeat cycle (AFK grind loop)</span>
     </div>
     <div>
       <button class="btn btn-primary">Start cycle</button>
       <button class="btn btn-primary">Break cycle</button>
     </div>
-    <div><span class="display">Stage:</span> {{ data.stage }}</div>
-    <div><span class="display">State:</span> {{ data.state }}</div>
+    <div><span class="display">Stage:</span> {{ stage }}</div>
+    <div><span class="display">State:</span> {{ state }}</div>
   </div>
 </template>
 
@@ -27,11 +27,9 @@ export default {
 
   data() {
     return {
-      data: {
-        isAuto: false,
-        stage: 0,
-        state: 'disabled'
-      }
+      isAuto: false,
+      stage: 0,
+      state: 'disabled'
     }
   }
 }

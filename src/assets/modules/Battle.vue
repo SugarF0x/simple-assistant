@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="checkbox">
-      <label><input type="checkbox" v-model="data.isAuto"></label>
+      <label><input type="checkbox" v-model="isAuto"></label>
       <span>Attack enemy on cooldown</span>
     </div>
     <div class="checkbox">
-      <label><input type="checkbox" v-model="data.goBack"></label>
+      <label><input type="checkbox" v-model="goBack"></label>
       <span>Go back when enemy is defeated</span>
     </div>
   </div>
@@ -17,10 +17,8 @@ export default {
 
   data() {
     return {
-      data: {
-        isAuto: false,
-        goBack: false
-      }
+      isAuto: false,
+      goBack: false
     }
   }
 }
