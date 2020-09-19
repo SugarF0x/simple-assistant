@@ -1,5 +1,5 @@
 <template>
-  <div class="kt-portlet">
+  <div class="kt-portlet" v-if="module">
     <div class="row">
       <div class="col sad">
         <Header :module="module"/>
@@ -30,7 +30,7 @@ export default {
       if (this.$route.matched.length) {
         return this.$route.matched[0].components.default.name
       } else {
-        return 'undefined'
+        return undefined
       }
     }
   },
