@@ -29,6 +29,7 @@
      and automatically sort things by a +-5 level margin of said player
 */
 // TODO: add profile comment copy-pasta, that being an editable message you can auto paste on one's profile
+// TODO: change Home cycle list to checkboxes thus making cycle stages optional
 
 import * as $ from 'jquery';
 

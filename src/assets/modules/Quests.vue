@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="checkbox">
-      <label><input type="checkbox" v-model="data.isAuto"></label>
+      <label><input type="checkbox" v-model="isAuto"></label>
       <span>Auto-repeat selected quest</span>
     </div>
     <button class="btn btn-primary" @click="selectLast">Select last incomplete</button>
@@ -14,9 +14,7 @@ export default {
 
   data() {
     return {
-      data: {
-        isAuto: false
-      }
+      isAuto: false
     }
   },
 
