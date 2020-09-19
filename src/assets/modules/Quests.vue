@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import module from '../mixins/module.ts';
+import module from '../mixins/module';
 
 export default {
   name:   "Quests",
@@ -30,7 +30,8 @@ export default {
       try {
         quests.reverse().forEach((entry: HTMLElement) => {
           if (!entry.children.length) {
-            entry.parentElement.parentElement.parentElement.children[1].children[0].children[0].click();
+            let button = entry.parentElement.parentElement.parentElement.children[1].children[0].children[0] as HTMLButtonElement;
+            button.click();
             throw 'Break forEach';
           }
         });
@@ -46,8 +47,8 @@ export default {
           setTimeout(() => {
             let interval = setInterval(() => {
               try {
-                let button = document.getElementsByClassName('swal2-confirm')[0];
-                let plug   = document.getElementsByClassName('swal2-validation-message')[0];
+                let button = document.getElementsByClassName('swal2-confirm')[0] as HTMLElement;
+                let plug   = document.getElementsByClassName('swal2-validation-message')[0] as any; // to let use attributeStyleMap
                 if (plug.attributeStyleMap.size === 3) {
                   clearInterval(interval);
                   window.location.reload();
