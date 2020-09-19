@@ -14,7 +14,6 @@ export default {
 
   data() {
     return {
-      display: ['/quests/viewall'],
       data: {
         isAuto: false
       }

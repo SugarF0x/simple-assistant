@@ -17,7 +17,6 @@ export default {
 
   data() {
     return {
-      display: ['*/npcs/attack/*'],
       data: {
         isAuto: false,
         goBack: false
