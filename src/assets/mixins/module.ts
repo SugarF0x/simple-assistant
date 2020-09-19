@@ -28,6 +28,6 @@ export default {
   },
 
   created() {
-    this.get();
+    if (this.options && this.version) this.get();
   },
 };
