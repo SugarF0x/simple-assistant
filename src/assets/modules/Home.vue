@@ -24,13 +24,9 @@
 <script lang="ts">
 export default {
   name: "Home",
-  
+
   data() {
     return {
-      display: [
-        '/',
-        '/home'
-      ],
       data: {
         isAuto: false,
         stage: 0,

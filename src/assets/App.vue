@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col sad">
         <Header :module="module"/>
-        <Home></Home>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -25,15 +25,7 @@ export default {
   name: "App",
 
   components: {
-    Header,
-
-    Home,
-    Travel,
-    Quests,
-    Arena,
-    Battle,
-    Job,
-    Gamble5050
+    Header
   },
 
   data() {
@@ -54,7 +46,11 @@ export default {
 
   computed: {
     module() {
-      return 'testing';
+      if (this.$route.matched.length) {
+        return this.$route.matched[0].components.default.name
+      } else {
+        return 'undefined'
+      }
     }
   },
 

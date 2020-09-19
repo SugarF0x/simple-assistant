@@ -14,7 +14,6 @@ export default {
 
   data() {
     return {
-      display: ['/battlearena'],
       data: {
         isAuto: false
       }

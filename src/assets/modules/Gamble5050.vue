@@ -21,7 +21,6 @@ export default {
 
   data() {
     return {
-      display: ['/gamecentre/5050'],
       data: {
         isAuto:         false,
         baseline:       100,

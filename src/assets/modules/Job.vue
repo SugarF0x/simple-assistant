@@ -10,7 +10,9 @@ export default {
 
   data() {
     return {
-      display: ['*/jobs/*']
+      data: {
+
+      }
     }
   },
 

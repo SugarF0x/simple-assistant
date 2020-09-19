@@ -25,9 +25,6 @@ export default {
 
   data() {
     return {
-      display: [
-          '/travel'
-      ],
       data: {
         isAuto:           false,
         attackEncounters: false,
