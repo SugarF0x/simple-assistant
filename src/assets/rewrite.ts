@@ -28,7 +28,7 @@ new Vue({
       { path: '/gamecentre/5050', component: Gamble5050 },
       { path: '/',                component: Home },
       { path: '/home',            component: Home },
-      { path: '/job',             component: Job },
+      { path: '/jobs/*',          component: Job },
       { path: '/quests/viewall',  component: Quests },
       { path: '/travel',          component: Travel },
     ],
