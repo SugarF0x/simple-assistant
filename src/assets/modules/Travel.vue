@@ -20,8 +20,11 @@
 </template>
 
 <script lang="ts">
+import module from '../mixins/module.ts';
+
 export default {
-  name: "Travel",
+  name:   "Travel",
+  mixins: [module],
 
   data() {
     return {
@@ -30,41 +33,9 @@ export default {
         isAuto:           false,
         attackEncounters: false,
         stopOnEncounters: false,
-        slowMode:         false
-      }
-    };
-  },
-
-  watch: {
-    options: {
-      handler() {
-        this.set();
+        slowMode:         false,
       },
-      deep: true
-    }
-  },
-
-  methods: {
-    get() {
-      let storage = JSON.parse(localStorage.getItem(`SA_${ this.$options.name }`));
-      if (!storage || storage.version !== this.version) {
-        this.set();
-      } else {
-        this.options = storage.options;
-      }
-    },
-
-    set() {
-      let data = {
-        version: this.version,
-        options: this.options,
-      };
-      localStorage.setItem(`SA_${ this.$options.name }`, JSON.stringify(data));
-    },
-  },
-
-  created() {
-    this.get();
+    };
   },
 
   mounted() {
@@ -96,7 +67,7 @@ export default {
       } catch (err) {
         clearInterval(interval);
       }
-    }, 1100+Math.floor(Math.random()*500));
+    }, 1100 + Math.floor(Math.random() * 500));
   },
 };
 </script>
