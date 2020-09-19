@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import module from '../mixins/module.ts';
+import module from '../mixins/module';
 
 export default {
   name:   "Travel",
