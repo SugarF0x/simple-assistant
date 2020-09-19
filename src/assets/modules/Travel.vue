@@ -54,7 +54,7 @@ export default {
           });
           if (slow.style.display !== 'none' && !this.options.slowMode) clearInterval(interval);
           if (step.textContent.indexOf('step') !== -1) step.click();
-        } else clearInterval(interval);
+        }
 
         //          CYCLE LEGACY CODE
 
