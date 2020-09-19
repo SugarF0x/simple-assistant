@@ -11,6 +11,7 @@ import Quests     from './modules/Quests.vue';
 import Travel     from './modules/Travel.vue';
 
 Vue.use(VueRouter);
+// TODO: add Vuex for every variable management
 
 let stats   = document.getElementsByClassName('kt-container')[1].children[0];
 let display = document.createElement('div');
