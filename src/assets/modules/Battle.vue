@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       version: 1,
+      // TODO: override options to *=true if Arena.fightAll=true
       options: {
         isAuto: false,
         goBack: false
