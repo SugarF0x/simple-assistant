@@ -17,6 +17,17 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: "index.js"
   },
+  stats: {
+    // minimal
+    all: false,
+    modules: true,
+    maxModules: 0,
+    errors: true,
+    warnings: true,
+    // extend
+    timings: true,
+    builtAt: true
+  },
   target: "web",
   module: {
     rules: [
