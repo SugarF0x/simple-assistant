@@ -21,7 +21,7 @@ export default {
     return {
       version: 1,
       options: {
-        isAuto: false,
+        isAuto: true,
         fightAll: false
       }
     }

@@ -39,8 +39,8 @@ export default {
     return {
       version: 1,
       options: {
-        isAuto:           false,
-        attackEncounters: false,
+        isAuto:           true,
+        attackEncounters: true,
         stopOnEncounters: false,
         slowMode:         false,
       },
