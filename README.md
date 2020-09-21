@@ -22,10 +22,10 @@ You have been warned.
 $ npm install
 
 # compile dev build
-$ npm run buildDev
+$ npm run dev
 
 # compile production build
-$ npm run buildProd
+$ npm run prod
 ```
 
 Head over to **tags** and download `.zip` under the latest version.
