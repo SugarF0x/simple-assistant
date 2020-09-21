@@ -16,19 +16,19 @@
 </template>
 
 <script lang="ts">
+// TODO: add gold/min display
+// TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
+// TODO: add longest win/lose streaks this runtime
+// TODO: add color coding to display (red/green)
+
 import module from '../mixins/module';
 
 export default {
   name: "Gamble5050",
   mixins: [module],
 
-  // TODO: add color coding to display (red/green)
-
   data() {
     return {
-      // TODO: add gold/min display
-      // TODO: add lose-streak display and fail-safe for when lose-streak goes too bad
-      // TODO: add longest win/lose streaks this runtime
       version: 1,
       options: {
         isAuto:         false,

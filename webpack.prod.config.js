@@ -5,7 +5,7 @@ const VERSION = require('./package.json').version;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/assets/rewrite.ts'),
+  entry: path.resolve(__dirname, 'src/assets/index.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: "index.js"
