@@ -7,7 +7,13 @@ This plugin assists you in many aspects of SimpleMMO:
 * Questing assist
 * Job assist
 * Gambling assist (50/50)
-* AFK loop grind
+* ~~AFK loop grind~~
+
+AFK Grind Loop is suspended until further notice due to there being no failsafe as of yet.
+Once failsafe mechanisms are set, the Cycle will see the light of day again.
+Until then, if you are feeling brave, you can use Cycle by installing older versions (1.5.2 and older).
+
+You have been warned.
 
 ## Installation
 
