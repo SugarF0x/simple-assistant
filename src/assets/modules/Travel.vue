@@ -20,6 +20,15 @@
 </template>
 
 <script lang="ts">
+/* TODO: add travel statistics
+     gather travel data of gold collected,
+     items found, steps taken, enemies encountered
+        Have it also take timestamp and if the last stamp
+        was more than 5 minutes ago - dump stats
+            Make stats dump an optional thing
+            Or perhaps make total stats and latest session stats
+*/
+
 import module from '../mixins/module';
 
 export default {

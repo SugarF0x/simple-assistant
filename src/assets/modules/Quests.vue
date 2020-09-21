@@ -9,6 +9,9 @@
 </template>
 
 <script lang="ts">
+// TODO: add checkbox to force use of Knight
+// TODO: add success check and use Knight if <100%
+
 import module from '../mixins/module';
 
 export default {

@@ -9,6 +9,8 @@
 </template>
 
 <script lang="ts">
+// TODO: add arena skip if insufficient funds
+
 import module from '../mixins/module';
 
 export default {

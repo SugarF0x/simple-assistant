@@ -38,6 +38,10 @@
 </template>
 
 <script lang="ts">
+// TODO: revise cycle functionality when fail-safes are in place
+// TODO: change Home cycle list to checkboxes thus making cycle stages optional
+// TODO: force default settings during cycle
+
 import module from '../mixins/module';
 
 export default {
@@ -53,7 +57,91 @@ export default {
   //       state: 'disabled'
   //     }
   //   }
-  // }
+  // },
+
+  mounted() {
+    //          Legacy Cycle
+    // engine.$get('home');
+    // let data = engine.home.data;
+    //
+    // let modules = [
+    //   {
+    //     page: 'home',
+    //     href: '/'
+    //   },
+    //   {
+    //     page: 'quests',
+    //     href: '/quests/viewall'
+    //   },
+    //   {
+    //     page: 'arena',
+    //     href: '/battlearena'
+    //   },
+    //   {
+    //     page: 'travel',
+    //     href: '/travel'
+    //   },
+    //   {
+    //     page: 'job',
+    //     href: '/jobs/viewall'
+    //   }
+    // ];
+    //
+    // if (data.isAuto.value) {
+    //   console.log('Proceeding with step in 3 seconds...');
+    //   setTimeout(() => {
+    //     switcher()
+    //   }, 3000)
+    // } else {
+    //   switcher()
+    // }
+    //
+    // /**
+    //  * disabled - cycle not initiated
+    //  * pending  - awaiting page change
+    //  * standby  - on needed page, awaiting state change
+    //  * finished - break cycle or repeat if isAuto
+    //  */
+    // function switcher(): void {
+    //   switch (data.state.value) {
+    //
+    //       // TODO: fix this bit here as even when disabled it still proceedes given isAuto is true
+    //     case 'disabled':
+    //       if (data.isAuto.value) {
+    //         data.state.value = 'pending';
+    //         engine.$set('home');
+    //         window.location.reload();
+    //       }
+    //       break;
+    //     case 'pending':
+    //       data.stage.value < 5 ? data.stage.value++ : data.stage.value = 1;
+    //       data.state.value = 'standby';
+    //       engine.$set('home');
+    //       window.location.href=modules[data.stage.value].href;
+    //       break;
+    //     case 'standby':
+    //       let interval = setInterval(() => {
+    //         try {
+    //           if (data.state.value !== 'standby') {
+    //             window.location.reload();
+    //           }
+    //         } catch (err) {
+    //           clearInterval(interval)
+    //         }
+    //       },1000);
+    //       break;
+    //     case 'finished':
+    //       data.stage.value = 0;
+    //       if (data.isAuto.value)
+    //         data.state.value = 'pending';
+    //       else
+    //         data.state.value = 'disabled';
+    //       engine.$set('home');
+    //       window.location.href = '/';
+    //       break;
+    //   }
+    // }
+  }
 }
 </script>
 
