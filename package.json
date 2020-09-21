@@ -5,8 +5,8 @@
   "main": "src/assets/content.js",
   "scripts": {
     "clean": "IF EXIST dist rmdir /Q /S dist",
-    "buildDev": "webpack --mode development --config webpack.dev.config.js",
-    "buildProd": "npm run clean && webpack --mode production --config webpack.prod.config.js"
+    "dev": "webpack --mode development --config webpack.dev.config.js",
+    "prod": "npm run clean && webpack --mode production --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",
