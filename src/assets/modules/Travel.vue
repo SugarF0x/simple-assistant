@@ -20,7 +20,7 @@
       <label for="sa-encounter-stop">Stop</label>
     </div>
 
-    <h6>On Resource encounters: </h6>
+    <h6>On <u title="That being the ones you are skilled enough to gather">collectable*</u> Resource encounters: </h6>
     <div class="radio">
       <input type="radio" id="sa-resource-collect" value="collect" v-model="options.resource">
       <label for="sa-resource-collect">Collect</label>
@@ -75,6 +75,21 @@ export default {
                   entry.click();
                 } else {
                   clearInterval(interval);
+                }
+              } else if (
+                     entry.textContent.indexOf('Salvage') !== -1
+                  || entry.textContent.indexOf('Catch')   !== -1
+                  || entry.textContent.indexOf('Chop')    !== -1
+                  || entry.textContent.indexOf('Mine')    !== -1
+              ) {
+                let travelText = document.querySelector('.div-travel-text');
+                if (!(travelText.children[4] && travelText.children[4].children[0])) {
+                  if (this.options.resource === 'collect') {
+                    let link = entry as HTMLAnchorElement;
+                    window.location.href = link.href;
+                  } else {
+                    clearInterval(interval);
+                  }
                 }
               }
             });
