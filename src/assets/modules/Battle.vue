@@ -29,23 +29,29 @@ export default {
     }
   },
 
-  mounted() {
-    let attack = document.getElementById('attackButton');
-    let back   = document.getElementsByClassName('btn-info')[0] as HTMLButtonElement;
-    let enemy  = document.getElementById('enemyBox');
+  methods: {
+    init() {
+      let attack = document.getElementById('attackButton');
+      let back   = document.getElementsByClassName('btn-info')[0] as HTMLButtonElement;
+      let enemy  = document.getElementById('enemyBox');
 
-    let interval = setInterval(() => {
-      try {
-        if (this.options.isAuto) {
-          if (enemy.style.opacity === '0.1') {
-            clearInterval(interval);
-            if (this.options.goBack) setTimeout(() => {back.click()}, 500);
-          } else if (attack.innerText === 'Attack') attack.click();
+      let interval = setInterval(() => {
+        try {
+          if (this.options.isAuto) {
+            if (enemy.style.opacity === '0.1') {
+              clearInterval(interval);
+              if (this.options.goBack) setTimeout(() => {back.click()}, 500);
+            } else if (attack.innerText === 'Attack') attack.click();
+          }
+        } catch (err) {
+          clearInterval(interval);
         }
-      } catch (err) {
-        clearInterval(interval);
-      }
-    },1200+Math.floor(Math.random()*400))
+      },1200+Math.floor(Math.random()*400))
+    }
+  },
+
+  mounted() {
+    this.init();
   }
 }
 </script>

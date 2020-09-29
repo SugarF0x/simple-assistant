@@ -50,46 +50,49 @@ export default {
       } else {
         alert('New bet must be a number')
       }
+    },
+    init() {
+      let isSuccess = document.getElementsByClassName('notice-success').length > 0;
+      let isFailure = document.getElementsByClassName('notice-danger').length > 0;
+      let input     = document.getElementById('sample1') as HTMLInputElement;
+      let form      = document.getElementById('submit') as HTMLFormElement;
+
+      if (isFailure) {
+        this.options.profitRuntime -= this.options.current;
+        this.options.profitTotal   -= this.options.current;
+        this.options.current       *= 2;
+
+        if (this.options.streak < 0)  this.options.streak--;
+        else this.options.streak    = -1;
+      } else if (isSuccess) {
+        this.options.profitRuntime += this.options.current;
+        this.options.profitTotal   += this.options.current;
+        this.options.current        = this.options.baseline;
+
+        if (this.options.streak > 0)  this.options.streak++;
+        else this.options.streak    = 1;
+      } else {
+        this.options.profitRuntime = 0;
+        this.options.streak        = 0;
+      }
+
+      let interval = setInterval(() => {
+        if (this.options.isAuto) {
+          clearInterval(interval);
+          setTimeout(() => {
+            input.value = this.options.current;
+
+            setTimeout(() => {
+              form.submit();
+            },500)
+          }, 250+Math.floor(Math.random()*1000))
+        }
+      }, 1000)
     }
   },
 
   mounted() {
-    let isSuccess = document.getElementsByClassName('notice-success').length > 0;
-    let isFailure = document.getElementsByClassName('notice-danger').length > 0;
-    let input     = document.getElementById('sample1') as HTMLInputElement;
-    let form      = document.getElementById('submit') as HTMLFormElement;
-
-    if (isFailure) {
-      this.options.profitRuntime -= this.options.current;
-      this.options.profitTotal   -= this.options.current;
-      this.options.current       *= 2;
-
-      if (this.options.streak < 0)  this.options.streak--;
-      else this.options.streak    = -1;
-    } else if (isSuccess) {
-      this.options.profitRuntime += this.options.current;
-      this.options.profitTotal   += this.options.current;
-      this.options.current        = this.options.baseline;
-
-      if (this.options.streak > 0)  this.options.streak++;
-      else this.options.streak    = 1;
-    } else {
-      this.options.profitRuntime = 0;
-      this.options.streak        = 0;
-    }
-
-    let interval = setInterval(() => {
-      if (this.options.isAuto) {
-        clearInterval(interval);
-        setTimeout(() => {
-          input.value = this.options.current;
-
-          setTimeout(() => {
-            form.submit();
-          },500)
-        }, 250+Math.floor(Math.random()*1000))
-      }
-    }, 1000)
+    this.init();
   }
 }
 </script>

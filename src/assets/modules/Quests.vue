@@ -41,43 +41,46 @@ export default {
       } catch {
       }
     },
+    init() {
+      Array.prototype.slice.call(document.getElementsByClassName('btn-info')).forEach((entry: HTMLElement) => {
+        entry.addEventListener('click', () => {
+          if (this.options.isAuto) {
+            setTimeout(() => {
+              let interval = setInterval(() => {
+                try {
+                  let button = document.getElementsByClassName('swal2-confirm')[0] as HTMLElement;
+                  let plug   = document.getElementsByClassName('swal2-validation-message')[0] as any; // to let use attributeStyleMap
+                  if (plug.attributeStyleMap.size === 3) {
+                    clearInterval(interval);
+                    window.location.reload();
+                  } else if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
+                    button.click();
+                } catch (err) {
+                  clearInterval(interval);
+                }
+              }, 750 + Math.floor(Math.random() * 500));
+            }, 500 + Math.floor(Math.random() * 500));
+          }
+        });
+      });
+
+      //          Legacy Cycle
+
+      // if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 1) {
+      //   if (parseInt($('#current_quest_points').text()) > 0)
+      //     setTimeout(() => {
+      //       data.doLast.action();
+      //     }, 1000);
+      //   else {
+      //     engine.home.data.state.value = 'pending';
+      //     engine.$set('home');
+      //   }
+      // }
+    }
   },
 
   mounted() {
-    Array.prototype.slice.call(document.getElementsByClassName('btn-info')).forEach((entry: HTMLElement) => {
-      entry.addEventListener('click', () => {
-        if (this.options.isAuto) {
-          setTimeout(() => {
-            let interval = setInterval(() => {
-              try {
-                let button = document.getElementsByClassName('swal2-confirm')[0] as HTMLElement;
-                let plug   = document.getElementsByClassName('swal2-validation-message')[0] as any; // to let use attributeStyleMap
-                if (plug.attributeStyleMap.size === 3) {
-                  clearInterval(interval);
-                  window.location.reload();
-                } else if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
-                  button.click();
-              } catch (err) {
-                clearInterval(interval);
-              }
-            }, 750 + Math.floor(Math.random() * 500));
-          }, 500 + Math.floor(Math.random() * 500));
-        }
-      });
-    });
-
-    //          Legacy Cycle
-
-    // if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 1) {
-    //   if (parseInt($('#current_quest_points').text()) > 0)
-    //     setTimeout(() => {
-    //       data.doLast.action();
-    //     }, 1000);
-    //   else {
-    //     engine.home.data.state.value = 'pending';
-    //     engine.$set('home');
-    //   }
-    // }
+    this.init();
   },
 };
 </script>

@@ -47,36 +47,42 @@ export default {
     };
   },
 
-  mounted() {
-    let step = document.getElementsByClassName('stepbuttonnew')[0] as HTMLButtonElement;
-    let slow = document.getElementById('slow-mode');
+  methods: {
+    init() {
+      let step = document.getElementsByClassName('stepbuttonnew')[0] as HTMLButtonElement;
+      let slow = document.getElementById('slow-mode');
 
-    let interval = setInterval(() => {
-      try {
-        if (this.options.isAuto) {
-          let attack = document.getElementsByClassName('cta');
-          [].forEach.call(attack, (entry: HTMLElement) => {
-            if (entry.textContent.indexOf('Attack') !== -1) {
-              if (this.options.stopOnEncounters) clearInterval(interval);
-              if (this.options.attackEncounters) entry.click();
-            }
-          });
-          if (slow.style.display !== 'none' && !this.options.slowMode) clearInterval(interval);
-          if (step.textContent.indexOf('step') !== -1) step.click();
+      let interval = setInterval(() => {
+        try {
+          if (this.options.isAuto) {
+            let attack = document.getElementsByClassName('cta');
+            [].forEach.call(attack, (entry: HTMLElement) => {
+              if (entry.textContent.indexOf('Attack') !== -1) {
+                if (this.options.stopOnEncounters) clearInterval(interval);
+                if (this.options.attackEncounters) entry.click();
+              }
+            });
+            if (slow.style.display !== 'none' && !this.options.slowMode) clearInterval(interval);
+            if (step.textContent.indexOf('step') !== -1) step.click();
+          }
+
+          //          CYCLE LEGACY CODE
+
+          // if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
+          //   if (parseInt($('#current_steps').text()) <= 0) {
+          //     engine.home.data.state.value = 'pending';
+          //     engine.$set('home');
+          //   }
+          // }
+        } catch (err) {
+          clearInterval(interval);
         }
+      }, 1100 + Math.floor(Math.random() * 500));
+    }
+  },
 
-        //          CYCLE LEGACY CODE
-
-        // if (engine.home.data.state.value === 'standby' && engine.home.data.stage.value === 3) {
-        //   if (parseInt($('#current_steps').text()) <= 0) {
-        //     engine.home.data.state.value = 'pending';
-        //     engine.$set('home');
-        //   }
-        // }
-      } catch (err) {
-        clearInterval(interval);
-      }
-    }, 1100 + Math.floor(Math.random() * 500));
+  mounted() {
+    this.init();
   },
 };
 </script>
