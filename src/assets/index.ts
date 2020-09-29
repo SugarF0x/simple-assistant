@@ -27,6 +27,7 @@ import Gamble5050 from './modules/Gamble5050.vue';
 import Home       from './modules/Home.vue';
 import Job        from './modules/Job.vue';
 import Quests     from './modules/Quests.vue';
+import Resource   from './modules/Resource.vue';
 import Travel     from './modules/Travel.vue';
 
 Vue.use(VueRouter);
@@ -41,14 +42,15 @@ new Vue({
   router: new VueRouter({
     mode: 'history',
     routes: [
-      { path: '/battlearena',     component: Arena },
-      { path: '/npcs/attack/*',   component: Battle },
-      { path: '/gamecentre/5050', component: Gamble5050 },
-      { path: '/',                component: Home },
-      { path: '/home',            component: Home },
-      { path: '/jobs/*',          component: Job },
-      { path: '/quests/viewall',  component: Quests },
-      { path: '/travel',          component: Travel },
+      { path: '/battlearena',                 component: Arena },
+      { path: '/npcs/attack/*',               component: Battle },
+      { path: '/gamecentre/5050',             component: Gamble5050 },
+      { path: '/',                            component: Home },
+      { path: '/home',                        component: Home },
+      { path: '/jobs/*',                      component: Job },
+      { path: '/quests/viewall',              component: Quests },
+      { path: '/crafting/material/gather/*',  component: Resource },
+      { path: '/travel',                      component: Travel },
     ],
   }),
   render: h => h(App),
