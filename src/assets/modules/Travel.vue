@@ -68,8 +68,8 @@ export default {
       let interval = setInterval(() => {
         try {
           if (this.options.isAuto) {
-            let attack = document.getElementsByClassName('cta');
-            [].forEach.call(attack, (entry: HTMLElement) => {
+            let button = document.querySelectorAll('a.app-btn');
+            [].forEach.call(button, (entry: HTMLElement) => {
               if (entry.textContent.indexOf('Attack') !== -1) {
                 if (this.options.encounter === 'attack') {
                   entry.click();
@@ -91,6 +91,7 @@ export default {
           //   }
           // }
         } catch (err) {
+          console.error(err);
           clearInterval(interval);
         }
       }, 1100 + Math.floor(Math.random() * 500));
