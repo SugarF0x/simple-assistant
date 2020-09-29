@@ -1,21 +1,34 @@
 <template>
   <div>
+
     <div class="checkbox">
       <label><input type="checkbox" v-model="options.isAuto"></label>
       <span>Take steps on cooldown</span>
     </div>
-    <div class="checkbox">
-      <label><input type="checkbox" v-model="options.attackEncounters"></label>
-      <span>Attack encountered NPCs</span>
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" v-model="options.stopOnEncounters"></label>
-      <span>Pause auto-step on enemy encounter</span>
-    </div>
+
     <div class="checkbox">
       <label><input type="checkbox" v-model="options.slowMode"></label>
       <span>Continue walking when out of steps</span>
     </div>
+
+    <h6>On NPC encounters: </h6>
+    <div class="radio">
+      <input type="radio" id="sa-encounter-attack" value="attack" v-model="options.encounter">
+      <label for="sa-encounter-attack">Attack</label>
+
+      <input type="radio" id="sa-encounter-stop" value="stop" v-model="options.encounter">
+      <label for="sa-encounter-stop">Stop</label>
+    </div>
+
+    <h6>On Resource encounters: </h6>
+    <div class="radio">
+      <input type="radio" id="sa-resource-collect" value="collect" v-model="options.resource">
+      <label for="sa-resource-collect">Collect</label>
+
+      <input type="radio" id="sa-resource-stop" value="stop" v-model="options.resource">
+      <label for="sa-resource-stop">Stop</label>
+    </div>
+
   </div>
 </template>
 
@@ -37,12 +50,12 @@ export default {
 
   data() {
     return {
-      version: 1,
+      version: 2,
       options: {
-        isAuto:           true,
-        attackEncounters: true,
-        stopOnEncounters: false,
-        slowMode:         false,
+        isAuto:    true,
+        slowMode:  false,
+        encounter: 'attack'  as 'attack'  | 'stop',
+        resource:  'collect' as 'collect' | 'stop'
       },
     };
   },
@@ -58,8 +71,11 @@ export default {
             let attack = document.getElementsByClassName('cta');
             [].forEach.call(attack, (entry: HTMLElement) => {
               if (entry.textContent.indexOf('Attack') !== -1) {
-                if (this.options.stopOnEncounters) clearInterval(interval);
-                if (this.options.attackEncounters) entry.click();
+                if (this.options.encounter === 'attack') {
+                  entry.click();
+                } else {
+                  clearInterval(interval);
+                }
               }
             });
             if (slow.style.display !== 'none' && !this.options.slowMode) clearInterval(interval);
