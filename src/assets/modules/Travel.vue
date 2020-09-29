@@ -18,6 +18,9 @@
 
       <input type="radio" id="sa-encounter-stop" value="stop" v-model="options.encounter">
       <label for="sa-encounter-stop">Stop</label>
+
+      <input type="radio" id="sa-encounter-ignore" value="ignore" v-model="options.encounter">
+      <label for="sa-encounter-ignore">Ignore</label>
     </div>
 
     <h6>On <u title="That being the ones you are skilled enough to gather">collectable*</u> Resource encounters: </h6>
@@ -27,6 +30,9 @@
 
       <input type="radio" id="sa-resource-stop" value="stop" v-model="options.resource">
       <label for="sa-resource-stop">Stop</label>
+
+      <input type="radio" id="sa-resource-ignore" value="ignore" v-model="options.resource">
+      <label for="sa-resource-ignore">Ignore</label>
     </div>
 
   </div>
@@ -54,8 +60,8 @@ export default {
       options: {
         isAuto:    true,
         slowMode:  false,
-        encounter: 'attack'  as 'attack'  | 'stop',
-        resource:  'collect' as 'collect' | 'stop'
+        encounter: 'attack'  as 'attack'  | 'stop' | 'ignore',
+        resource:  'collect' as 'collect' | 'stop' | 'ignore'
       },
     };
   },
@@ -73,7 +79,7 @@ export default {
               if (entry.textContent.indexOf('Attack') !== -1) {
                 if (this.options.encounter === 'attack') {
                   entry.click();
-                } else {
+                } else if (this.options.encounter === 'stop') {
                   clearInterval(interval);
                 }
               } else if (
@@ -87,7 +93,7 @@ export default {
                   if (this.options.resource === 'collect') {
                     let link = entry as HTMLAnchorElement;
                     window.location.href = link.href;
-                  } else {
+                  } else if (this.options.resource === 'stop') {
                     clearInterval(interval);
                   }
                 }
