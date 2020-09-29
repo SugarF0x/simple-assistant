@@ -64,5 +64,10 @@ export default {
       display: flex;
       align-items: center;
     }
+    .radio {
+      label {
+        display: inline;
+      }
+    }
   }
 </style>
