@@ -52,7 +52,8 @@ export default {
                   let plug   = document.getElementsByClassName('swal2-validation-message')[0] as any; // to let use attributeStyleMap
                   if (plug.attributeStyleMap.size === 3) {
                     clearInterval(interval);
-                    window.location.reload();
+                    let background = document.querySelector('.swal2-container.swal2-center.swal2-shown') as HTMLElement;
+                    background.click();
                   } else if (button.innerText.indexOf('Repeat') !== -1 || button.innerText.indexOf('Perform') !== -1)
                     button.click();
                 } catch (err) {
