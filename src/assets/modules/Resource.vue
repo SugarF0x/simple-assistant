@@ -48,20 +48,30 @@ export default {
             if (targetNode.innerText.indexOf('Release') !== -1) {
               clearInterval(interval);
               triggerMouseEvent(targetNode, "mouseup");
-              this.perform();
+              if (this.options.isAuto) {
+                this.perform();
+              }
             }
           }, 1000+Math.floor(Math.random()*500))
         }, 500)
         triggerMouseEvent (targetNode, "mouseup");
-      } else
+      } else if (this.options.goBack) {
         window.history.back();
+      }
     },
     init() {
-      // TODO: Add skill check
-      // TODO: add tool check
-      // account for options and use perform()
+      let proceed = true;
+      Array.prototype.slice.call(document.querySelectorAll('button.btn.btn-success')).forEach((e: HTMLElement) => {
+        if (e.innerText.indexOf('enough') !== -1) {
+          proceed = false;
+        }
+      })
 
-
+      setTimeout(() => {
+        if (proceed && this.options.isAuto) {
+          this.perform();
+        }
+      }, 1250)
     },
   },
 
