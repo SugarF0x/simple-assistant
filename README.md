@@ -2,6 +2,7 @@
 
 This plugin assists you in many aspects of SimpleMMO:
 * Travel assist
+* Resource assist
 * Battle assist
 * Arena assist
 * Questing assist
