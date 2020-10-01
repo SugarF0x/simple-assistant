@@ -6,15 +6,20 @@ const request = require('request');
 
 let VERSION = require('./package.json').version;
 
-request.get({
-    url: 'https://api.github.com/repos/SugarF0x/simple-assistant/stats/contributors',
-    headers: {
+try {
+  request.get({
+      url: 'https://api.github.com/repos/SugarF0x/simple-assistant/stats/contributors',
+      headers: {
         'User-Agent': 'SugarF0x'
+      }
+    }, (err, res, body) => {
+      VERSION += '.' + JSON.parse(body)[0].total;
     }
-  }, (err, res, body) => {
-    VERSION += '.' + JSON.parse(body)[0].total;
-  }
-)
+  )
+} catch {
+  console.log('There was an error fetching commits from GitHub');
+  VERSION += '.' + '0';
+}
 
 module.exports = {
   watch: true,
