@@ -1,8 +1,20 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const VERSION = require('./package.json').version;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const request = require('request');
+
+let VERSION = require('./package.json').version;
+
+request.get({
+    url: 'https://api.github.com/repos/SugarF0x/simple-assistant/stats/contributors',
+    headers: {
+        'User-Agent': 'SugarF0x'
+    }
+  }, (err, res, body) => {
+    VERSION += '.' + JSON.parse(body)[0].total;
+  }
+)
 
 module.exports = {
   watch: true,
