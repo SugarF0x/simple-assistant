@@ -1,8 +1,24 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const VERSION = require('./package.json').version;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
+let VERSION = require('./package.json').version;
+
+try {
+  request.get({
+      url: 'https://api.github.com/repos/SugarF0x/simple-assistant/stats/contributors',
+      headers: {
+        'User-Agent': 'SugarF0x'
+      }
+    }, (err, res, body) => {
+      VERSION += '.' + JSON.parse(body)[0].total;
+    }
+  )
+} catch {
+  console.error('There was an error fetching commits from GitHub, consider rebuilding');
+  VERSION += '.' + '0';
+}
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/assets/index.ts'),
