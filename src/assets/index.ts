@@ -1,8 +1,3 @@
-// TODO: add profile comment copy-pasta, that being an editable message you can auto paste on one's profile
-/* TODO: add gift assistant
-     when pressing 'send item' it would remember level of the recipient
-     and automatically sort things by a +-5 level margin of said player
-*/
 /* TODO: add full options page
      add button to top-right cornet of display that would lead to
      lets say https://web.simple-mmo.com/simpleassistant
