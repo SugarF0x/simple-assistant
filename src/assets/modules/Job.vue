@@ -1,6 +1,22 @@
 <template>
   <div>
-    <button class="btn btn-primary" @click="work" :disabled="isWorking">Work</button>
+    <div class="inline">
+      <button class="btn btn-primary"
+              @click="work"
+              :disabled="isWorking"
+      >
+        Work
+      </button>
+      <label>
+        <input type="number"
+               min="1"
+               max="20"
+               v-model="options.jobs"
+               @keydown.enter="work"
+        />
+      </label>
+      <span>times</span>
+    </div>
   </div>
 </template>
 
@@ -13,7 +29,12 @@ export default {
 
   data() {
     return {
-      isWorking: document.querySelectorAll('.kt-portlet.kt-portlet--fit.kt-portlet--head-lg.kt-portlet--head-overlay').length > 0
+      isWorking: document.querySelectorAll('.kt-portlet.kt-portlet--fit.kt-portlet--head-lg.kt-portlet--head-overlay').length > 0,
+
+      version: 1,
+      options: {
+        jobs: "5"
+      }
     }
   },
 
@@ -52,7 +73,7 @@ export default {
           localStorage.setItem('SA_Job_temp', JSON.stringify({work:'working'}));
           setTimeout(() => {
             let input = document.querySelectorAll('input[type=range]')[0] as HTMLInputElement;
-            input.value = '5';
+            input.value = this.options.jobs;
             let button = document.getElementsByClassName('swal2-confirm')[0] as HTMLButtonElement;
             button.click()
           },500)
@@ -84,5 +105,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.inline {
+  > * {
+    display: inline
+  }
+  label {
+    margin: 0;
+  }
+}
 </style>
