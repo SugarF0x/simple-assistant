@@ -44,7 +44,7 @@ new Vue({
       { path: '/',                            component: Home },
       { path: '/home',                        component: Home },
       { path: '/jobs/*',                      component: Job },
-      { path: '/user/view/*',                 component: Profile },
+      { path: '/user/view/:id',               component: Profile },
       { path: '/quests/viewall',              component: Quests },
       { path: '/crafting/material/gather/*',  component: Resource },
       { path: '/travel',                      component: Travel },
