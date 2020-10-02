@@ -26,6 +26,7 @@ import Battle     from './modules/Battle.vue';
 import Gamble5050 from './modules/Gamble5050.vue';
 import Home       from './modules/Home.vue';
 import Job        from './modules/Job.vue';
+import Profile    from './modules/Profile.vue';
 import Quests     from './modules/Quests.vue';
 import Resource   from './modules/Resource.vue';
 import Travel     from './modules/Travel.vue';
@@ -48,6 +49,7 @@ new Vue({
       { path: '/',                            component: Home },
       { path: '/home',                        component: Home },
       { path: '/jobs/*',                      component: Job },
+      { path: '/user/view/*',                 component: Profile },
       { path: '/quests/viewall',              component: Quests },
       { path: '/crafting/material/gather/*',  component: Resource },
       { path: '/travel',                      component: Travel },

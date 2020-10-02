@@ -89,10 +89,26 @@ export default {
       display: flex;
       align-items: center;
     }
+    .center {
+      > * {
+        margin: .2rem;
+      }
+      display: flex;
+      align-items: center;
+    }
     .radio {
       label {
         display: inline;
       }
+    }
+    div {
+      button + span {
+        font-size: 1.5em;
+      }
+    }
+    textarea {
+      margin: .2rem;
+      padding: .2rem;
     }
   }
 </style>
