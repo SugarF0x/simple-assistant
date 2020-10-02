@@ -2,6 +2,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const request = require('request');
 
 let VERSION = require('./package.json').version;
 
@@ -15,7 +16,7 @@ try {
       VERSION += '.' + JSON.parse(body)[0].total;
     }
   )
-} catch {
+} catch(err) {
   console.error('There was an error fetching commits from GitHub, consider rebuilding');
   VERSION += '.' + '0';
 }
