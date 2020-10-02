@@ -46,7 +46,6 @@ export default {
       isOwn: true,
       name:  '',
       level: '',
-      id: '',
 
       version: 1,
       options: {
@@ -64,13 +63,12 @@ export default {
                                         .slice(namespace[1].innerText.indexOf('\n') + 6)
                                         .replace(',', ''));
 
-      this.id = window.location.pathname.split('/')[window.location.pathname.split('/').length-1]
     }
   },
 
   methods: {
     gift() {
-      window.location.href=`https://web.simple-mmo.com/inventory/items?minlevel=${this.level-5}&maxlevel=${this.level+5}&sendid=${this.id}`
+      window.location.href=`https://web.simple-mmo.com/inventory/items?minlevel=${this.level-5}&maxlevel=${this.level+5}&sendid=${this.$route.params.id}`
     },
     comment() {
       let area = document.getElementById('exampleTextarea') as HTMLTextAreaElement;
