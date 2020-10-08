@@ -1,3 +1,13 @@
+# DISCONTINUED
+
+This was a fun project of mine, but like every good thing, it has come to an end.
+Thanks to every one who has been providing feedback.
+Special thanks to the devs who **must have** figured out my player account
+and yet haven't banned me for some reason.
+Hope they do now, specially after an easter egg I planted in the latest patch.
+
+Either way, feel free to use this source code at will. Cheers!
+
 # Assistant plugin for SimpleMMO
 
 This plugin assists you in many aspects of SimpleMMO:
