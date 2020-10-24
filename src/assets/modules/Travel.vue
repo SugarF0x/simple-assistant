@@ -87,6 +87,7 @@ export default {
                   || entry.textContent.indexOf('Catch')   !== -1
                   || entry.textContent.indexOf('Chop')    !== -1
                   || entry.textContent.indexOf('Mine')    !== -1
+                  || entry.textContent.indexOf('Dig')    !== -1
               ) {
                 let travelText = document.querySelector('.div-travel-text');
                 if (!(travelText.children[4] && travelText.children[4].children[0])) {
