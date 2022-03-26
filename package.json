@@ -1,42 +1,37 @@
 {
   "name": "simple-assistant",
-  "version": "2.2.0",
-  "description": "Chrome extension for SimpleMMO that automates certain aspects of the game",
-  "main": "src/assets/content.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "clean": "IF EXIST dist rmdir /Q /S dist",
-    "dev": "webpack --mode development --config webpack.dev.config.js",
-    "prod": "npm run clean && webpack --mode production --config webpack.prod.config.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SugarF0x/simple-assistant.git"
-  },
-  "author": "Sugar_F0x",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SugarF0x/simple-assistant/issues"
-  },
-  "homepage": "https://github.com/SugarF0x/simple-assistant#readme",
   "dependencies": {
-    "jquery": "^3.5.1",
-    "vue": "^2.6.12",
-    "vue-router": "^3.4.3"
+    "core-js": "^3.8.3",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.122",
-    "@types/jquery": "^3.5.1",
-    "copy-webpack-plugin": "^6.1.0",
-    "css-loader": "^4.3.0",
-    "less": "^3.12.2",
-    "less-loader": "^7.0.1",
-    "mini-css-extract-plugin": "^0.11.2",
-    "request": "^2.88.2",
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2",
-    "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.1",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "typescript": "~4.5.5"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   }
 }
