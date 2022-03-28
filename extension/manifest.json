@@ -10,5 +10,8 @@
       "js": ["js/app.js"],
       "css": ["styles.css"]
     }
-  ]
+  ],
+  "icons": {
+    "128": "logo.png"
+  }
 }
