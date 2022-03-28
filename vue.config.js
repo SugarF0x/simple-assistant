@@ -40,6 +40,10 @@ module.exports = defineConfig({
       return args
     })
 
+    config.optimization.delete("splitChunks")
+
+    config.devtool(isDev ? "inline-source-map" : false)
+
     return config
   },
 })
