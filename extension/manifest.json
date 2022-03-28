@@ -1,8 +1,8 @@
 {
   "name": "Simple Assistant",
-  "version": "0",
+  "version": "TBD",
   "version_name": "TBD",
-  "description": "Automate some aspects of SimpleMMO",
+  "description": "Quality of life SimpleMMO tweaks",
   "manifest_version": 2,
   "content_scripts": [
     {
