@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service build --watch",
+    "dev": "vue-cli-service build --watch --no-clean",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
