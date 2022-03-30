@@ -6,7 +6,10 @@
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": ["https://web.simple-mmo.com/*"],
+      "matches": [
+        "*://*.google.com/*",
+        "*://*.simple-mmo.com/*"
+      ],
       "js": ["js/app.js"],
       "css": ["styles.css"]
     }
