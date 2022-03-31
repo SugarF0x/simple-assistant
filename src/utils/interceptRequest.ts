@@ -1,11 +1,11 @@
-export function interceptRequest(cb: (payload: XMLHttpRequest) => void) {
+export function interceptRequest(cb: (payload: string) => void) {
   // @ts-ignore
   function inject(cb) {
     const open = window.XMLHttpRequest.prototype.open
 
     window.XMLHttpRequest.prototype.open = function() {
       this.addEventListener('load', function() {
-        cb(this)
+        cb(this.response)
       })
       // @ts-ignore
       open.apply(this, arguments)
