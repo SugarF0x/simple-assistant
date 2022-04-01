@@ -1,1 +1,1 @@
-export { default as Travel } from './Travel.vue'
+export * from "./Travel"

@@ -1,10 +1,13 @@
 import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router"
+import pinia from "./store"
 
-const app = document.createElement("div")
-app.id = "app"
-document.querySelector("footer")?.after(app)
+const app = createApp(App).use(router).use(pinia)
+
+const appElement = document.createElement("div")
+appElement.id = "app"
+document.querySelector("footer")?.after(appElement)
 
 /**
  * I have no fucking clue as to why this happens
@@ -17,5 +20,5 @@ document.querySelector("footer")?.after(app)
  * Fuck this shit
  */
 setTimeout(() => {
-  createApp(App).use(router).mount("#app")
+  app.mount("#app")
 }, 50)
