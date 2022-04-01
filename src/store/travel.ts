@@ -1,21 +1,27 @@
 import { defineStore } from "pinia"
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 
 export const useTravelStore = defineStore(
   "travel",
   () => {
     const cooldownTimestamp = ref<null | string>(null)
 
+    const cooldownTimeLeft = computed(() => {
+      if (!cooldownTimestamp.value) return 0
+      return Math.max(new Date(cooldownTimestamp.value).valueOf() - Date.now(), 0)
+    })
+
     onMounted(() => {
       if (!cooldownTimestamp.value) return
 
       setTimeout(() => {
         cooldownTimestamp.value = null
-      }, new Date(cooldownTimestamp.value).valueOf() - Date.now())
+      }, cooldownTimeLeft.value)
     })
 
     return {
       cooldownTimestamp,
+      cooldownTimeLeft,
     }
   },
   {

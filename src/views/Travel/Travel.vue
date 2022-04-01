@@ -2,6 +2,11 @@
 import { storeToRefs } from "pinia"
 import { useTravelStore } from "@/store"
 import { useBridge } from "./useBridge"
+import { useTravelButton } from "./useTravelButton"
+import { useTravelBar } from "./useTravelBar"
+
+useTravelButton()
+useTravelBar()
 
 const travelStore = useTravelStore()
 const { cooldownTimestamp } = storeToRefs(travelStore)
@@ -16,17 +21,5 @@ const { handleBridge } = useBridge((data) => {
 </script>
 
 <template>
-  <Teleport to=".travel-content">
-    <div class="timestamp">Timestamp: {{ cooldownTimestamp || "null" }}</div>
-  </Teleport>
   <div id="travelDataBridge" @bridge="handleBridge" />
 </template>
-
-<style lang="scss">
-.timestamp {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  color: grey;
-}
-</style>
