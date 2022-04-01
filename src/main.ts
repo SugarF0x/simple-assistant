@@ -21,4 +21,4 @@ document.querySelector("footer")?.after(appElement)
  */
 setTimeout(() => {
   app.mount("#app")
-}, 50)
+}, 30)
