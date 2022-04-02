@@ -6,17 +6,17 @@ import { watch } from "vue"
 const travelStore = useTravelStore()
 const { cooldownTimeLeft } = storeToRefs(travelStore)
 
-const travelButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button")
+const stepButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button")
 
 watch(
   cooldownTimeLeft,
   () => {
-    if (!travelButton) return
+    if (!stepButton) return
     if (!cooldownTimeLeft.value) return
-    travelButton.disabled = true
+    stepButton.disabled = true
 
     setTimeout(() => {
-      travelButton.disabled = false
+      stepButton.disabled = false
     }, cooldownTimeLeft.value)
   },
   {
