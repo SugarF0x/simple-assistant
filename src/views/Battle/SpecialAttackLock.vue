@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Checkbox } from "@/components"
+
 import { useBattleStore } from "@/store"
 import { storeToRefs } from "pinia"
 import { watch } from "vue"
@@ -30,12 +32,7 @@ watch(
 </script>
 
 <template>
-  <div class="wrapper">
-    <label class="inputLabel">
-      <input v-model="isSpecialDisabled" type="checkbox" class="labelCheckbox" />
-      <span class="labelText">Disable special attack</span>
-    </label>
-  </div>
+  <Checkbox v-model="isSpecialDisabled"> Disable special attack </Checkbox>
 </template>
 
 <style lang="scss">
@@ -43,28 +40,5 @@ watch(
   opacity: 0.4;
   pointer-events: none;
   cursor: none;
-}
-</style>
-
-<style scoped lang="scss">
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.inputLabel {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-}
-
-.labelText {
-  margin-left: 0.35rem;
-}
-
-.labelCheckbox {
-  cursor: pointer;
 }
 </style>

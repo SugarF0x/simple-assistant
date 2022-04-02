@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Checkbox } from "@/components"
+
 import { onMounted, watch } from "vue"
 import { useTravelStore } from "@/store"
 import { storeToRefs } from "pinia"
@@ -32,33 +34,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="wrapper">
-    <label class="inputLabel">
-      <input v-model="shouldAutoFocus" type="checkbox" class="labelCheckbox" />
-      <span class="labelText">Autofocus step button</span>
-    </label>
-  </div>
+  <Checkbox v-model="shouldAutoFocus"> Autofocus step button </Checkbox>
 </template>
-
-<style scoped lang="scss">
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.inputLabel {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-}
-
-.labelText {
-  margin-left: 0.35rem;
-}
-
-.labelCheckbox {
-  cursor: pointer;
-}
-</style>
