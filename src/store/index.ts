@@ -5,4 +5,5 @@ export const pinia = createPinia().use(piniaPluginPersistedstate)
 
 export default pinia
 
-export { useTravelStore } from "./travel"
+export * from "./travel"
+export * from "./battle"

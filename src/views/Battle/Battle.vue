@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
-
-onMounted(() => {
-  console.log("piss")
-})
+import SpecialAttackLock from "./SpecialAttackLock.vue"
 </script>
 
 <template>
-  <div />
+  <Teleport to=".bg-white.mt-4.rounded-md.p-8.text-center">
+    <div class="controls">
+      <SpecialAttackLock />
+    </div>
+  </Teleport>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.controls {
+  margin-top: 1rem;
+}
+</style>
