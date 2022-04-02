@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Controls } from "@/components"
 
-import TravelBridge from "./TravelBridge.vue"
+import DataBridge from "./DataBridge.vue"
 import StepBar from "./StepBar.vue"
 import StepButton from "./StepButton.vue"
 import AutoFocus from "./AutoFocus.vue"
@@ -9,7 +9,7 @@ import AutoFocus from "./AutoFocus.vue"
 
 <template>
   <Controls to=".px-4.py-4.text-center">
-    <TravelBridge />
+    <DataBridge />
     <StepBar />
     <StepButton />
     <AutoFocus />
