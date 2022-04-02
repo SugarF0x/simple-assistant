@@ -1,17 +1,11 @@
 <script setup lang="ts">
+import { Controls } from "@/components"
+
 import SpecialAttackLock from "./SpecialAttackLock.vue"
 </script>
 
 <template>
-  <Teleport to=".bg-white.mt-4.rounded-md.p-8.text-center">
-    <div class="controls">
-      <SpecialAttackLock />
-    </div>
-  </Teleport>
+  <Controls to=".bg-white.mt-4.rounded-md.p-8.text-center">
+    <SpecialAttackLock />
+  </Controls>
 </template>
-
-<style lang="scss" scoped>
-.controls {
-  margin-top: 1rem;
-}
-</style>
