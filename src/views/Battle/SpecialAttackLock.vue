@@ -14,8 +14,13 @@ watch(
   (val) => {
     if (!specialButton) return
     specialButton.disabled = val
-    if (val) specialButton.classList.add("opacity-40")
-    else specialButton.classList.remove("opacity-40")
+    if (val) {
+      specialButton.classList.add("disabledSpecialAttackButton")
+      specialButton.tabIndex = -1
+    } else {
+      specialButton.classList.remove("disabledSpecialAttackButton")
+      specialButton.attributes.removeNamedItem("tabIndex")
+    }
   },
   {
     immediate: true,
@@ -29,6 +34,14 @@ watch(
     <span class="labelText">Disable special attack</span>
   </label>
 </template>
+
+<style lang="scss">
+.disabledSpecialAttackButton {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: none;
+}
+</style>
 
 <style scoped lang="scss">
 .inputLabel {
