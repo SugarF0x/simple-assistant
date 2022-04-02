@@ -6,8 +6,18 @@ import AutoFocus from "./AutoFocus.vue"
 </script>
 
 <template>
-  <TravelBridge />
-  <TravelBar />
-  <TravelButton />
-  <AutoFocus />
+  <Teleport to=".px-4.py-4.text-center">
+    <div class="controls">
+      <TravelBridge />
+      <TravelBar />
+      <TravelButton />
+      <AutoFocus />
+    </div>
+  </Teleport>
 </template>
+
+<style lang="scss">
+.controls {
+  margin-top: 1rem;
+}
+</style>
