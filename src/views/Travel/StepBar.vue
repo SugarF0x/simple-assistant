@@ -7,31 +7,31 @@ import { TransitionPresets, useTransition } from "@vueuse/core"
 const travelStore = useTravelStore()
 const { cooldownTimeLeft } = storeToRefs(travelStore)
 
-const travelBarContainer = document.querySelector<HTMLDivElement>("#travelBarContainer")
-const travelBar = document.querySelector<HTMLDivElement>("#myBar")
+const stepBarContainer = document.querySelector<HTMLDivElement>("#travelBarContainer")
+const stepBar = document.querySelector<HTMLDivElement>("#myBar")
 
 const width = ref(0)
 const output = useTransition(width, {
   duration: cooldownTimeLeft.value,
   transition: TransitionPresets.easeInOutCubic,
   onFinished() {
-    travelBarContainer!.style.display = "none"
+    stepBarContainer!.style.display = "none"
     setTimeout(() => {
-      travelBar!.style.width = "0%"
+      stepBar!.style.width = "0%"
     })
   },
 })
 
 watch(output, (val) => {
-  travelBar!.style.width = `${val.toFixed(2)}%`
+  stepBar!.style.width = `${val.toFixed(2)}%`
 })
 
 onMounted(() => {
-  if (!travelBarContainer) return
-  if (!travelBar) return
+  if (!stepBarContainer) return
+  if (!stepBar) return
   if (!cooldownTimeLeft.value) return
 
-  travelBarContainer!.style.display = "inherit"
+  stepBarContainer!.style.display = "inherit"
   width.value = 100
 })
 </script>
