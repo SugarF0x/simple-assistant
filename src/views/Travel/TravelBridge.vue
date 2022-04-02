@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { useTravelStore } from "@/store"
+import { TravelResponse, useTravelStore } from "@/store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 import { interceptRequest } from "@/utils"
 
 const travelStore = useTravelStore()
-const { cooldownTimestamp } = storeToRefs(travelStore)
+const { cooldownTimestamp, lastStepResponse } = storeToRefs(travelStore)
 
 function handleBridge({ detail }: CustomEvent) {
   const data: TravelResponse = JSON.parse(detail)
+  lastStepResponse.value = data
+
   const msWait = (data.nextwait + 1) * 1000
   cooldownTimestamp.value = new Date(Date.now() + msWait).toISOString()
   setTimeout(() => {
@@ -26,32 +28,3 @@ onMounted(() => {
 <template>
   <div id="travelDataBridge" @bridge="handleBridge" />
 </template>
-
-<script lang="ts">
-export default {}
-
-interface TravelResponse {
-  action: string
-  buttons: boolean
-  currentEXP: number
-  currentGold: number
-  exp_amount: number
-  gold_amount: number
-  guild_raid_exp: false
-  heading: string
-  level: number
-  modifiers: {
-    gold_modifiers: []
-    exp_modifiers: []
-    droprate_modifiers: []
-    stepping_modifiers: []
-  }
-  nextwait: number
-  resultText: string
-  rewardAmount: number
-  rewardType: string
-  step_type: string
-  text: string
-  userAmount: string
-}
-</script>
