@@ -29,10 +29,12 @@ watch(
 </script>
 
 <template>
-  <label class="inputLabel">
-    <input v-model="isSpecialDisabled" type="checkbox" />
-    <span class="labelText">Disable special attack</span>
-  </label>
+  <div class="wrapper">
+    <label class="inputLabel">
+      <input v-model="isSpecialDisabled" type="checkbox" class="labelCheckbox" />
+      <span class="labelText">Disable special attack</span>
+    </label>
+  </div>
 </template>
 
 <style lang="scss">
@@ -44,15 +46,22 @@ watch(
 </style>
 
 <style scoped lang="scss">
-.inputLabel {
-  cursor: pointer;
+.wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.inputLabel {
+  cursor: pointer;
   user-select: none;
 }
 
 .labelText {
   margin-left: 0.35rem;
+}
+
+.labelCheckbox {
+  cursor: pointer;
 }
 </style>
