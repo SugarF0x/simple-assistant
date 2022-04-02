@@ -28,6 +28,8 @@ onMounted(() => {
 </template>
 
 <script lang="ts">
+export default {}
+
 interface TravelResponse {
   action: string
   buttons: boolean

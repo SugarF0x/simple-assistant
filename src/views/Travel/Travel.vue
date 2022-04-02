@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useTravelButton } from "./useTravelButton"
-import { useTravelBar } from "./useTravelBar"
 import TravelBridge from "./TravelBridge.vue"
+import TravelBar from "./TravelBar.vue"
+
+import { useTravelButton } from "./useTravelButton"
 
 useTravelButton()
-useTravelBar()
 </script>
 
 <template>
   <TravelBridge />
+  <TravelBar />
 </template>
