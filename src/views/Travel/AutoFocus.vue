@@ -17,7 +17,7 @@ watch(
 
     setTimeout(() => {
       travelButton.focus()
-    }, val + 30)
+    }, val)
   },
   {
     immediate: true,
