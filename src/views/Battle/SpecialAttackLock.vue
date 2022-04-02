@@ -9,6 +9,7 @@ const { isSpecialDisabled } = storeToRefs(battleStore)
 const specialButton = document.querySelectorAll<HTMLButtonElement>(
   ".bg-white.mt-4.rounded-md.p-8.text-center button"
 )[1]
+
 watch(
   isSpecialDisabled,
   (val) => {
@@ -19,7 +20,7 @@ watch(
       specialButton.tabIndex = -1
     } else {
       specialButton.classList.remove("disabledSpecialAttackButton")
-      specialButton.attributes.removeNamedItem("tabIndex")
+      specialButton.removeAttribute("tabIndex")
     }
   },
   {
@@ -55,6 +56,8 @@ watch(
 .inputLabel {
   cursor: pointer;
   user-select: none;
+  display: flex;
+  align-items: center;
 }
 
 .labelText {
