@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - 'package.json'
+      - 'CHANGELOG.md'
+      - '.github/'
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          git-message: 'chore(release): {version}'
+          release-count: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - run: npm i
+      - run: npm run build
+      - run: npm run generate
+      - run: npm run zip
+
+# add some code to push dist.zip to releases
