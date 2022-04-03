@@ -9,5 +9,6 @@ import { Header } from "@/views"
 
 <style>
 /* this is here for css to generate even if empty */
-.placeholder {}
+.placeholder {
+}
 </style>
