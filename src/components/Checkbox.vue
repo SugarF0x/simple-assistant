@@ -18,12 +18,16 @@ defineEmits(["update:modelValue"])
         <slot />
       </span>
     </label>
+    <span class="subtitle">
+      <slot name="subtitle" />
+    </span>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
 }
@@ -41,5 +45,11 @@ defineEmits(["update:modelValue"])
 
 .labelCheckbox {
   cursor: pointer;
+}
+
+.subtitle {
+  font-size: 0.8em;
+  font-style: italic;
+  opacity: 0.5;
 }
 </style>

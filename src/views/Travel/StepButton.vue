@@ -63,5 +63,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <Checkbox v-model="shouldPersistCooldown"> Preserve step cooldown </Checkbox>
+  <Checkbox v-model="shouldPersistCooldown">
+    <template #default> Preserve step cooldown </template>
+    <template #subtitle> Hold your horses no more </template>
+  </Checkbox>
 </template>

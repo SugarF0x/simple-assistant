@@ -32,7 +32,10 @@ watch(
 </script>
 
 <template>
-  <Checkbox v-model="isSpecialDisabled"> Disable special attack </Checkbox>
+  <Checkbox v-model="isSpecialDisabled">
+    <template #default> Disable special attack </template>
+    <template #subtitle> Ever missclicked on special attack and wasted your energy? Well I did </template>
+  </Checkbox>
 </template>
 
 <style lang="scss">
