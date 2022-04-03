@@ -2,7 +2,7 @@
 import { Checkbox } from "@/components"
 
 import { onMounted, watch } from "vue"
-import { useTravelStore } from "@/store"
+import { useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
 
 const travelStore = useTravelStore()

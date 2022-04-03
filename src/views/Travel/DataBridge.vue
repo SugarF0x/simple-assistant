@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TravelResponse, useTravelStore } from "@/store"
+import { TravelResponse, useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 import { interceptRequest } from "@/utils"

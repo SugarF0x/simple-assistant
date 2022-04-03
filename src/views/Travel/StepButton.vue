@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components"
 
-import { useTravelStore } from "@/store"
+import { useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted, ref, watch } from "vue"
 import { TransitionPresets, useTransition } from "@vueuse/core"

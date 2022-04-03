@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components"
 
-import { useBattleStore } from "@/store"
+import { useBattleStore } from "./store"
 import { storeToRefs } from "pinia"
 import { watch } from "vue"
 
