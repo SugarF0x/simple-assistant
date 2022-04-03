@@ -1,15 +1,24 @@
 export function interceptRequest(cb: (payload: string) => void) {
-  // @ts-ignore
-  function inject(cb) {
+  function inject(cb: (arg: XMLHttpRequest["response"]) => void) {
     const open = window.XMLHttpRequest.prototype.open
 
-    window.XMLHttpRequest.prototype.open = function () {
+    type Signatures = {
+      (method: string, url: string | URL): void
+      (
+        method: string,
+        url: string | URL,
+        async: boolean,
+        username?: string | null | undefined,
+        password?: string | null | undefined
+      ): void
+    }
+
+    window.XMLHttpRequest.prototype.open = function (this: XMLHttpRequest, ...args) {
       this.addEventListener("load", function () {
         cb(this.response)
       })
-      // @ts-ignore
-      open.apply(this, arguments)
-    }
+      open.apply(this, args as [string, string | URL, boolean, string | null | undefined, string | null | undefined])
+    } as Signatures
   }
 
   const actualCode = "(" + inject + ")(" + cb + ")"

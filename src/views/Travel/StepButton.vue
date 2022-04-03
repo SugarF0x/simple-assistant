@@ -40,15 +40,19 @@ const output = useTransition(width, {
   duration: cooldownTimeLeft.value,
   transition: TransitionPresets.easeInOutCubic,
   onFinished() {
-    stepBarContainer!.style.display = "none"
+    if (!stepBarContainer) return
+    if (!stepBar) return
+
+    stepBarContainer.style.display = "none"
     setTimeout(() => {
-      stepBar!.style.width = "0%"
+      stepBar.style.width = "0%"
     })
   },
 })
 
 watch(output, (val) => {
-  stepBar!.style.width = `${val.toFixed(2)}%`
+  if (!stepBar) return
+  stepBar.style.width = `${val.toFixed(2)}%`
 })
 
 onMounted(() => {
@@ -57,7 +61,7 @@ onMounted(() => {
   if (!stepBar) return
   if (!cooldownTimeLeft.value) return
 
-  stepBarContainer!.style.display = "inherit"
+  stepBarContainer.style.display = "inherit"
   width.value = 100
 })
 </script>
