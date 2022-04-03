@@ -6,14 +6,14 @@ import { storeToRefs } from "pinia"
 import { watch } from "vue"
 
 const battleStore = useBattleStore()
-const { isSpecialDisabled } = storeToRefs(battleStore)
+const { shouldDisableSpecial } = storeToRefs(battleStore)
 
 const specialButton = document.querySelectorAll<HTMLButtonElement>(
   ".bg-white.mt-4.rounded-md.p-8.text-center button"
 )[1]
 
 watch(
-  isSpecialDisabled,
+  shouldDisableSpecial,
   (val) => {
     if (!specialButton) return
     specialButton.disabled = val
@@ -32,9 +32,9 @@ watch(
 </script>
 
 <template>
-  <Checkbox v-model="isSpecialDisabled">
+  <Checkbox v-model="shouldDisableSpecial">
     <template #default> Disable special attack </template>
-    <template #subtitle> Ever missclicked on special attack and wasted your energy? Well I did </template>
+    <template #subtitle> Ever miss-clicked on special attack and wasted your energy? Well I did </template>
   </Checkbox>
 </template>
 
