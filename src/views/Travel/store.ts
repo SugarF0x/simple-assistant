@@ -6,8 +6,9 @@ export const useTravelStore = defineStore(
   () => {
     const lastStepResponse = ref<null | TravelResponse>(null)
     const cooldownTimestamp = ref<null | string>(null)
-    const shouldAutoFocus = ref(false)
+    const shouldAutoFocusStep = ref(false)
     const shouldPersistCooldown = ref(false)
+    const shouldAutoFocusEncounters = ref(false)
 
     const cooldownTimeLeft = computed(() => {
       if (!cooldownTimestamp.value) return 0
@@ -26,8 +27,9 @@ export const useTravelStore = defineStore(
       cooldownTimestamp,
       cooldownTimeLeft,
       lastStepResponse,
-      shouldAutoFocus,
+      shouldAutoFocusStep,
       shouldPersistCooldown,
+      shouldAutoFocusEncounters,
     }
   },
   {
@@ -44,6 +46,8 @@ export const useTravelStore = defineStore(
     },
   }
 )
+
+export type StepType = "text" | "material" | "npc"
 
 export interface TravelResponse {
   action: string
@@ -65,7 +69,7 @@ export interface TravelResponse {
   resultText: string
   rewardAmount: number
   rewardType: string
-  step_type: string
+  step_type: StepType
   text: string
   userAmount: string
 }
