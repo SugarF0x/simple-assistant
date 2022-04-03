@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { Checkbox } from "@/components"
+
 import { useTravelStore } from "@/store"
 import { storeToRefs } from "pinia"
 import { onMounted, ref, watch } from "vue"
 import { TransitionPresets, useTransition } from "@vueuse/core"
 
 const travelStore = useTravelStore()
-const { cooldownTimeLeft } = storeToRefs(travelStore)
+const { cooldownTimeLeft, shouldPersistCooldown } = storeToRefs(travelStore)
 
 /** Step Button controls */
 
@@ -14,6 +16,7 @@ const stepButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button"
 watch(
   cooldownTimeLeft,
   () => {
+    if (!shouldPersistCooldown.value) return
     if (!stepButton) return
     if (!cooldownTimeLeft.value) return
     stepButton.disabled = true
@@ -49,6 +52,7 @@ watch(output, (val) => {
 })
 
 onMounted(() => {
+  if (!shouldPersistCooldown.value) return
   if (!stepBarContainer) return
   if (!stepBar) return
   if (!cooldownTimeLeft.value) return
@@ -59,5 +63,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <slot />
+  <Checkbox v-model="shouldPersistCooldown"> Preserve step cooldown </Checkbox>
 </template>

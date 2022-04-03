@@ -7,6 +7,7 @@ export const useTravelStore = defineStore(
     const lastStepResponse = ref<null | TravelResponse>(null)
     const cooldownTimestamp = ref<null | string>(null)
     const shouldAutoFocus = ref(false)
+    const shouldPersistCooldown = ref(false)
 
     const cooldownTimeLeft = computed(() => {
       if (!cooldownTimestamp.value) return 0
@@ -26,6 +27,7 @@ export const useTravelStore = defineStore(
       cooldownTimeLeft,
       lastStepResponse,
       shouldAutoFocus,
+      shouldPersistCooldown,
     }
   },
   {
