@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useTravelStore } from "@/store"
 import { storeToRefs } from "pinia"
-import { watch } from "vue"
+import { onMounted, ref, watch } from "vue"
+import { TransitionPresets, useTransition } from "@vueuse/core"
 
 const travelStore = useTravelStore()
 const { cooldownTimeLeft } = storeToRefs(travelStore)
+
+/** Step Button controls */
 
 const stepButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button")
 
@@ -23,6 +26,36 @@ watch(
     immediate: true,
   }
 )
+
+/** Step Bar controls */
+
+const stepBarContainer = document.querySelector<HTMLDivElement>("#travelBarContainer")
+const stepBar = document.querySelector<HTMLDivElement>("#myBar")
+
+const width = ref(0)
+const output = useTransition(width, {
+  duration: cooldownTimeLeft.value,
+  transition: TransitionPresets.easeInOutCubic,
+  onFinished() {
+    stepBarContainer!.style.display = "none"
+    setTimeout(() => {
+      stepBar!.style.width = "0%"
+    })
+  },
+})
+
+watch(output, (val) => {
+  stepBar!.style.width = `${val.toFixed(2)}%`
+})
+
+onMounted(() => {
+  if (!stepBarContainer) return
+  if (!stepBar) return
+  if (!cooldownTimeLeft.value) return
+
+  stepBarContainer!.style.display = "inherit"
+  width.value = 100
+})
 </script>
 
 <template>
