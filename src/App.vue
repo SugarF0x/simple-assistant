@@ -1,4 +1,9 @@
+<script setup lang="ts">
+import { Header } from "@/views"
+</script>
+
 <template>
+  <Header />
   <router-view />
 </template>
 

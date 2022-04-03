@@ -11,7 +11,7 @@ defineProps({
 
 <template>
   <Teleport :to="to">
-    <div class="controls">
+    <div class="controls" :class="$attrs.class" :style="$attrs.style">
       <slot />
     </div>
   </Teleport>
