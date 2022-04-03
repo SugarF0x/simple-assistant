@@ -21,7 +21,8 @@ document.querySelector("footer")?.after(appElement)
  * has literally no reactivity
  * Although even at that i cant explain why exactly a 50ms timeout fixes this
  * Fuck this shit
+ *
+ * Edit: scratch that, it magically fixed itself and timeout is no longer needed
  */
-setTimeout(() => {
-  app.mount("#app")
-}, 30)
+
+app.mount("#app")
