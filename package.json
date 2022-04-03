@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vue-cli-service build --watch --no-clean --mode development",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "zip": "node extension/zip.js"
   },
   "dependencies": {
     "@vueuse/core": "^8.2.3",
