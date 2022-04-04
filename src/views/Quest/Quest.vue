@@ -1,7 +1,20 @@
 <script setup lang="ts">
+import AutoFocus from "./AutoFocus.vue"
+
 import { Controls } from "@/components"
+import { onBeforeMount } from "vue"
+import { wrapElement } from "@/utils"
+
+onBeforeMount(() => {
+  const performButton = document.querySelector<HTMLButtonElement>("#questButton")
+  if (!performButton) return
+
+  wrapElement(performButton, "questControls")
+})
 </script>
 
 <template>
-  <Controls to=".py-6.max-w-7xl.mx-auto.px-4.relative"> cock and ball </Controls>
+  <Controls to="#questControls">
+    <AutoFocus />
+  </Controls>
 </template>
