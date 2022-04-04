@@ -4,6 +4,7 @@ import { Checkbox } from "@/components"
 import { onMounted, watch } from "vue"
 import { useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
+import { wrapAnchorWithButton } from "@/utils"
 
 const travelStore = useTravelStore()
 const { cooldownTimeLeft, shouldAutoFocusStep, shouldAutoFocusEncounters, lastStepResponse } = storeToRefs(travelStore)
@@ -20,13 +21,7 @@ watch(lastStepResponse, async (response) => {
       const attackAnchor = document.querySelector<HTMLAnchorElement>(".travel-text a")
       if (!attackAnchor) return
 
-      const substituteButton = document.createElement("button")
-      substituteButton.setAttribute("class", attackAnchor.getAttribute("class") || "")
-      attackAnchor.removeAttribute("class")
-      substituteButton.innerText = attackAnchor.innerText
-      attackAnchor.innerText = ""
-      attackAnchor.appendChild(substituteButton)
-      substituteButton.focus()
+      wrapAnchorWithButton(attackAnchor).focus()
     }
 
     if (response.step_type === "material") {

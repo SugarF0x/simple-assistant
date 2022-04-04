@@ -5,9 +5,11 @@ export const useBattleStore = defineStore(
   "battle",
   () => {
     const shouldDisableSpecial = ref(false)
+    const shouldAutoFocusAttack = ref(false)
 
     return {
       shouldDisableSpecial,
+      shouldAutoFocusAttack,
     }
   },
   {
