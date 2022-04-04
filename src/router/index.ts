@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import { Arena, Battle, Gather, Travel } from "@/views"
+import { Arena, Battle, BattleMenu, Gather, Travel } from "@/views"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,9 +18,14 @@ const routes: Array<RouteRecordRaw> = [
     component: Gather,
   },
   {
-    path: "/battle/menu",
+    path: "/battlearena",
     name: "arena",
     component: Arena,
+  },
+  {
+    path: "/battle/menu",
+    name: "battle menu",
+    component: BattleMenu,
   },
 ]
 
