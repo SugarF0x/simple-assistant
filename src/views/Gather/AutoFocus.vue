@@ -3,6 +3,7 @@ import { Checkbox } from "@/components"
 import { useGatherStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
+import { focusOnButtonEnable } from "@/utils"
 
 const gatherStore = useGatherStore()
 const { shouldAutoFocusAction } = storeToRefs(gatherStore)
@@ -13,19 +14,7 @@ onMounted(() => {
   const actionButton = document.querySelectorAll<HTMLButtonElement>(".py-6.max-w-7xl.mx-auto.px-4.relative button")[1]
   if (!actionButton) return
 
-  actionButton.focus()
-
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "attributes" && mutation.attributeName === "disabled") {
-        if (!actionButton.attributes.getNamedItem("disabled")) actionButton.focus()
-      }
-    })
-  })
-
-  observer.observe(actionButton, {
-    attributes: true,
-  })
+  focusOnButtonEnable(actionButton)
 })
 </script>
 

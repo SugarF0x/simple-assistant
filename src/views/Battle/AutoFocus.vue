@@ -3,7 +3,7 @@ import { Checkbox } from "@/components"
 import { useBattleStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
-import { wrapAnchorWithButton } from "@/utils"
+import { focusOnButtonEnable, wrapAnchorWithButton } from "@/utils"
 
 const isSpan = (node: Node): node is HTMLSpanElement => "innerText" in node
 
@@ -42,19 +42,7 @@ onMounted(() => {
   const attackButton = document.querySelector<HTMLButtonElement>(".bg-white.mt-4.rounded-md.p-8.text-center button")
   if (!attackButton) return
 
-  attackButton.focus()
-
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "attributes" && mutation.attributeName === "disabled") {
-        if (!attackButton.attributes.getNamedItem("disabled")) attackButton.focus()
-      }
-    })
-  })
-
-  observer.observe(attackButton, {
-    attributes: true,
-  })
+  focusOnButtonEnable(attackButton)
 })
 </script>
 
