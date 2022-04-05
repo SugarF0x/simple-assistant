@@ -1,4 +1,5 @@
 const { defineConfig } = require("@vue/cli-service")
+const ZipPlugin = require("zip-webpack-plugin")
 
 const VERSION = require("./package.json").version
 const REVISION = require("child_process").execSync("git rev-list --count HEAD").toString().trim()
@@ -20,6 +21,14 @@ module.exports = defineConfig({
     config.plugins.delete("html")
     config.plugins.delete("preload")
     config.plugins.delete("prefetch")
+
+    if (!isDev)
+      config.plugin("zip").use(ZipPlugin, [
+        {
+          path: "../",
+          filename: "dist.zip",
+        },
+      ])
 
     config.plugin("copy").tap((args) => {
       args[0].patterns.push({
