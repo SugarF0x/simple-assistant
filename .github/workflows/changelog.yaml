@@ -1,4 +1,4 @@
-name: ci
+name: changelog
 
 on:
   push:
@@ -6,10 +6,10 @@ on:
     paths-ignore:
       - 'package.json'
       - 'CHANGELOG.md'
-      - '.github/'
 
 jobs:
   build:
+    name: "Generate changelog & build dist"
     runs-on: self-hosted
 
     strategy:
@@ -21,6 +21,8 @@ jobs:
 
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           git-message: 'chore(release): {version}'
           release-count: 0
@@ -33,7 +35,3 @@ jobs:
 
       - run: npm i
       - run: npm run build
-      - run: npm run generate
-      - run: npm run zip
-
-# add some code to push dist.zip to releases
