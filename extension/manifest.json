@@ -7,7 +7,6 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.google.com/*",
         "*://*.simple-mmo.com/*"
       ],
       "js": ["js/app.js"],
