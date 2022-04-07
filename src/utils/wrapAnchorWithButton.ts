@@ -2,8 +2,10 @@ export function wrapAnchorWithButton(anchor: HTMLAnchorElement): HTMLButtonEleme
   const substituteButton = document.createElement("button")
   substituteButton.setAttribute("class", anchor.getAttribute("class") || "")
   anchor.removeAttribute("class")
-  substituteButton.innerText = anchor.innerText
-  anchor.innerText = ""
+  const html = anchor.innerHTML
+  anchor.innerHTML = ""
+  anchor.tabIndex = -1
+  substituteButton.innerHTML = html
   anchor.appendChild(substituteButton)
   return substituteButton
 }
