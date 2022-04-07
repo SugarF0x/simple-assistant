@@ -51,5 +51,6 @@ defineEmits(["update:modelValue"])
   font-size: 0.8em;
   font-style: italic;
   opacity: 0.5;
+  text-align: center;
 }
 </style>
