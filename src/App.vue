@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Header } from "@/views"
+import { Header, FTUE } from "@/views"
 </script>
 
 <template>
   <Header />
+  <FTUE />
   <router-view />
 </template>
 
