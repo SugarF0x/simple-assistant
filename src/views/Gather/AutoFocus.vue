@@ -21,6 +21,6 @@ onMounted(() => {
 <template>
   <Checkbox v-model="shouldAutoFocusAction">
     <template #default> Autofocus action button* </template>
-    <template #subtitle> Just hit space! </template>
+    <template #subtitle> Just hit space/enter! </template>
   </Checkbox>
 </template>
