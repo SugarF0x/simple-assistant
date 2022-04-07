@@ -1,8 +1,14 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import { Arena, Battle, BattleMenu, Gather, Quest, Travel } from "@/views"
+import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel } from "@/views"
 import NotFound from "./NotFound.vue"
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/",
+    alias: "/home",
+    name: "home",
+    component: Home,
+  },
   {
     path: "/travel",
     name: "travel",
