@@ -17,7 +17,7 @@ const { isDismissed } = storeToRefs(ftueStore)
           <p>Looks like this is your first time using Simple Assistant, so here you have a quick rundown:</p>
           <ul>
             <li>All features are optional and are disabled by default</li>
-            <li>Enabling certain features might require a page refresh</li>
+            <li>Enabling certain features might require a page refresh (marked by *)</li>
             <li>
               The plugin was developed using light theme - some features may not be working as intended in dark theme :(
             </li>
