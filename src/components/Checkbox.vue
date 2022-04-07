@@ -7,11 +7,12 @@ defineEmits(["update:modelValue"])
 
 <template>
   <div class="wrapper">
-    <label class="inputLabel">
+    <label class="inputLabel" :class="$attrs.disabled && 'disabledLabel'">
       <input
         type="checkbox"
         class="labelCheckbox"
         :checked="modelValue"
+        v-bind="$attrs"
         @input="$emit('update:modelValue', $event.target.checked)"
       />
       <span class="labelText">
@@ -52,5 +53,10 @@ defineEmits(["update:modelValue"])
   font-style: italic;
   opacity: 0.5;
   text-align: center;
+}
+
+.disabledLabel {
+  cursor: unset;
+  opacity: 0.4;
 }
 </style>
