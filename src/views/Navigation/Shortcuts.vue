@@ -100,6 +100,7 @@ function getSetterButtonText(url: string): string {
   <template v-if="shouldUseShortcuts">
     <Teleport v-for="url in urls" :key="url" :to="`a[href='${url}'] button`">
       <SButton
+        v-if="shouldEditShortcuts || url in urlToKeyMap"
         class="keyInput"
         :class="!shouldEditShortcuts && 'noEvents'"
         :disabled="!shouldEditShortcuts"
