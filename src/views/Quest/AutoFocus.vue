@@ -2,43 +2,51 @@
 import { Checkbox } from "@/components"
 import { useQuestStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onMounted } from "vue"
+import { onMounted, watch } from "vue"
 import { focusOnButtonEnable } from "@/utils"
 
 const questStore = useQuestStore()
 const { shouldAutoFocusPerform } = storeToRefs(questStore)
 
+const performButton = document.querySelector<HTMLButtonElement>("#questButton")
+const observer = performButton && focusOnButtonEnable(performButton)
+
 onMounted(() => {
-  if (!shouldAutoFocusPerform.value) return
-
-  const performButton = document.querySelector<HTMLButtonElement>("#questButton")
-  if (!performButton) return
-  performButton.setAttribute("wire:key", "dirty_socks")
-
-  const action = performButton.getAttribute("x-on:mouseup")
-  if (!action) return
+  if (!observer) return
 
   /** Well this was a weird one... */
+  const action = performButton.getAttribute("x-on:mouseup")
   performButton.removeAttribute("x-on:mouseup")
   performButton.setAttribute(
     "x-on:click",
     `
-    if (!window.firstClicked) {
-      window.firstClicked = true;
-    } else {
-      window.firstClicked = false;
-      ${action}
-    }
-  `
+      if (!window.firstClicked) {
+        window.firstClicked = true;
+      } else {
+        window.firstClicked = false;
+        ${action}
+      }
+    `
   )
-
-  focusOnButtonEnable(performButton)
 })
+
+watch(
+  shouldAutoFocusPerform,
+  (val) => {
+    if (!observer) return
+
+    if (val) observer.connect()
+    else observer.disconnect()
+  },
+  {
+    immediate: true,
+  }
+)
 </script>
 
 <template>
   <Checkbox v-model="shouldAutoFocusPerform">
-    <template #default> Autofocus perform button* </template>
+    <template #default> Autofocus perform button </template>
     <template #subtitle> Just hit space/enter! </template>
   </Checkbox>
 </template>

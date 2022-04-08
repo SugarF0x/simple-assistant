@@ -2,7 +2,7 @@
 import { Controls } from "@/components"
 
 import SpecialAttackLock from "./SpecialAttackLock.vue"
-import AutoFocus from "./AutoFocus.vue"
+import { AutoFocus } from "./AutoFocus"
 </script>
 
 <template>

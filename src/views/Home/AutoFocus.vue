@@ -2,19 +2,26 @@
 import { Checkbox } from "@/components"
 import { useHomeStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onMounted } from "vue"
+import { watch } from "vue"
 import { wrapAnchorWithButton } from "@/utils"
 
 const homeStore = useHomeStore()
 const { shouldAutoFocusTravel } = storeToRefs(homeStore)
 
-onMounted(() => {
-  const anchor = document.querySelector<HTMLAnchorElement>("main .backdrop-blur-md a")
-  if (!anchor) return
-  const button = wrapAnchorWithButton(anchor)
+const anchor = document.querySelector<HTMLAnchorElement>("main .backdrop-blur-md a")
+const button = anchor && wrapAnchorWithButton(anchor)
 
-  if (shouldAutoFocusTravel.value) button.focus()
-})
+watch(
+  shouldAutoFocusTravel,
+  (val) => {
+    if (!button) return
+    if (!val) return
+    button.focus()
+  },
+  {
+    immediate: true,
+  }
+)
 </script>
 
 <template>
