@@ -1,12 +1,7 @@
 const { defineConfig } = require("@vue/cli-service")
 const ZipPlugin = require("zip-webpack-plugin")
 
-const VERSION = require("./package.json").version
-const REVISION = require("child_process").execSync("git rev-list --count HEAD").toString().trim()
-
 const isDev = process.env.NODE_ENV !== "production"
-
-const version = isDev ? `${VERSION}.${REVISION}` : VERSION
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -34,6 +29,10 @@ module.exports = defineConfig({
       args[0].patterns.push({
         from: "extension/manifest.json",
         transform(content) {
+          const VERSION = require("./package.json").version
+          const REVISION = require("child_process").execSync("git rev-list --count HEAD").toString().trim()
+          const version = isDev ? `${VERSION}.${REVISION}` : VERSION
+
           let manifest = JSON.parse(content.toString())
           manifest.version = version
           manifest.version_name = version
