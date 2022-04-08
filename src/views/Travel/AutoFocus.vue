@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components"
 
-import { onMounted, watch } from "vue"
+import { watch } from "vue"
 import { useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
-import { wrapAnchorWithButton } from "@/utils"
+import { focusOnButtonEnable, wrapAnchorWithButton } from "@/utils"
 
 const travelStore = useTravelStore()
-const { cooldownTimeLeft, shouldAutoFocusStep, shouldAutoFocusEncounters, lastStepResponse } = storeToRefs(travelStore)
+const { shouldAutoFocusStep, shouldAutoFocusEncounters, lastStepResponse } = storeToRefs(travelStore)
 
 /** Encounter auto focus */
 
@@ -35,28 +35,20 @@ watch(lastStepResponse, async (response) => {
 /** Travel button auto focus */
 
 const travelButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button")
+const observer = travelButton && focusOnButtonEnable(travelButton)
 
 watch(
-  cooldownTimeLeft,
+  shouldAutoFocusStep,
   (val) => {
-    if (!shouldAutoFocusStep.value) return
-    if (!val) return
-    if (!travelButton) return
+    if (!observer) return
 
-    setTimeout(() => {
-      travelButton.focus()
-    }, val)
+    if (val) observer.connect()
+    else observer.disconnect()
   },
   {
     immediate: true,
   }
 )
-
-onMounted(() => {
-  if (!shouldAutoFocusStep.value) return
-  if (!travelButton) return
-  travelButton.focus()
-})
 </script>
 
 <template>

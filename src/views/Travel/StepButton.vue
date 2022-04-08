@@ -15,15 +15,15 @@ const stepButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button"
 
 watch(
   cooldownTimeLeft,
-  () => {
+  (val) => {
     if (!shouldPersistCooldown.value) return
     if (!stepButton) return
-    if (!cooldownTimeLeft.value) return
+    if (!val) return
     stepButton.disabled = true
 
     setTimeout(() => {
       stepButton.disabled = false
-    }, cooldownTimeLeft.value)
+    }, val)
   },
   {
     immediate: true,
