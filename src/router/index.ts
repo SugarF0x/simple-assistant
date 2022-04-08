@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/npcs/attack/:id",
-    // TODO: alias: "/worldboss/attack/:id",
+    alias: "/worldboss/attack/:id",
     name: "battle",
     component: Battle,
   },
