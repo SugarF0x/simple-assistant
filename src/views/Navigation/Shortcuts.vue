@@ -24,6 +24,7 @@ onMounted(() => {
 
 function keyBindListener(e: KeyboardEvent) {
   if (tabIdSelected.value) return
+  if (!e.shiftKey) return
 
   if (e.code in keyToUrlMap.value)
     document.querySelector<HTMLButtonElement>(`a[href='${keyToUrlMap.value[e.code]}'] button`)?.focus()
@@ -43,6 +44,7 @@ watch(
 function keyEditListener(e: KeyboardEvent) {
   if (!tabIdSelected.value) return
   if (e.code === "Space") return
+  if (e.code.toLowerCase().includes("shift")) return
 
   if (e.code === "Backspace") {
     delete urlToKeyMap.value[tabIdSelected.value]
@@ -82,7 +84,11 @@ function getSetterButtonText(url: string): string {
 <template>
   <Checkbox v-model="shouldUseShortcuts">
     <template #default> Use shortcuts </template>
-    <template #subtitle> Bind keys to tabs </template>
+    <template #subtitle>
+      Bind keys to tabs
+      <br />
+      Use Shift + Key to execute
+    </template>
   </Checkbox>
   <Checkbox
     :model-value="shouldUseShortcuts ? shouldEditShortcuts : false"
