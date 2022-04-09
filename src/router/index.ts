@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel } from "@/views"
+import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel, DailyReward } from "@/views"
 import NotFound from "./NotFound.vue"
 
 const routes: Array<RouteRecordRaw> = [
@@ -39,6 +39,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/quests/view/:id",
     name: "quest",
     component: Quest,
+  },
+  {
+    path: "/dailyreward",
+    name: "dailyReward",
+    component: DailyReward,
   },
   {
     path: "/:unknown(.*)",

@@ -1,11 +1,23 @@
+<script setup lang="ts">
+import { Daily } from "./Items"
+
+import { useNotificationStore } from "./store"
+import { storeToRefs } from "pinia"
+
+const notificationStore = useNotificationStore()
+const { shouldShowNotification } = storeToRefs(notificationStore)
+</script>
+
 <template>
   <Teleport to="main">
-    <div id="notificationSlot" class="notificationWrapper"></div>
+    <div class="notificationWrapper">
+      <Daily v-if="shouldShowNotification" />
+    </div>
   </Teleport>
 </template>
 
 <style lang="scss" scoped>
-.notificationSlot {
+.notificationWrapper {
   position: fixed;
   top: 2rem;
   right: 2rem;
@@ -15,5 +27,11 @@
   gap: 8px;
 
   z-index: 1000;
+}
+
+.item {
+  & + & {
+    margin-top: 1rem;
+  }
 }
 </style>
