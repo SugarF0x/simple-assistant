@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Checkbox, SButton } from "@/components"
+import { Checkbox, Button } from "@/components"
 import { useNavigationStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted, reactive, ref, watch } from "vue"
@@ -105,7 +105,7 @@ function getSetterButtonText(url: string): string {
 
   <template v-if="shouldUseShortcuts">
     <Teleport v-for="url in urls" :key="url" :to="`a[href='${url}'] button`">
-      <SButton
+      <Button
         v-if="shouldEditShortcuts || url in urlToKeyMap"
         class="keyInput"
         :class="!shouldEditShortcuts && 'noEvents'"
@@ -113,7 +113,7 @@ function getSetterButtonText(url: string): string {
         @click.prevent="handleSetterButtonClick(url)"
       >
         {{ getSetterButtonText(url) }}
-      </SButton>
+      </Button>
     </Teleport>
   </template>
 </template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { SButton } from "@/components"
-
+import { Button } from "@/components"
 import { useFtueStore } from "./store"
 import { storeToRefs } from "pinia"
 
@@ -35,7 +34,7 @@ const { isDismissed } = storeToRefs(ftueStore)
           <p class="condition">By clicking "DISMISS" button below you consent to the implied risks</p>
         </div>
         <div class="actions">
-          <SButton autofocus @click="isDismissed = true">DISMISS</SButton>
+          <Button autofocus @click="isDismissed = true">DISMISS</Button>
         </div>
       </div>
     </div>
