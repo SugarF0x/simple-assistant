@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { Controls } from "@/components"
+import { Controls, Subtitle } from "@/components"
+import { useFtueStore } from "@/views/FTUE/store"
+import { storeToRefs } from "pinia"
+
+const ftueStore = useFtueStore()
+const { isDismissed } = storeToRefs(ftueStore)
 
 const version = chrome.runtime.getManifest().version
 </script>
@@ -17,5 +22,8 @@ const version = chrome.runtime.getManifest().version
         v{{ version }}
       </a>
     </h2>
+    <Subtitle>
+      <button @click="isDismissed = false">&lt; show disclaimer &gt;</button>
+    </Subtitle>
   </Controls>
 </template>

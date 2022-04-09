@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Subtitle from "./Subtitle.vue"
+
 import { defineProps, defineEmits } from "vue"
 
 defineProps(["modelValue"])
@@ -19,9 +21,9 @@ defineEmits(["update:modelValue"])
         <slot />
       </span>
     </label>
-    <span class="subtitle">
+    <Subtitle>
       <slot name="subtitle" />
-    </span>
+    </Subtitle>
   </div>
 </template>
 
@@ -46,13 +48,6 @@ defineEmits(["update:modelValue"])
 
 .labelCheckbox {
   cursor: pointer;
-}
-
-.subtitle {
-  font-size: 0.8em;
-  font-style: italic;
-  opacity: 0.5;
-  text-align: center;
 }
 
 .disabledLabel {
