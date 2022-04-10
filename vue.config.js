@@ -37,7 +37,10 @@ module.exports = defineConfig({
           manifest.version = version
           manifest.version_name = version
 
-          if (isDev) manifest.background = { scripts: ["hot-reload.js"] }
+          if (isDev) {
+            manifest.background = { scripts: ["hot-reload.js"] }
+            manifest.permissions = [...(manifest.permissions || []), "tabs"]
+          }
 
           return Buffer.from(JSON.stringify(manifest, null, 2))
         },
