@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { Controls, Checkbox } from "@/components"
-import { useNotificationStore } from "@/views/Notification/store"
+import { useSafeModeStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 
-const notificationStore = useNotificationStore()
-const { shouldRemindSafeMode, lastSafeModeActivationTime } = storeToRefs(notificationStore)
+const safeModeStore = useSafeModeStore()
+const { shouldRemindSafeMode, lastSafeModeActivationTime } = storeToRefs(safeModeStore)
 
 onMounted(() => {
-  console.log(Object.assign({}, notificationStore))
-
   const enableButton = document.querySelector<HTMLButtonElement>(
     ".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.mt-4 button"
   )

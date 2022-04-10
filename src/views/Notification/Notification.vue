@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { Daily, SafeMode } from "./Items"
-
-import { useNotificationStore } from "./store"
-import { storeToRefs } from "pinia"
-
-const notificationStore = useNotificationStore()
-const { isDailyNotificationRequired, isSafeModeNotificationRequired } = storeToRefs(notificationStore)
 </script>
 
 <template>
   <Teleport to="main">
     <div class="notificationWrapper">
-      <Daily v-if="isDailyNotificationRequired" />
-      <SafeMode v-if="isSafeModeNotificationRequired" />
+      <Daily />
+      <SafeMode />
     </div>
   </Teleport>
 </template>

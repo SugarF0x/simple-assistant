@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Controls, Checkbox } from "@/components"
-import { useNotificationStore } from "@/views/Notification/store"
+import { useMaholDailyStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 
-const notificationStore = useNotificationStore()
+const notificationStore = useMaholDailyStore()
 const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
 
 onMounted(() => {
