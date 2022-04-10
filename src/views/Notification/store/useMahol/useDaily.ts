@@ -1,6 +1,6 @@
 import { computed, ref } from "vue"
+import { MS_IN_DAY } from "@/consts"
 
-const MS_IN_DAY = 1000 * 60 * 60 * 24
 const MIDDAY_OFFSET = MS_IN_DAY / 2
 
 export function useDaily() {
@@ -9,21 +9,22 @@ export function useDaily() {
   const lastRewardClaimTimestamp = ref<string | null>(null)
 
   const isRewardReady = computed(() => {
-    if (!lastRewardClaimTimestamp.value) return true
+    if (!lastRewardClaimTimestamp.value) return false
 
     return (
-      getLondonTime().valueOf() - getClaimTimeWithLondonOffset(new Date(lastRewardClaimTimestamp.value)).valueOf() >
+      getTimeWithLondonOffset().valueOf() -
+        getTimeWithLondonOffset(new Date(lastRewardClaimTimestamp.value)).valueOf() >=
       MS_IN_DAY
     )
   })
 
-  const shouldShowNotification = computed(() => shouldRemindDailyReward.value && isRewardReady.value)
+  const shouldShowDailyNotification = computed(() => shouldRemindDailyReward.value && isRewardReady.value)
 
   return {
     shouldRemindDailyReward,
     lastRewardClaimTimestamp,
     isRewardReady,
-    shouldShowNotification,
+    shouldShowDailyNotification,
   }
 }
 
@@ -31,7 +32,7 @@ function getLondonTime(date?: Date) {
   return new Date((date?.valueOf() || Date.now()) + new Date().getTimezoneOffset() * 60 * 1000)
 }
 
-function getClaimTimeWithLondonOffset(date?: Date) {
+function getTimeWithLondonOffset(date?: Date) {
   const day = new Date(getLondonTime(date).valueOf() - MIDDAY_OFFSET)
   day.setHours(0, 0, 0, 0)
   return day

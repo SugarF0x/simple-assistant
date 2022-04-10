@@ -8,6 +8,8 @@ const notificationStore = useNotificationStore()
 const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
 
 onMounted(() => {
+  // TODO: fix this - the button does not exist until you press Claim
+
   const button = document.querySelector<HTMLButtonElement>(".swal2-actions button")
   if (!button) return
 

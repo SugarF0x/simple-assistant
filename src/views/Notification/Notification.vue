@@ -5,13 +5,13 @@ import { useNotificationStore } from "./store"
 import { storeToRefs } from "pinia"
 
 const notificationStore = useNotificationStore()
-const { shouldShowNotification } = storeToRefs(notificationStore)
+const { shouldShowDailyNotification } = storeToRefs(notificationStore)
 </script>
 
 <template>
   <Teleport to="main">
     <div class="notificationWrapper">
-      <Daily v-if="shouldShowNotification" />
+      <Daily v-if="shouldShowDailyNotification" />
     </div>
   </Teleport>
 </template>

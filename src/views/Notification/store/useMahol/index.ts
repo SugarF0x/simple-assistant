@@ -1,4 +1,4 @@
-import { useDaily } from "./daily"
+import { useDaily } from "./useDaily"
 
 export function useMahol() {
   return {
