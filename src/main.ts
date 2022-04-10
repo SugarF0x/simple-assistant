@@ -37,5 +37,4 @@ app.mount("#app")
  *  > Add Travel to another place screen verbose display
  *  > Add travel statistics (session & overall) for gold, exp, etc...
  *  > Add Monthly reminder
- *  > Add auto item use focus for battle (e.g. eat mushroom before every fight)
  */

@@ -1,8 +1,7 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
 import { MS_IN_DAY } from "@/consts"
-
-const MIDDAY_OFFSET = MS_IN_DAY / 2
+import { getTimeWithLondonOffset, getLondonTime } from "@/utils"
 
 export const useMaholDailyStore = defineStore(
   "maholDaily",
@@ -16,7 +15,7 @@ export const useMaholDailyStore = defineStore(
 
       return (
         getLondonTime().valueOf() -
-          MIDDAY_OFFSET -
+          MS_IN_DAY / 2 -
           getTimeWithLondonOffset(new Date(lastRewardClaimTimestamp.value)).valueOf() >=
         MS_IN_DAY
       )
@@ -35,13 +34,3 @@ export const useMaholDailyStore = defineStore(
     persist: true,
   }
 )
-
-function getLondonTime(date?: Date) {
-  return new Date((date?.valueOf() || Date.now()) + new Date().getTimezoneOffset() * 60 * 1000)
-}
-
-function getTimeWithLondonOffset(date?: Date) {
-  const day = new Date(getLondonTime(date).valueOf() - MIDDAY_OFFSET)
-  day.setHours(0, 0, 0, 0)
-  return day
-}
