@@ -18,6 +18,10 @@ const { isDismissed } = storeToRefs(ftueStore)
             <li>All features are optional and are disabled by default</li>
             <li>Enabling certain features might require a page refresh (marked by *)</li>
             <li>
+              No data is being collected. All your settings & stats are being stored locally and will not be accessible
+              on another device
+            </li>
+            <li>
               The plugin was developed using light theme at desktop resolution - some features may not be working as
               intended in dark theme and/or small resolution :(
             </li>
@@ -25,11 +29,11 @@ const { isDismissed } = storeToRefs(ftueStore)
           <h2>WARNING</h2>
           <p>
             This plugin was developed with no association with the Simple MMO developers. The plugin developer bears no
-            responsibility for the usage of this plugin and the consequences it may bring.
+            responsibility for the usage of this plugin and the consequences it may bring
           </p>
           <p>
             That being said, no actions are automatic and everything still requires user input, giving users no
-            advantage over other players and in no way impacting their experience, which <b>should</b> be fine.
+            advantage over other players and in no way impacting their experience, which <b>should</b> be fine
           </p>
           <p class="condition">By clicking "DISMISS" button below you consent to the implied risks</p>
         </div>
