@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel, DailyReward } from "@/views"
+import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel, DailyReward, SafeMode } from "@/views"
 import NotFound from "./NotFound.vue"
 
 const routes: Array<RouteRecordRaw> = [
@@ -44,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dailyreward",
     name: "dailyReward",
     component: DailyReward,
+  },
+  {
+    path: "/safemode",
+    name: "safemode",
+    component: SafeMode,
   },
   {
     path: "/:unknown(.*)",

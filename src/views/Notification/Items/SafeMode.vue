@@ -6,10 +6,10 @@ import { Button } from "@/components"
 
 <template>
   <BaseItem>
-    <template #title> Daily reward available! </template>
-    <template #text> Claim your daily reward now! </template>
+    <template #title> Your safe mode has expired! </template>
+    <template #text> Enable it now! </template>
     <template #actions>
-      <Button href="/dailyreward"> Claim </Button>
+      <Button href="/safemode"> Enable </Button>
     </template>
   </BaseItem>
 </template>

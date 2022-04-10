@@ -27,6 +27,7 @@ import { Card } from "@/components"
   display: flex;
   flex-flow: column;
   gap: 1rem;
+  text-align: center;
 }
 
 .actionsWrapper {

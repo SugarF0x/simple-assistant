@@ -8,7 +8,7 @@ export function useDaily() {
 
   const lastRewardClaimTimestamp = ref<string | null>(null)
 
-  const isRewardReady = computed(() => {
+  const isDailyRewardReady = computed(() => {
     if (!lastRewardClaimTimestamp.value) return false
 
     return (
@@ -19,13 +19,13 @@ export function useDaily() {
     )
   })
 
-  const shouldShowDailyNotification = computed(() => shouldRemindDailyReward.value && isRewardReady.value)
+  const isDailyNotificationRequired = computed(() => shouldRemindDailyReward.value && isDailyRewardReady.value)
 
   return {
     shouldRemindDailyReward,
     lastRewardClaimTimestamp,
-    isRewardReady,
-    shouldShowDailyNotification,
+    isDailyRewardReady,
+    isDailyNotificationRequired,
   }
 }
 
