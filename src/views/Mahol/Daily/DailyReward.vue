@@ -8,13 +8,19 @@ const notificationStore = useMaholDailyStore()
 const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
 
 onMounted(() => {
-  // TODO: fix this - the button does not exist until you press Claim
+  const claimButton = document.querySelector<HTMLButtonElement>(".mt-8.flex.justify-center button")
+  if (!claimButton) return
 
-  const button = document.querySelector<HTMLButtonElement>(".swal2-actions button")
-  if (!button) return
+  claimButton.addEventListener("click", () => {
+    /** let native script hydrate dom */
+    setTimeout(() => {
+      const confirmButton = document.querySelector<HTMLButtonElement>(".swal2-actions button")
+      if (!confirmButton) return
 
-  button.addEventListener("click", () => {
-    lastRewardClaimTimestamp.value = new Date().toISOString()
+      confirmButton.addEventListener("click", () => {
+        lastRewardClaimTimestamp.value = new Date().toISOString()
+      })
+    })
   })
 })
 </script>
