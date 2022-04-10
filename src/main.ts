@@ -26,3 +26,16 @@ document.querySelector("footer")?.after(appElement)
  */
 
 app.mount("#app")
+
+/**
+ * TODO:
+ *  > Add verification assistant (autofocus & 1-4 selection & close on confirm) for travel, quest & battle
+ *  > Add job auto focus & job time range focus
+ *  > Add last incomplete quest elevation & autofocus
+ *  > Add tasks assistant (quests & steps)
+ *  > Add inventory upgrade highlight
+ *  > Add Travel to another place screen verbose display
+ *  > Add travel statistics (session & overall) for gold, exp, etc...
+ *  > Add Monthly reminder
+ *  > Add auto item use focus for battle (e.g. eat mushroom before every fight)
+ */
