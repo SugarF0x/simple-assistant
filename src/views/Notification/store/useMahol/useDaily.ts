@@ -12,7 +12,8 @@ export function useDaily() {
     if (!lastRewardClaimTimestamp.value) return false
 
     return (
-      getTimeWithLondonOffset().valueOf() -
+      getLondonTime().valueOf() -
+        MIDDAY_OFFSET -
         getTimeWithLondonOffset(new Date(lastRewardClaimTimestamp.value)).valueOf() >=
       MS_IN_DAY
     )
