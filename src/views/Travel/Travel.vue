@@ -3,7 +3,7 @@ import { Controls } from "@/components"
 
 import DataBridge from "./DataBridge.vue"
 import StepButton from "./StepButton.vue"
-import AutoFocus from "./AutoFocus.vue"
+import { AutoFocus } from "./AutoFocus"
 </script>
 
 <template>

@@ -4,11 +4,13 @@ import { computed, onMounted, ref } from "vue"
 export const useTravelStore = defineStore(
   "travel",
   () => {
-    const lastStepResponse = ref<null | TravelResponse>(null)
-    const cooldownTimestamp = ref<null | string>(null)
     const shouldAutoFocusStep = ref(false)
     const shouldPersistCooldown = ref(false)
     const shouldAutoFocusEncounters = ref(false)
+    // const shouldAutoFocusVerification = ref(false)
+
+    const lastStepResponse = ref<null | TravelResponse>(null)
+    const cooldownTimestamp = ref<null | string>(null)
 
     const cooldownTimeLeft = computed(() => {
       if (!cooldownTimestamp.value) return 0
@@ -24,12 +26,13 @@ export const useTravelStore = defineStore(
     })
 
     return {
-      cooldownTimestamp,
-      cooldownTimeLeft,
-      lastStepResponse,
       shouldAutoFocusStep,
       shouldPersistCooldown,
       shouldAutoFocusEncounters,
+      // shouldAutoFocusVerification,
+      cooldownTimestamp,
+      cooldownTimeLeft,
+      lastStepResponse,
     }
   },
   {
