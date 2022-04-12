@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { defineProps } from "vue"
-
-defineProps({
-  to: {
-    type: String,
-    required: true,
-  },
-})
+defineProps<{
+  to: string
+}>()
 </script>
 
 <template>

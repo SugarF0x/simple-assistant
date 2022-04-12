@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Subtitle from "./Subtitle.vue"
 
-import { defineProps, defineEmits } from "vue"
-
 defineProps(["modelValue"])
 defineEmits(["update:modelValue"])
 </script>
