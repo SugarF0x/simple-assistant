@@ -1,0 +1,31 @@
+<script setup lang="ts">
+import { Checkbox } from "@/components"
+import { useTravelStore } from "../store"
+import { storeToRefs } from "pinia"
+import { watch } from "vue"
+import { wrapAnchorWithButton } from "@/utils"
+
+const travelStore = useTravelStore()
+const { shouldAutoFocusVerification, lastStepResponse } = storeToRefs(travelStore)
+
+watch(lastStepResponse, (val) => {
+  if (!shouldAutoFocusVerification.value) return
+  if (!val?.text?.includes("verification")) return
+
+  /** let dom hydrate */
+  setTimeout(() => {
+    const verificationAnchor = document.querySelector<HTMLAnchorElement>(".travel-content a")
+    if (!verificationAnchor) return
+
+    verificationAnchor.removeAttribute("target")
+    wrapAnchorWithButton(verificationAnchor).focus()
+  })
+})
+</script>
+
+<template>
+  <Checkbox v-model="shouldAutoFocusVerification">
+    <template #default> Autofocus verification button </template>
+    <template #subtitle> Will open in this tab </template>
+  </Checkbox>
+</template>
