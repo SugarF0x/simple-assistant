@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel, DailyReward, SafeMode, JobsMenu, Job } from "@/views"
 import NotFound from "./NotFound.vue"
+import { Verification } from "@/views/Verification"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -59,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/jobs/view/:id",
     name: "job",
     component: Job,
+  },
+  {
+    path: "/i-am-not-a-bot",
+    name: "verification",
+    component: Verification,
   },
   {
     path: "/:unknown(.*)",
