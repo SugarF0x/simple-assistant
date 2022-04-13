@@ -17,6 +17,7 @@ onBeforeMount(() => {
   const children = Array.from(ul.children).reverse()
   for (const child of children) {
     if (child.querySelector("svg")) continue
+    child.id = "latest"
     lastIncompleteElement.value = child as HTMLLIElement
     break
   }
