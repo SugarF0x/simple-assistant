@@ -1,3 +1,32 @@
+# [3.1.0](https://github.com/SugarF0x/simple-assistant/compare/v3.0.0...v3.1.0) (2022-04-13)
+
+
+### Bug Fixes
+
+* **manifest:** remove google from page access requests ([99d22c3](https://github.com/SugarF0x/simple-assistant/commit/99d22c3d22444747b1007ab8a6f79539271ae91e))
+* **ui:** add enter as viable button press to tooltips ([6b25617](https://github.com/SugarF0x/simple-assistant/commit/6b2561765ccba512d497b52837a3c4db99ea3d78))
+* **ux:** let option toggles take effect immediately where possible ([0607c4a](https://github.com/SugarF0x/simple-assistant/commit/0607c4a311a53df7eecc10897f772110991dea9c))
+
+
+### Features
+
+* **battle:** add item autofocus (~shroomies~) ([90d3f3e](https://github.com/SugarF0x/simple-assistant/commit/90d3f3e53622ecb0fe9d94c3e42f582b59c7ef52))
+* **battle:** extend functionality to boss fights (needs testing) ([c182219](https://github.com/SugarF0x/simple-assistant/commit/c1822196f39a6342f80d9645b0e2faec78482281))
+* **ftue:** add first time user experience screen (disclaimer) ([683fd5a](https://github.com/SugarF0x/simple-assistant/commit/683fd5a917ac12b0025b21472215f8085c3148c3))
+* **home:** add travel autofocus ([250ede1](https://github.com/SugarF0x/simple-assistant/commit/250ede1c7db2d3c80eeceaff0844d66d0433ad3f))
+* **jobs:** add job auto focus ([a49baad](https://github.com/SugarF0x/simple-assistant/commit/a49baadc5f4abd76f2576dd77e234528b0d84fa6))
+* **mahol:** add daily reward notification ([a79644b](https://github.com/SugarF0x/simple-assistant/commit/a79644b1fe81047d4217297e744ae3aa2c1c2651))
+* **navigation:** add navigation shortcut keybindings ([9d740dd](https://github.com/SugarF0x/simple-assistant/commit/9d740dd6735d7df0539bfc515853382a7bb46db4))
+* **quest:** add elevated quest auto focus ([a27bd13](https://github.com/SugarF0x/simple-assistant/commit/a27bd1354853152bf22377a1bf3745027a0c184b))
+* **quest:** add last incomplete quest elevation ([c0c5768](https://github.com/SugarF0x/simple-assistant/commit/c0c57680f8ae909da57d25717d786bffd2bd0933))
+* **safeMode:** add safe mode reminder ([7766d51](https://github.com/SugarF0x/simple-assistant/commit/7766d5184170d83ada3ca425d084adc97c93d2ee))
+* **travel:** add verification autofocus ([c725e98](https://github.com/SugarF0x/simple-assistant/commit/c725e9865f85f01167dfa6ba1e71b0322a32c3da))
+* **ux:** link version to changelog ([2275ddc](https://github.com/SugarF0x/simple-assistant/commit/2275ddc2878db8c5120e3291672edb1973828dc0))
+* **ux:** mark features requiring page reload with * ([df0a977](https://github.com/SugarF0x/simple-assistant/commit/df0a977516247baab805337e530e72efbe5cf720))
+* **verification:** add verification keybindings ([65ef309](https://github.com/SugarF0x/simple-assistant/commit/65ef30995745c1d1f7c710eed30c195f91c4972c))
+
+
+
 # [3.0.0](https://github.com/SugarF0x/simple-assistant/compare/v1.3.2...v3.0.0) (2022-04-05)
 
 
