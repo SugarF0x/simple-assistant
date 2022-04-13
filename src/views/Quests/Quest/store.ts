@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 
 export const useQuestStore = defineStore(
-  "arena",
+  "quest",
   () => {
     const shouldAutoFocusPerform = ref(false)
 

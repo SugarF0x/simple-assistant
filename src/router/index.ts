@@ -1,5 +1,18 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import { Arena, Battle, BattleMenu, Gather, Home, Quest, Travel, DailyReward, SafeMode, JobsMenu, Job } from "@/views"
+import {
+  Arena,
+  Battle,
+  BattleMenu,
+  Gather,
+  Home,
+  Quest,
+  Travel,
+  DailyReward,
+  SafeMode,
+  JobsMenu,
+  Job,
+  QuestsMenu,
+} from "@/views"
 import NotFound from "./NotFound.vue"
 import { Verification } from "@/views/Verification"
 
@@ -40,6 +53,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/quests/view/:id",
     name: "quest",
     component: Quest,
+  },
+  {
+    path: "/quests/viewall",
+    name: "questsMenu",
+    component: QuestsMenu,
   },
   {
     path: "/dailyreward",
