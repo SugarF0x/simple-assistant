@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components"
-import { useQuestStore } from "./store"
+import { useQuestStore } from "../store"
 import { storeToRefs } from "pinia"
 import { onMounted, watch } from "vue"
 import { focusOnButtonEnable } from "@/utils"

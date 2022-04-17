@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AutoFocus from "./AutoFocus.vue"
+import { AutoFocus } from "./AutoFocus"
 
 import { Controls } from "@/components"
 import { onBeforeMount } from "vue"
