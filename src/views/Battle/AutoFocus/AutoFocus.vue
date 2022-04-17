@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import FocusItem from "./FocusItem.vue"
+import Verification from "./Verification.vue"
+
 import { useBattleStore } from "../store"
 import { useAttackButton } from "./useAttackButton"
 import { useCloseButton } from "./useCloseButton"
@@ -20,4 +22,5 @@ useCloseButton(shouldAutoFocusAttack)
     <template #subtitle> Just hit space/enter! </template>
   </Checkbox>
   <FocusItem />
+  <Verification />
 </template>

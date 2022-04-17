@@ -9,6 +9,7 @@ export const useBattleStore = defineStore(
     const shouldDisableSpecial = ref(false)
     const shouldAutoFocusAttack = ref(false)
     const shouldAutoFocusItem = ref(false)
+    const shouldAutoFocusVerification = ref(false)
 
     const carrotCapacityDepletionTime = ref<null | string>(null)
     const isMushroomQuotaDepleted = computed(() => {
@@ -26,6 +27,7 @@ export const useBattleStore = defineStore(
       shouldDisableSpecial,
       shouldAutoFocusAttack,
       shouldAutoFocusItem,
+      shouldAutoFocusVerification,
       carrotCapacityDepletionTime,
       isMushroomQuotaDepleted,
     }
