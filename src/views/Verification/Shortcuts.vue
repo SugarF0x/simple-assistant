@@ -38,11 +38,37 @@ watch(isVerified, (val) => {
   })
 })
 
-function keyBindListener(e: KeyboardEvent) {
-  const key = Number(e.code.replaceAll("Digit", ""))
-  if (isNaN(key) || ![1, 2, 3, 4].includes(key)) return
+const selectedItem = ref(1)
 
-  document.querySelector<HTMLButtonElement>(`#btn-${key}`)?.focus()
+function incSelection() {
+  const newValue = (selectedItem.value += 1)
+  selectedItem.value = newValue >= 5 ? 1 : newValue
+}
+
+function decSelection() {
+  const newValue = (selectedItem.value -= 1)
+  selectedItem.value = newValue <= 0 ? 4 : newValue
+}
+
+watch(
+  selectedItem,
+  (val) => {
+    setTimeout(() => {
+      document.querySelector<HTMLButtonElement>(`#btn-${val}`)?.focus()
+    })
+  },
+  {
+    immediate: true,
+  }
+)
+
+function keyBindListener(e: KeyboardEvent) {
+  const key = e.code.replaceAll("Digit", "")
+  if (!["1", "2", "3", "4", "ArrowRight", "ArrowLeft"].includes(key)) return
+
+  if (!isNaN(Number(key))) return (selectedItem.value = Number(key))
+  if (key === "ArrowRight") return incSelection()
+  if (key === "ArrowLeft") return decSelection()
 }
 
 watch(
@@ -65,7 +91,7 @@ function goBack() {
   <Checkbox v-model="shouldUseShortcuts">
     <template #default> Use shortcuts </template>
     <template #subtitle>
-      Tap 1-4 to select, space/enter to confirm
+      Tap 1-4 or arrow keys to select, space/enter to confirm
       <br />
       Popup modal will take you back
     </template>
