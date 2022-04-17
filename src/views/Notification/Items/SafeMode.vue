@@ -6,11 +6,11 @@ import { useSafeModeStore } from "@/views/Settings/SafeMode/store"
 import { storeToRefs } from "pinia"
 
 const safeModeStore = useSafeModeStore()
-const { isSafeModeNotificationRequired } = storeToRefs(safeModeStore)
+const { isSafeModeNotificationRequired, isSafeModeNotificationDismissed } = storeToRefs(safeModeStore)
 </script>
 
 <template>
-  <BaseItem v-if="isSafeModeNotificationRequired">
+  <BaseItem v-if="isSafeModeNotificationRequired" @dismiss="isSafeModeNotificationDismissed = true">
     <template #title> Your safe mode has expired! </template>
     <template #text> Enable it now! </template>
     <template #actions>

@@ -6,11 +6,11 @@ import { useMaholDailyStore } from "@/views/Mahol/Daily/store"
 import { storeToRefs } from "pinia"
 
 const maholDailyStore = useMaholDailyStore()
-const { isDailyNotificationRequired } = storeToRefs(maholDailyStore)
+const { isDailyNotificationRequired, isSafeModeNotificationDismissed } = storeToRefs(maholDailyStore)
 </script>
 
 <template>
-  <BaseItem v-if="isDailyNotificationRequired">
+  <BaseItem v-if="isDailyNotificationRequired" @dismiss="isSafeModeNotificationDismissed = true">
     <template #title> Daily reward available! </template>
     <template #text> Claim your daily reward now! </template>
     <template #actions>

@@ -21,12 +21,18 @@ export const useMaholDailyStore = defineStore(
       )
     })
 
-    const isDailyNotificationRequired = computed(() => shouldRemindDailyReward.value && isDailyRewardReady.value)
+    const isSafeModeNotificationDismissed = ref(false)
+    const isDailyNotificationRequired = computed(() => {
+      if (!shouldRemindDailyReward.value) return false
+      if (isSafeModeNotificationDismissed.value) return false
+      return isDailyRewardReady.value
+    })
 
     return {
       shouldRemindDailyReward,
       lastRewardClaimTimestamp,
       isDailyRewardReady,
+      isSafeModeNotificationDismissed,
       isDailyNotificationRequired,
     }
   },

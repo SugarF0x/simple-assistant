@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { Card } from "@/components"
+
+defineEmits<{
+  (e: "dismiss"): void
+}>()
 </script>
 
 <template>
@@ -13,10 +17,29 @@ import { Card } from "@/components"
     <div v-if="$slots.actions" class="actionsWrapper">
       <slot name="actions"></slot>
     </div>
+    <button class="dismissButton" @click="$emit('dismiss')">X</button>
   </Card>
 </template>
 
 <style lang="scss" scoped>
+.dismissButton {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  border-radius: 50%;
+  color: black;
+  background-color: white;
+  outline: 2px solid black;
+  vertical-align: center;
+  text-align: center;
+  width: 24px;
+  height: 24px;
+
+  &:hover {
+    background-color: lightgray;
+  }
+}
+
 .titleWrapper {
   font-size: 20px;
   font-weight: bold;

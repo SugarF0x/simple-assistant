@@ -5,7 +5,8 @@ import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 
 const notificationStore = useMaholDailyStore()
-const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
+const { shouldRemindDailyReward, lastRewardClaimTimestamp, isSafeModeNotificationDismissed } =
+  storeToRefs(notificationStore)
 
 onMounted(() => {
   const claimButton = document.querySelector<HTMLButtonElement>(".mt-8.flex.justify-center button")
@@ -19,6 +20,7 @@ onMounted(() => {
 
       confirmButton.addEventListener("click", () => {
         lastRewardClaimTimestamp.value = new Date().toISOString()
+        isSafeModeNotificationDismissed.value = false
       })
     })
   })
