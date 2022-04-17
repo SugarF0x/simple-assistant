@@ -1,3 +1,17 @@
+## [3.1.1](https://github.com/SugarF0x/simple-assistant/compare/v3.1.0...v3.1.1) (2022-04-17)
+
+
+### Bug Fixes
+
+* **ftue:** add github issues link ([af4155e](https://github.com/SugarF0x/simple-assistant/commit/af4155e3f8d74eda57bc011eaedf84cb164c3e7a))
+* **navigation:** add default shortcuts ([6d94fad](https://github.com/SugarF0x/simple-assistant/commit/6d94fadaf6a8894003789aaa5a1117bd25daff62))
+* **notification:** add notification dismissal functionality ([4f2d391](https://github.com/SugarF0x/simple-assistant/commit/4f2d391c994982dcc726f3c1845520eca935a666))
+* **verification:** add arrow key selection ([e4276d9](https://github.com/SugarF0x/simple-assistant/commit/e4276d9e7e50e2e8e41a1aef37e5cbb38b3c9dbd))
+* **verification:** add missing battle autofocus ([6e041b3](https://github.com/SugarF0x/simple-assistant/commit/6e041b3c75387833efa0a4ab44fc773cc8f23855))
+* **verification:** add missing quest auto focus ([134668d](https://github.com/SugarF0x/simple-assistant/commit/134668d7c96c4f0ec4c493773cccfe226a0cd3a7))
+
+
+
 # [3.1.0](https://github.com/SugarF0x/simple-assistant/compare/v3.0.0...v3.1.0) (2022-04-13)
 
 
