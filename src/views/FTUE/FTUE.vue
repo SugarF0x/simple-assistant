@@ -26,6 +26,12 @@ const { isDismissed } = storeToRefs(ftueStore)
               intended in dark theme and/or small resolution :(
             </li>
           </ul>
+          <p>
+            If you find a bug or have a suggestion - feel free to report an
+            <a href="https://github.com/SugarF0x/simple-assistant/issues" target="_blank" class="text-indigo-600">
+              issue
+            </a>
+          </p>
           <h2>WARNING</h2>
           <p>
             This plugin was developed with no association with the Simple MMO developers. The plugin developer bears no
