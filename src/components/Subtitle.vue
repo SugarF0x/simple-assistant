@@ -8,7 +8,7 @@
 .subtitle {
   font-size: 0.8em;
   font-style: italic;
-  opacity: 0.5;
+  color: gray;
   text-align: center;
 }
 </style>

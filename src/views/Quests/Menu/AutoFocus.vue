@@ -37,11 +37,7 @@ watch(
 </script>
 
 <template>
-  <Checkbox
-    :model-value="shouldElevateLastIncompleteQuest ? shouldAutoFocusLastIncompleteQuest : false"
-    @update:modelValue="shouldAutoFocusLastIncompleteQuest = $event"
-    :disabled="!shouldElevateLastIncompleteQuest"
-  >
+  <Checkbox v-model="shouldAutoFocusLastIncompleteQuest" :parent="shouldElevateLastIncompleteQuest">
     <template #default> Autofocus last incomplete quest </template>
     <template #subtitle> Just hit space/enter! </template>
   </Checkbox>

@@ -1,17 +1,36 @@
 <script setup lang="ts">
 import Subtitle from "./Subtitle.vue"
 
-defineProps(["modelValue"])
-defineEmits(["update:modelValue"])
+import { computed, useAttrs } from "vue"
+
+const props = withDefaults(
+  defineProps<{
+    parent?: boolean
+    modelValue?: boolean
+  }>(),
+  {
+    parent: true,
+  }
+)
+
+defineEmits<{
+  (e: "update:modelValue"): boolean
+}>()
+
+const attrs = useAttrs()
+
+const isDisabled = computed(() => attrs.disabled || !props.parent)
+const isChecked = computed(() => (!props.parent ? false : props.modelValue))
 </script>
 
 <template>
   <div class="wrapper">
-    <label class="inputLabel" :class="$attrs.disabled && 'disabledLabel'">
+    <label class="inputLabel" :class="{ disabledLabel: isDisabled }">
       <input
         type="checkbox"
         class="labelCheckbox"
-        :checked="modelValue"
+        :checked="isChecked"
+        :disabled="isDisabled"
         v-bind="$attrs"
         @input="$emit('update:modelValue', $event.target.checked)"
       />
@@ -19,7 +38,7 @@ defineEmits(["update:modelValue"])
         <slot />
       </span>
     </label>
-    <Subtitle>
+    <Subtitle :class="{ fade: isDisabled }">
       <slot name="subtitle" />
     </Subtitle>
   </div>
@@ -50,6 +69,11 @@ defineEmits(["update:modelValue"])
 
 .disabledLabel {
   cursor: unset;
+  pointer-events: none;
+}
+
+.fade,
+.disabledLabel {
   opacity: 0.4;
 }
 </style>

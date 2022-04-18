@@ -90,11 +90,7 @@ function getSetterButtonText(url: string): string {
       Use Shift + Key to execute
     </template>
   </Checkbox>
-  <Checkbox
-    :model-value="shouldUseShortcuts ? shouldEditShortcuts : false"
-    @update:modelValue="shouldEditShortcuts = $event"
-    :disabled="!shouldUseShortcuts"
-  >
+  <Checkbox v-model="shouldEditShortcuts" :parent="shouldUseShortcuts">
     <template #default> Edit keybindings </template>
     <template #subtitle>
       Hit select & press desired button
