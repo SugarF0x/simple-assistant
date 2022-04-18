@@ -1,3 +1,13 @@
+## [3.1.2](https://github.com/SugarF0x/simple-assistant/compare/v3.1.1...v3.1.2) (2022-04-18)
+
+
+### Bug Fixes
+
+* **navigation:** add arrow key selection (xoxoxo Just) ([130f18e](https://github.com/SugarF0x/simple-assistant/commit/130f18efbbd3a3013bd29788c5b0cc055addc250))
+* **quests:** broken elevation toggle ([309c257](https://github.com/SugarF0x/simple-assistant/commit/309c257e86176d63d732f7609bb3ef84e62e34cb))
+
+
+
 ## [3.1.1](https://github.com/SugarF0x/simple-assistant/compare/v3.1.0...v3.1.1) (2022-04-17)
 
 
