@@ -2,13 +2,13 @@
 import { Checkbox } from "@/components"
 import { useQuestsMenuStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onBeforeMount, ref, watch } from "vue"
+import { onMounted, ref, watch } from "vue"
 
 const questsMenuStore = useQuestsMenuStore()
 const { shouldElevateLastIncompleteQuest } = storeToRefs(questsMenuStore)
 
-const lastIncompleteElement = ref<HTMLLIElement | null>(null)
-onBeforeMount(() => {
+const lastIncompleteElement = ref<HTMLButtonElement | null>(null)
+onMounted(() => {
   const ul = document.querySelector<HTMLUListElement>("ul[role=list]")
   if (!ul) return
 
@@ -18,7 +18,7 @@ onBeforeMount(() => {
   for (const child of children) {
     if (child.querySelector("svg")) continue
     child.id = "latest"
-    lastIncompleteElement.value = child as HTMLLIElement
+    lastIncompleteElement.value = child as HTMLButtonElement
     break
   }
 })
@@ -28,7 +28,10 @@ watch(
   ([toggle, element]) => {
     if (!element) return
     if (toggle) element.classList.add("elevatedItem")
-    else element.classList.remove("elevatedItem")
+    else {
+      console.log("removing classname")
+      element.classList.remove("elevatedItem")
+    }
   },
   {
     immediate: true,
