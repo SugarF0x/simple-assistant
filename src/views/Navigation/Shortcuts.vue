@@ -104,7 +104,7 @@ function getSetterButtonText(url: string): string {
       <Button
         v-if="shouldEditShortcuts || url in urlToKeyMap"
         class="keyInput"
-        :class="!shouldEditShortcuts && 'noEvents'"
+        :class="{ noEvents: !shouldEditShortcuts }"
         :disabled="!shouldEditShortcuts"
         @click.prevent="handleSetterButtonClick(url)"
       >
