@@ -11,6 +11,14 @@ const { shouldUseShortcuts, shouldEditShortcuts, urlToKeyMap, keyToUrlMap } = st
 const tabIdSelected = ref("")
 const urls = reactive<string[]>([])
 
+const visibleButtons = reactive<HTMLButtonElement[]>([])
+const arrowSelectedButton = ref<null | number>(null)
+
+watch(arrowSelectedButton, (val) => {
+  if (val === null) return
+  visibleButtons[val]?.focus()
+})
+
 /** Wrap navigation anchors with buttons */
 onMounted(() => {
   const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>("nav.mt-5.flex-1.px-2 a"))
@@ -19,6 +27,7 @@ onMounted(() => {
     const button = wrapAnchorWithButton(anchor)
     button.setAttribute("style", "width: 100%;")
     urls.push(String(anchor.getAttribute("href")))
+    if (!Array.from(button.classList).join(" ").includes("hidden")) visibleButtons.push(button)
   }
 })
 
@@ -27,7 +36,17 @@ function keyBindListener(e: KeyboardEvent) {
   if (!e.shiftKey) return
 
   if (e.code in keyToUrlMap.value)
-    document.querySelector<HTMLButtonElement>(`a[href='${keyToUrlMap.value[e.code]}'] button`)?.focus()
+    return document.querySelector<HTMLButtonElement>(`a[href='${keyToUrlMap.value[e.code]}'] button`)?.focus()
+
+  if (["ArrowUp", "ArrowDown"].includes(e.code)) {
+    if (arrowSelectedButton.value === null) return (arrowSelectedButton.value = 0)
+
+    let newValue = e.code === "ArrowUp" ? arrowSelectedButton.value - 1 : arrowSelectedButton.value + 1
+
+    if (newValue >= visibleButtons.length) return (arrowSelectedButton.value = 0)
+    if (newValue < 0) return (arrowSelectedButton.value = visibleButtons.length - 1)
+    return (arrowSelectedButton.value = newValue)
+  }
 }
 
 watch(
@@ -88,6 +107,8 @@ function getSetterButtonText(url: string): string {
       Bind keys to tabs
       <br />
       Use Shift + Key to execute
+      <br />
+      Use Shift + Arrow keys to select
     </template>
   </Checkbox>
   <Checkbox v-model="shouldEditShortcuts" :parent="shouldUseShortcuts">
