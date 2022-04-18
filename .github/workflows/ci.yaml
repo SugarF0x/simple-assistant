@@ -19,11 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Conventional Changelog Action
+      - name: Generate Changelog
         uses: TriPSs/conventional-changelog-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
+          skip-git-pull: "true"
           git-message: 'chore(release): {version}'
           release-count: 0
 
@@ -35,3 +34,12 @@ jobs:
 
       - run: npm i
       - run: npm run build
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        with:
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+          files: dist.zip
