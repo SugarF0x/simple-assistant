@@ -23,7 +23,6 @@ jobs:
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
-          skip-git-pull: "true"
           git-message: 'chore(release): {version}'
           release-count: 0
 
