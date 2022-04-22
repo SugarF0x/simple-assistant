@@ -1,3 +1,12 @@
+## [3.1.3](https://github.com/SugarF0x/simple-assistant/compare/v3.1.2...v3.1.3) (2022-04-22)
+
+
+### Bug Fixes
+
+* **travel:** patch 11.0 compatability ([850468b](https://github.com/SugarF0x/simple-assistant/commit/850468bb1c18f5de441036d7ae2a2731195e127b))
+
+
+
 ## [3.1.2](https://github.com/SugarF0x/simple-assistant/compare/v3.1.1...v3.1.2) (2022-04-18)
 
 
