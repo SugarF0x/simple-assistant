@@ -8,7 +8,7 @@ import { watch } from "vue"
 const travelStore = useTravelStore()
 const { shouldAutoFocusStep } = storeToRefs(travelStore)
 
-const travelButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button")
+const travelButton = document.querySelector<HTMLButtonElement>("#step_button")
 const observer = travelButton && focusOnButtonEnable(travelButton)
 
 watch(

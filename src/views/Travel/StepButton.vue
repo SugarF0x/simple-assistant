@@ -11,7 +11,7 @@ const { cooldownTimeLeft, shouldPersistCooldown } = storeToRefs(travelStore)
 
 /** Step Button controls */
 
-const stepButton = document.querySelector<HTMLButtonElement>(".px-4.py-4 button")
+const stepButton = document.querySelector<HTMLButtonElement>("#step_button")
 
 watch(
   cooldownTimeLeft,
@@ -20,9 +20,11 @@ watch(
     if (!stepButton) return
     if (!val) return
     stepButton.disabled = true
+    stepButton.classList.add("disabledTravelButton")
 
     setTimeout(() => {
       stepButton.disabled = false
+      stepButton.classList.remove("disabledTravelButton")
     }, val)
   },
   {
@@ -32,8 +34,8 @@ watch(
 
 /** Step Bar controls */
 
-const stepBarContainer = document.querySelector<HTMLDivElement>("#travelBarContainer")
-const stepBar = document.querySelector<HTMLDivElement>("#myBar")
+const stepBarContainer = document.querySelector<HTMLDivElement>("#loadingBarContainer")
+const stepBar = document.querySelector<HTMLDivElement>("#loadingBar")
 
 const width = ref(0)
 const output = useTransition(width, {
@@ -72,3 +74,10 @@ onMounted(() => {
     <template #subtitle> Hold your horses no more </template>
   </Checkbox>
 </template>
+
+<style lang="scss">
+.disabledTravelButton {
+  opacity: 0.4;
+  cursor: unset;
+}
+</style>

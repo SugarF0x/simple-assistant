@@ -14,12 +14,12 @@ watch(lastStepResponse, (val) => {
 
   /** let dom hydrate */
   setTimeout(() => {
-    const verificationAnchor = document.querySelector<HTMLAnchorElement>(".travel-content a")
+    const verificationAnchor = document.querySelector<HTMLAnchorElement>(".travel-text a")
     if (!verificationAnchor) return
 
     verificationAnchor.removeAttribute("target")
     wrapAnchorWithButton(verificationAnchor).focus()
-  })
+  }, 510)
 })
 </script>
 

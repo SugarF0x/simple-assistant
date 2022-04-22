@@ -7,7 +7,7 @@ import { AutoFocus } from "./AutoFocus"
 </script>
 
 <template>
-  <Controls to=".px-4.py-4.text-center">
+  <Controls to="#complete-travel-container">
     <DataBridge />
     <StepButton />
     <AutoFocus />

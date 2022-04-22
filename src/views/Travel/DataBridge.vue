@@ -7,11 +7,10 @@ import { interceptRequest } from "@/utils"
 const travelStore = useTravelStore()
 const { cooldownTimestamp, lastStepResponse } = storeToRefs(travelStore)
 
-function handleBridge({ detail }: CustomEvent) {
-  const data: TravelResponse = JSON.parse(detail)
+function handleBridge({ detail: data }: CustomEvent<TravelResponse>) {
   lastStepResponse.value = data
 
-  const msWait = (data.nextwait + 1) * 1000
+  const msWait = data.nextwait * 1000
   cooldownTimestamp.value = new Date(Date.now() + msWait).toISOString()
   setTimeout(() => {
     cooldownTimestamp.value = null
