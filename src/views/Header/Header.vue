@@ -22,6 +22,9 @@ const version = chrome.runtime.getManifest().version
         v{{ version }}
       </a>
     </h2>
+    <div>
+      <i>v11.1 compatible</i>
+    </div>
     <Subtitle>
       <button @click="isDismissed = false">&lt; show disclaimer &gt;</button>
     </Subtitle>
