@@ -13,9 +13,10 @@ import {
   Job,
   QuestsMenu,
   Carriage,
+  MonthlyReward,
+  Verification,
 } from "@/views"
 import NotFound from "./NotFound.vue"
-import { Verification } from "@/views/Verification"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -69,6 +70,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dailyreward",
     name: "dailyReward",
     component: DailyReward,
+  },
+  {
+    path: "/monthlyreward",
+    name: "monthlyReward",
+    component: MonthlyReward,
   },
   {
     path: "/safemode",

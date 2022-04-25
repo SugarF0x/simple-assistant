@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Controls, Checkbox } from "@/components"
-import { useMaholDailyStore } from "./store"
+import { useMaholMonthlyStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 
-const notificationStore = useMaholDailyStore()
-const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
+const monthlyStore = useMaholMonthlyStore()
+const { shouldRemindMonthlyReward, lastRewardClaimTimestamp } = storeToRefs(monthlyStore)
 
 onMounted(() => {
   const claimButton = document.querySelector<HTMLButtonElement>(".mt-8.flex.justify-center button")
@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
   <Controls to=".max-w-7xl.mx-auto.text-center.py-12.px-4">
-    <Checkbox v-model="shouldRemindDailyReward">
+    <Checkbox v-model="shouldRemindMonthlyReward">
       <template #default> Remind about daily rewards </template>
       <template #subtitle> Miss them daily rewards never more </template>
     </Checkbox>

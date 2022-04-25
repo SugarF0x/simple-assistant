@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { Daily, SafeMode } from "./Items"
+import { Daily, SafeMode, Monthly } from "./Items"
 </script>
 
 <template>
   <Teleport to="main">
     <div class="notificationWrapper">
       <Daily />
+      <Monthly />
       <SafeMode />
     </div>
   </Teleport>
