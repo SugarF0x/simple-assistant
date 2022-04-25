@@ -1,0 +1,65 @@
+<script setup lang="ts">
+import Details from "./DestinationDetails.vue"
+
+import { Checkbox } from "@/components"
+import { useCarriageStore } from "../store"
+import { storeToRefs } from "pinia"
+import { useData } from "./useData"
+import { computed, watch } from "vue"
+
+const carriageStore = useCarriageStore()
+const { shouldShowTravelDestinationDetails } = storeToRefs(carriageStore)
+
+const destinations = useData()
+
+const shouldRenderDetails = computed(() => !!destinations.value && shouldShowTravelDestinationDetails.value)
+
+function insertAfter(newNode: HTMLElement, referenceNode: HTMLElement) {
+  referenceNode.parentNode?.insertBefore(newNode, referenceNode.nextSibling)
+}
+
+/** add teleport ids */
+watch(destinations, (entries) => {
+  if (!entries) return
+
+  for (const entry of entries) {
+    const [card, data] = entry
+    if (!data) continue
+
+    const buttonWrapper = card.querySelector<HTMLDivElement>(".my-4")
+    if (!buttonWrapper) continue
+
+    const teleportTarget = document.createElement("div")
+    teleportTarget.id = `details-${data.name}`
+    insertAfter(teleportTarget, buttonWrapper)
+  }
+})
+
+watch([shouldShowTravelDestinationDetails, destinations], ([toggle, entries]) => {
+  if (!entries) return
+
+  for (const entry of entries) {
+    const [card, data] = entry
+    if (!data) continue
+
+    const buttonWrapper = card.querySelector(".my-4")
+    if (!buttonWrapper) return
+
+    if (toggle) buttonWrapper.setAttribute("style", "display: none;")
+    else buttonWrapper.removeAttribute("style")
+  }
+})
+</script>
+
+<template>
+  <Checkbox v-model="shouldShowTravelDestinationDetails">
+    <template #default> Show travel destination details </template>
+    <template #subtitle> See your chances up front </template>
+  </Checkbox>
+
+  <template v-if="shouldRenderDetails">
+    <Teleport v-for="([, data], index) of destinations" :key="index" :to="`#details-${data.name}`">
+      <Details :materials="data.materials" :modifiers="data.modifiers" />
+    </Teleport>
+  </template>
+</template>

@@ -12,6 +12,7 @@ import {
   JobsMenu,
   Job,
   QuestsMenu,
+  Carriage,
 } from "@/views"
 import NotFound from "./NotFound.vue"
 import { Verification } from "@/views/Verification"
@@ -27,6 +28,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/travel",
     name: "travel",
     component: Travel,
+  },
+  {
+    path: "/horse-and-carriage",
+    name: "carriage",
+    component: Carriage,
   },
   {
     path: "/npcs/attack/:id",

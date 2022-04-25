@@ -31,9 +31,9 @@ app.mount("#app")
  * TODO:
  *  > Add tasks assistant (quests & steps)
  *  > Add inventory upgrade highlight
- *  > Add Travel to another place screen verbose display
  *  > Add travel statistics (session & overall) for gold, exp, etc...
  *  > Add Monthly reminder
  *  > Add global "Hide all controls" toggle
  *  > Add crafting autofocus
+ *  > Add last tested compatability version display
  */
