@@ -8,9 +8,9 @@ import { useData } from "./useData"
 import { computed, watch } from "vue"
 
 const carriageStore = useCarriageStore()
-const { shouldShowTravelDestinationDetails } = storeToRefs(carriageStore)
+const { shouldShowTravelDestinationDetails, shouldHighlightBestStats } = storeToRefs(carriageStore)
 
-const destinations = useData()
+const { destinations, bestValueLocations } = useData()
 
 const shouldRenderDetails = computed(() => !!destinations.value && shouldShowTravelDestinationDetails.value)
 
@@ -56,10 +56,19 @@ watch([shouldShowTravelDestinationDetails, destinations], ([toggle, entries]) =>
     <template #default> Show travel destination details </template>
     <template #subtitle> See your chances up front </template>
   </Checkbox>
+  <Checkbox v-model="shouldHighlightBestStats" :parent="shouldShowTravelDestinationDetails">
+    <template #default> Show travel destination details </template>
+    <template #subtitle> See your chances up front </template>
+  </Checkbox>
 
   <template v-if="shouldRenderDetails">
     <Teleport v-for="([, data], index) of destinations" :key="index" :to="`#details-${data.name}`">
-      <Details :materials="data.materials" :modifiers="data.modifiers" />
+      <Details
+        :materials="data.materials"
+        :modifiers="data.modifiers"
+        :highlight="shouldHighlightBestStats"
+        :bests="bestValueLocations[data.name]"
+      />
     </Teleport>
   </template>
 </template>
