@@ -5,9 +5,11 @@ export const useVerificationStore = defineStore(
   "verification",
   () => {
     const shouldUseShortcuts = ref(false)
+    const returnHref = ref("/")
 
     return {
       shouldUseShortcuts,
+      returnHref,
     }
   },
   {

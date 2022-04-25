@@ -2,10 +2,10 @@
 import { Checkbox, Button } from "@/components"
 import { useVerificationStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onBeforeMount, ref, watch } from "vue"
+import { onBeforeMount, onMounted, ref, watch } from "vue"
 
 const verificationStore = useVerificationStore()
-const { shouldUseShortcuts } = storeToRefs(verificationStore)
+const { shouldUseShortcuts, returnHref } = storeToRefs(verificationStore)
 
 const isVerified = ref(false)
 
@@ -82,8 +82,13 @@ watch(
   }
 )
 
+onMounted(() => {
+  const { referrer } = document
+  if (!referrer.includes("bot")) returnHref.value = referrer
+})
+
 function goBack() {
-  window.location.href = document.referrer
+  window.location.href = returnHref.value
 }
 </script>
 
