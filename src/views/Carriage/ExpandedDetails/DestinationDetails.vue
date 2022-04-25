@@ -50,6 +50,7 @@ defineProps<{
 <style lang="scss" scoped>
 .wrapper {
   display: flex;
+  justify-content: space-between;
   font-size: 0.85em;
 }
 
