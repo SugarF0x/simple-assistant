@@ -5,7 +5,7 @@ import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 
 const safeModeStore = useSafeModeStore()
-const { shouldRemindSafeMode, lastSafeModeActivationTime, isSafeModeNotificationDismissed } = storeToRefs(safeModeStore)
+const { shouldRemindSafeMode, lastSafeModeActivationTime } = storeToRefs(safeModeStore)
 
 onMounted(() => {
   const enableButton = document.querySelector<HTMLButtonElement>(
@@ -21,7 +21,6 @@ onMounted(() => {
 
       confirmButton.addEventListener("click", () => {
         lastSafeModeActivationTime.value = new Date().toISOString()
-        isSafeModeNotificationDismissed.value = false
       })
     })
   })
