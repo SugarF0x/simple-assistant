@@ -22,17 +22,17 @@ document.querySelector("footer")?.after(appElement)
  * Although even at that i cant explain why exactly a 50ms timeout fixes this
  * Fuck this shit
  *
- * Edit: scratch that, it magically fixed itself and timeout is no longer needed
+ * Edit: scratch that, it magically fixed itself and timeout is no longer needed,
+ * though i am leaving this here should the issue return
  */
 
 app.mount("#app")
 
 /**
  * TODO:
- *  > Add tasks assistant (quests & steps)
  *  > Add inventory upgrade highlight
- *  > Add travel statistics (session & overall) for gold, exp, etc...
- *  > Add Monthly reminder
- *  > Add global "Hide all controls" toggle
  *  > Add crafting autofocus
+ *  > Add tasks assistant (quests & steps)
+ *  > Add travel statistics (session & overall) for gold, exp, etc...
+ *  > Add global "Hide all controls" toggle
  */
