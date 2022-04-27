@@ -8,7 +8,7 @@ import { focusOnButtonEnable } from "@/utils"
 const gatherStore = useGatherStore()
 const { shouldAutoFocusAction } = storeToRefs(gatherStore)
 
-const actionButton = document.querySelectorAll<HTMLButtonElement>(".py-6.max-w-7xl.mx-auto.px-4.relative button")[1]
+const actionButton = document.querySelector<HTMLButtonElement>("#crafting_button")
 const observer = actionButton && focusOnButtonEnable(actionButton)
 
 watch(
