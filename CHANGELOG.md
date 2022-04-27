@@ -1,3 +1,23 @@
+# [3.2.0](https://github.com/SugarF0x/simple-assistant/compare/v3.1.3...v3.2.0) (2022-04-27)
+
+
+### Bug Fixes
+
+* **gather:** patch v11.2 compatability ([31e1dda](https://github.com/SugarF0x/simple-assistant/commit/31e1dda948698ec081fa911d0b84a5781da9d59b))
+* **notification:** reenable notifications next day ([6ec7060](https://github.com/SugarF0x/simple-assistant/commit/6ec706021dbbb895f0c2b8785fb86d24cd3a542f))
+* **verification:** patch v11.2 compatability ([8e82e7e](https://github.com/SugarF0x/simple-assistant/commit/8e82e7e583d8b7d0513756927fd635f596482cae))
+* **verification:** preserve referrer link on failed attempt ([38b92c7](https://github.com/SugarF0x/simple-assistant/commit/38b92c7b5ac9c779dcff614576b3b44bce0c4b7a))
+
+
+### Features
+
+* **carriage:** add color coding to best/worst stats ([73f028a](https://github.com/SugarF0x/simple-assistant/commit/73f028a6151dd916c07ec8e52f6dacbf88850273))
+* **carriage:** add upfront details display ([2bc9a5d](https://github.com/SugarF0x/simple-assistant/commit/2bc9a5d4a8a0a5d5215dd3177ee06bbdcee29a8c))
+* **header:** add version compatability display ([fbb5aed](https://github.com/SugarF0x/simple-assistant/commit/fbb5aed8f0b257a82bce708c749f51e2a1584743))
+* **mahol:** add monthly reward notification ([1477f45](https://github.com/SugarF0x/simple-assistant/commit/1477f45593d8886779d35e76921092f5b6be0299))
+
+
+
 ## [3.1.3](https://github.com/SugarF0x/simple-assistant/compare/v3.1.2...v3.1.3) (2022-04-22)
 
 
