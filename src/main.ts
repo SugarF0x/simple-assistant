@@ -30,6 +30,7 @@ app.mount("#app")
 
 /**
  * TODO:
+ *  > Press shift to toggle "Purchase from bank" on arena screen
  *  > Add inventory upgrade highlight
  *  > Add crafting autofocus
  *  > Add tasks assistant (quests & steps)

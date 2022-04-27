@@ -2,11 +2,11 @@
 import Shortcuts from "./Shortcuts.vue"
 
 import { Controls } from "@/components"
-import { onMounted, ref } from "vue"
+import { onBeforeMount, ref } from "vue"
 
 const isVerificationRequired = ref(false)
 
-onMounted(() => {
+onBeforeMount(() => {
   isVerificationRequired.value = !document
     .querySelector<HTMLDivElement>(".rounded-md.bg-green-50.p-4")
     ?.innerText.includes("passed")
@@ -14,7 +14,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Controls v-if="isVerificationRequired" to=".py-6.max-w-7xl.mx-auto.px-4">
+  <Controls v-if="isVerificationRequired" to="#threat-level">
     <Shortcuts />
   </Controls>
 </template>
