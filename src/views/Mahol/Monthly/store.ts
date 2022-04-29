@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { addMonths, getDay, isAfter, setDate, startOfDay } from "date-fns"
+import { addMonths, getDate, isAfter, setDate, startOfDay } from "date-fns"
 import { MS_IN_DAY } from "@/consts"
 import { getLondonTime } from "@/utils"
 
@@ -15,7 +15,7 @@ export const useMaholMonthlyStore = defineStore(
       const lastClaimDate = startOfDay(new Date(new Date(lastRewardClaimTimestamp.value).valueOf() - MS_IN_DAY / 2))
 
       const nextClaimDate = (() => {
-        const claimDay = getDay(lastClaimDate)
+        const claimDay = getDate(lastClaimDate)
         if (claimDay < 28) return setDate(lastClaimDate, 28)
         return addMonths(setDate(lastClaimDate, 28), 1)
       })()
