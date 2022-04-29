@@ -1,3 +1,13 @@
+## [3.2.1](https://github.com/SugarF0x/simple-assistant/compare/v3.2.0...v3.2.1) (2022-04-29)
+
+
+### Bug Fixes
+
+* **notification:** broken feature toggles ([8e01a86](https://github.com/SugarF0x/simple-assistant/commit/8e01a86a19013fc08afe3fce4ba6531df35cb817))
+* **notification:** permanent monthly reminder ([ec0152a](https://github.com/SugarF0x/simple-assistant/commit/ec0152ae726dbe28de6980346828f860dd90c07c))
+
+
+
 # [3.2.0](https://github.com/SugarF0x/simple-assistant/compare/v3.1.3...v3.2.0) (2022-04-27)
 
 
