@@ -21,10 +21,13 @@ export const useMaholDailyStore = defineStore(
       )
     })
 
+    const shouldShowDailyRewardNotification = computed(() => shouldRemindDailyReward.value && isDailyRewardReady.value)
+
     return {
       shouldRemindDailyReward,
       lastRewardClaimTimestamp,
       isDailyRewardReady,
+      shouldShowDailyRewardNotification,
     }
   },
   {

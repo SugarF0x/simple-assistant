@@ -6,11 +6,11 @@ import { storeToRefs } from "pinia"
 import { useMaholMonthlyStore } from "@/views/Mahol/Monthly/store"
 
 const maholMonthlyStore = useMaholMonthlyStore()
-const { isMonthlyRewardReady, lastRewardClaimTimestamp } = storeToRefs(maholMonthlyStore)
+const { shouldShowMonthlyRewardNotification, lastRewardClaimTimestamp } = storeToRefs(maholMonthlyStore)
 </script>
 
 <template>
-  <BaseItem v-if="isMonthlyRewardReady" @dismiss="lastRewardClaimTimestamp = new Date().toISOString()">
+  <BaseItem v-if="shouldShowMonthlyRewardNotification" @dismiss="lastRewardClaimTimestamp = new Date().toISOString()">
     <template #title> Monthly reward available! </template>
     <template #text> Claim your monthly reward now! </template>
     <template #actions>

@@ -6,11 +6,11 @@ import { useMaholDailyStore } from "@/views/Mahol/Daily/store"
 import { storeToRefs } from "pinia"
 
 const maholDailyStore = useMaholDailyStore()
-const { isDailyRewardReady, lastRewardClaimTimestamp } = storeToRefs(maholDailyStore)
+const { shouldShowDailyRewardNotification, lastRewardClaimTimestamp } = storeToRefs(maholDailyStore)
 </script>
 
 <template>
-  <BaseItem v-if="isDailyRewardReady" @dismiss="lastRewardClaimTimestamp = new Date().toISOString()">
+  <BaseItem v-if="shouldShowDailyRewardNotification" @dismiss="lastRewardClaimTimestamp = new Date().toISOString()">
     <template #title> Daily reward available! </template>
     <template #text> Claim your daily reward now! </template>
     <template #actions>

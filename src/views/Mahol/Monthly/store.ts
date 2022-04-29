@@ -23,10 +23,15 @@ export const useMaholMonthlyStore = defineStore(
       return isAfter(getLondonTime().valueOf() - MS_IN_DAY / 2, nextClaimDate)
     })
 
+    const shouldShowMonthlyRewardNotification = computed(
+      () => shouldRemindMonthlyReward.value && isMonthlyRewardReady.value
+    )
+
     return {
       shouldRemindMonthlyReward,
       lastRewardClaimTimestamp,
       isMonthlyRewardReady,
+      shouldShowMonthlyRewardNotification,
     }
   },
   {

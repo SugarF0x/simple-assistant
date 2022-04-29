@@ -9,17 +9,17 @@ export const useSafeModeStore = defineStore(
 
     const lastSafeModeActivationTime = ref<null | string>(null)
 
-    const isSafeModeNotificationRequired = computed(() => {
-      if (!shouldRemindSafeMode.value) return false
+    const isSafeModeExpired = computed(() => {
       if (!lastSafeModeActivationTime.value) return false
-
       return Date.now() - new Date(lastSafeModeActivationTime.value).valueOf() > MS_IN_DAY
     })
+
+    const shouldShowSafeModeNotification = computed(() => shouldRemindSafeMode.value && isSafeModeExpired.value)
 
     return {
       shouldRemindSafeMode,
       lastSafeModeActivationTime,
-      isSafeModeNotificationRequired,
+      shouldShowSafeModeNotification,
     }
   },
   {
