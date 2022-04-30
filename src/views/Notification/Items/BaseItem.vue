@@ -7,21 +7,36 @@ defineEmits<{
 </script>
 
 <template>
-  <Card>
-    <h2 v-if="$slots.title" class="titleWrapper">
-      <slot name="title"></slot>
-    </h2>
-    <div v-if="$slots.text" class="textWrapper">
-      <slot name="text"></slot>
-    </div>
-    <div v-if="$slots.actions" class="actionsWrapper">
-      <slot name="actions"></slot>
-    </div>
+  <Card class="transparent">
     <button class="dismissButton" @click="$emit('dismiss')">X</button>
+
+    <div class="background">
+      <h2 v-if="$slots.title" class="titleWrapper">
+        <slot name="title"></slot>
+      </h2>
+      <div v-if="$slots.text" class="textWrapper">
+        <slot name="text"></slot>
+      </div>
+      <div v-if="$slots.actions" class="actionsWrapper">
+        <slot name="actions"></slot>
+      </div>
+    </div>
   </Card>
 </template>
 
 <style lang="scss" scoped>
+.transparent {
+  background-color: transparent;
+  padding: 0;
+}
+
+.background {
+  padding: 1rem;
+  background-color: white;
+  -webkit-mask: radial-gradient(circle 17px at top 0+6px right 0+6px, #0000 98%, blue);
+  border-radius: 16px;
+}
+
 .dismissButton {
   position: absolute;
   top: -6px;
@@ -29,7 +44,6 @@ defineEmits<{
   border-radius: 50%;
   color: black;
   background-color: white;
-  outline: 2px solid black;
   vertical-align: center;
   text-align: center;
   width: 24px;
@@ -38,6 +52,14 @@ defineEmits<{
   &:hover {
     background-color: lightgray;
   }
+
+  &:active {
+    background-color: darkgray;
+  }
+
+  -webkit-box-shadow: 0 0 16px 0 rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0 0 16px 0 rgba(50, 50, 50, 0.75);
+  box-shadow: 0 0 16px 0 rgba(50, 50, 50, 0.75);
 }
 
 .titleWrapper {
