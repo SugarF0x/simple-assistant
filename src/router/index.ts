@@ -14,7 +14,6 @@ import {
   QuestsMenu,
   Carriage,
   MonthlyReward,
-  Verification,
 } from "@/views"
 import NotFound from "./NotFound.vue"
 
@@ -90,11 +89,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/jobs/view/:id",
     name: "job",
     component: Job,
-  },
-  {
-    path: "/i-am-not-a-bot",
-    name: "verification",
-    component: Verification,
   },
   {
     path: "/:unknown(.*)",
