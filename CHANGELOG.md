@@ -1,3 +1,16 @@
+## [3.2.2](https://github.com/SugarF0x/simple-assistant/compare/v3.2.1...v3.2.2) (2022-05-03)
+
+
+### Bug Fixes
+
+* **ftue:** add verification clause ([f7041e3](https://github.com/SugarF0x/simple-assistant/commit/f7041e349157ff371c0145609a2c8b00a51a7c5c))
+* **header:** update version compatability ([d0973a8](https://github.com/SugarF0x/simple-assistant/commit/d0973a876f50f105ae728c4033869411dc6f5a71))
+* **notification:** misplaced dismiss button ([5a59d2f](https://github.com/SugarF0x/simple-assistant/commit/5a59d2f08d66511a518e1b9d198cd5c594723e9b))
+* **style:** add dismiss button background crop ([f3733fc](https://github.com/SugarF0x/simple-assistant/commit/f3733fc20639c3b44334cf53c2c55f4dc82b97f7))
+* **verification:** remove verification view ([97ac8f1](https://github.com/SugarF0x/simple-assistant/commit/97ac8f17af49eaeb35540a18d467e1306a4b5908))
+
+
+
 ## [3.2.1](https://github.com/SugarF0x/simple-assistant/compare/v3.2.0...v3.2.1) (2022-04-29)
 
 
