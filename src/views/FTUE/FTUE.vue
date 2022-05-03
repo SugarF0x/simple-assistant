@@ -25,6 +25,7 @@ const { isDismissed } = storeToRefs(ftueStore)
               The plugin was developed using light theme at desktop resolution - some features may not be working as
               intended in dark theme and/or small resolution :(
             </li>
+            <li>Verification page will <b>never</b> have an assistance module</li>
           </ul>
           <p>
             If you find a bug or have a suggestion - feel free to report an
