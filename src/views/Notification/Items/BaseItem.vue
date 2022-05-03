@@ -7,7 +7,7 @@ defineEmits<{
 </script>
 
 <template>
-  <Card class="transparent">
+  <Card class="notification">
     <button class="dismissButton" @click="$emit('dismiss')">X</button>
 
     <div class="background">
@@ -25,7 +25,8 @@ defineEmits<{
 </template>
 
 <style lang="scss" scoped>
-.transparent {
+.notification {
+  position: relative;
   background-color: transparent;
   padding: 0;
 }
