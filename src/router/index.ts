@@ -14,6 +14,7 @@ import {
   QuestsMenu,
   Carriage,
   MonthlyReward,
+  Tasks,
 } from "@/views"
 import NotFound from "./NotFound.vue"
 
@@ -59,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/quests/view/:id",
     name: "quest",
     component: Quest,
+  },
+  {
+    path: "/tasks/viewall",
+    name: "tasks",
+    component: Tasks,
   },
   {
     path: "/quests/viewall",
