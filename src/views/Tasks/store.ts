@@ -25,12 +25,22 @@ export const useTasksStore = defineStore(
 )
 
 export enum TaskType {
-  QUEST,
-  KILL,
+  QUEST_SOME,
+  QUEST_ANY,
+  KILL_SOME,
+  KILL_ANY,
   STEP,
   WORSHIP,
   VOTE,
   BUY,
+  UNKNOWN,
+}
+
+export type ComplexTaskType = Extract<TaskType, TaskType.WORSHIP | TaskType.QUEST_SOME | TaskType.KILL_SOME>
+const ComplexTaskTypes: ComplexTaskType[] = [TaskType.WORSHIP, TaskType.QUEST_SOME, TaskType.KILL_SOME]
+
+export function isComplexTaskType(task: TaskType): task is ComplexTaskType {
+  return task in ComplexTaskTypes
 }
 
 export type BasicTask<T = TaskType> = {
@@ -39,16 +49,19 @@ export type BasicTask<T = TaskType> = {
   requirement: number
 }
 
+export type KillAnyTask = BasicTask<TaskType.KILL_ANY>
+export type QuestAnyTask = BasicTask<TaskType.QUEST_ANY>
 export type StepTask = BasicTask<TaskType.STEP>
 export type VoteTask = BasicTask<TaskType.VOTE>
 export type BuyTask = BasicTask<TaskType.BUY>
+export type UnknownTask = BasicTask<TaskType.UNKNOWN>
 
-export interface KillTask extends BasicTask<TaskType.KILL> {
+export interface KillSomeTask extends BasicTask<TaskType.KILL_SOME> {
   target: string
   location: string
 }
 
-export interface QuestTask extends BasicTask<TaskType.QUEST> {
+export interface QuestSomeTask extends BasicTask<TaskType.QUEST_SOME> {
   target: string
 }
 
@@ -56,4 +69,13 @@ export interface WorshipTask extends BasicTask<TaskType.WORSHIP> {
   target: string
 }
 
-export type Task = StepTask | VoteTask | BuyTask | KillTask | QuestTask | WorshipTask
+export type Task =
+  | StepTask
+  | VoteTask
+  | BuyTask
+  | KillSomeTask
+  | QuestSomeTask
+  | UnknownTask
+  | WorshipTask
+  | KillAnyTask
+  | QuestAnyTask
