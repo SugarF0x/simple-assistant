@@ -15,8 +15,8 @@ onMounted(() => {
   if (!observer) return
 
   /** Well this was a weird one... */
-  const action = performButton.getAttribute("x-on:mouseup")
-  performButton.removeAttribute("x-on:mouseup")
+  const action = performButton.getAttribute("x-on:click")
+  performButton.removeAttribute("x-on:click")
   performButton.setAttribute(
     "x-on:click",
     `
