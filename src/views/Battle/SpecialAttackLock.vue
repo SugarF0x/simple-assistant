@@ -8,9 +8,7 @@ import { watch } from "vue"
 const battleStore = useBattleStore()
 const { shouldDisableSpecial } = storeToRefs(battleStore)
 
-const specialButton = document.querySelectorAll<HTMLButtonElement>(
-  ".bg-white.mt-4.rounded-md.p-8.text-center button"
-)[1]
+const specialButton = document.querySelector<HTMLButtonElement>("#attackButton_special")
 
 watch(
   shouldDisableSpecial,
