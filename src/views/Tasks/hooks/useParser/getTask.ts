@@ -7,6 +7,7 @@ import {
   TaskType,
   WorshipTask,
 } from "../../store"
+import { getType } from "./getType"
 
 const complexTaskToParserMap: Record<ComplexTaskType, (el: HTMLElement) => Task> = {
   [TaskType.WORSHIP]: getWorshipTask,
@@ -14,7 +15,8 @@ const complexTaskToParserMap: Record<ComplexTaskType, (el: HTMLElement) => Task>
   [TaskType.KILL_SOME]: getKillSomeTask,
 }
 
-export function getTask(el: HTMLElement, type: TaskType): Task {
+export function getTask(el: HTMLElement): Task {
+  const type = getType(el)
   if (isComplexTaskType(type)) return complexTaskToParserMap[type](el)
 
   const [progress, requirement] = getProgress(el)
@@ -39,7 +41,9 @@ function getText(el: HTMLElement): string {
 }
 
 function getCardText(el: HTMLElement): string {
-  const onclickData = String(el.onclick)
+  const onclickData = el.getAttribute("onclick")
+  if (!onclickData) return "No meta found"
+
   return (
     onclickData
       .slice(onclickData.indexOf("('"))

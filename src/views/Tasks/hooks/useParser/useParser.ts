@@ -1,10 +1,11 @@
-import { Task, TaskType } from "../../store"
-import { getType } from "@/views/Tasks/hooks/useParser/getType"
+import { getTask } from "./getTask"
 
 export function useParser() {
   const nav = document.querySelector("nav.bg-white.rounded-lg.divide-y.divide-gray-200")
-  if (!nav) return
+  if (!nav) return []
 
   const items = Array.from(nav.children) as HTMLElement[]
-  if (!items.length) return
+  if (!items.length) return []
+
+  return items.map((e) => getTask(e))
 }
