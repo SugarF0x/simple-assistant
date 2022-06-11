@@ -2,7 +2,7 @@
 import { Controls, Checkbox } from "@/components"
 import { useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
-import { onMounted, watch } from "vue"
+import { onMounted } from "vue"
 import { useParser } from "@/views/Tasks/hooks"
 
 const tasksStore = useTasksStore()
@@ -10,10 +10,6 @@ const { shouldTrackTasks, tasks } = storeToRefs(tasksStore)
 
 onMounted(() => {
   tasks.value = useParser()
-})
-
-watch(tasks, (val) => {
-  console.log(JSON.stringify(val, null, 2))
 })
 </script>
 

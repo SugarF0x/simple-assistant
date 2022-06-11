@@ -20,12 +20,25 @@ export function getTask(el: HTMLElement): Task {
   if (isComplexTaskType(type)) return complexTaskToParserMap[type](el)
 
   const [progress, requirement] = getProgress(el)
+  const [title, icon] = getMeta(el)
 
   return {
     type,
+    title,
+    icon,
     progress,
     requirement,
   }
+}
+
+function getMeta(el: HTMLElement): [string, string] {
+  const textElement = el.children[0] as HTMLDivElement
+  const title = textElement.innerText
+
+  const imgElement = textElement.children[0] as HTMLImageElement
+  const icon = imgElement.getAttribute("src") || ""
+
+  return [title, icon]
 }
 
 function getProgress(el: HTMLElement): [number, number] {
@@ -55,6 +68,7 @@ function getCardText(el: HTMLElement): string {
 
 function getKillSomeTask(el: HTMLElement): KillSomeTask {
   const [progress, requirement] = getProgress(el)
+  const [title, icon] = getMeta(el)
 
   const text = getText(el)
   const target = text.match(/(?<=Kill )(.*)(?= [0-9])/g)?.[0] ?? "UNKNOWN TARGET"
@@ -64,6 +78,8 @@ function getKillSomeTask(el: HTMLElement): KillSomeTask {
 
   return {
     type: TaskType.KILL_SOME,
+    title,
+    icon,
     progress,
     requirement,
     target,
@@ -73,12 +89,15 @@ function getKillSomeTask(el: HTMLElement): KillSomeTask {
 
 function getQuestSomeTask(el: HTMLElement): QuestSomeTask {
   const [progress, requirement] = getProgress(el)
+  const [title, icon] = getMeta(el)
 
   const text = getText(el)
   const target = text.match(/(?<=Complete quest )(.*)(?= [0-9])/g)?.[0] ?? "UNKNOWN TARGET"
 
   return {
     type: TaskType.QUEST_SOME,
+    title,
+    icon,
     progress,
     requirement,
     target,
@@ -87,12 +106,15 @@ function getQuestSomeTask(el: HTMLElement): QuestSomeTask {
 
 function getWorshipTask(el: HTMLElement): WorshipTask {
   const [progress, requirement] = getProgress(el)
+  const [title, icon] = getMeta(el)
 
   const text = getText(el)
   const target = text.split(" ")[1] ?? ""
 
   return {
     type: TaskType.WORSHIP,
+    title,
+    icon,
     progress,
     requirement,
     target,

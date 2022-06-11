@@ -25,15 +25,15 @@ export const useTasksStore = defineStore(
 )
 
 export enum TaskType {
-  QUEST_SOME = "Complete particular quest",
-  QUEST_ANY = "Complete any quest",
-  KILL_SOME = "Kill some NPC",
-  KILL_ANY = "Kill and NPC",
-  STEP = "Perform steps",
-  WORSHIP = "Worship",
-  VOTE = "Vote",
-  BUY = "Buy from market",
-  UNKNOWN = "Unknown",
+  QUEST_SOME,
+  QUEST_ANY,
+  KILL_SOME,
+  KILL_ANY,
+  STEP,
+  WORSHIP,
+  VOTE,
+  BUY,
+  UNKNOWN,
 }
 
 export type ComplexTaskType = Extract<TaskType, TaskType.WORSHIP | TaskType.QUEST_SOME | TaskType.KILL_SOME>
@@ -45,6 +45,8 @@ export function isComplexTaskType(task: TaskType): task is ComplexTaskType {
 
 export type BasicTask<T = TaskType> = {
   type: T
+  title: string
+  icon: string
   progress: number
   requirement: number
 }
