@@ -8,7 +8,7 @@ import { focusOnButtonEnable } from "@/utils"
 const questStore = useQuestStore()
 const { shouldAutoFocusPerform } = storeToRefs(questStore)
 
-const performButton = document.querySelector<HTMLButtonElement>("#questButton")
+const performButton = document.querySelector<HTMLButtonElement>("#performQuestButton")
 const observer = performButton && focusOnButtonEnable(performButton)
 
 onMounted(() => {
@@ -16,7 +16,6 @@ onMounted(() => {
 
   /** Well this was a weird one... */
   const action = performButton.getAttribute("x-on:click")
-  performButton.removeAttribute("x-on:click")
   performButton.setAttribute(
     "x-on:click",
     `

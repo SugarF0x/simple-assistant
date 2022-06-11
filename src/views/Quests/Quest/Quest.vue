@@ -6,7 +6,7 @@ import { onBeforeMount } from "vue"
 import { wrapElement } from "@/utils"
 
 onBeforeMount(() => {
-  const performButton = document.querySelector<HTMLButtonElement>("#questButton")
+  const performButton = document.querySelector<HTMLButtonElement>("#performQuestButton")
   if (!performButton) return
 
   wrapElement(performButton, "questControls")
