@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { Task, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
+import { computed, toRefs } from "vue"
 
 const tasksStore = useTasksStore()
 const { tasks } = storeToRefs(tasksStore)
 
-defineProps<{
+const props = defineProps<{
   task: Task
 }>()
+const { task } = toRefs(props)
+
+const progressText = computed(() => {
+  if (task.value.progress < task.value.requirement) return `${task.value.progress}/${task.value.requirement}`
+  return "done"
+})
 </script>
 
 <template>
@@ -15,9 +22,7 @@ defineProps<{
     <template v-if="task">
       <img :src="task.icon" alt="step_icon" />
       <span class="title">{{ task.title }}</span>
-      <span class="progress" :class="{ completed: task.progress >= task.requirement }"
-        >[{{ task.progress }}/{{ task.requirement }}]</span
-      >
+      <span class="progress" :class="{ completed: task.progress >= task.requirement }"> [{{ progressText }}] </span>
     </template>
 
     <template v-else-if="tasks.length">

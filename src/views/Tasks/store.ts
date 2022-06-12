@@ -1,5 +1,7 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
+import { getLondonTime, getTimeWithLondonOffset } from "@/utils"
+import { MS_IN_DAY } from "@/consts"
 
 export const useTasksStore = defineStore(
   "tasks",
@@ -7,6 +9,7 @@ export const useTasksStore = defineStore(
     const shouldTrackTasks = ref(false)
 
     const tasks = ref<Task[]>([])
+    const lastUpdateTimestamp = ref<null | string>(null)
 
     function advanceTask(task: Task) {
       const index = tasks.value.indexOf(task)
@@ -25,12 +28,28 @@ export const useTasksStore = defineStore(
     return {
       shouldTrackTasks,
       tasks,
+      lastUpdateTimestamp,
       advanceTask,
       areTasksComplete,
     }
   },
   {
-    persist: true,
+    persist: {
+      serializer: {
+        deserialize: (store) => {
+          const parsed = JSON.parse(store)
+          if (!parsed.lastUpdateTimestamp) return parsed
+
+          const date = new Date(parsed.lastUpdateTimestamp)
+          const isNextDay =
+            getLondonTime().valueOf() - MS_IN_DAY / 2 - getTimeWithLondonOffset(date).valueOf() >= MS_IN_DAY
+
+          if (isNextDay) parsed.tasks = []
+          return parsed
+        },
+        serialize: JSON.stringify,
+      },
+    },
   }
 )
 

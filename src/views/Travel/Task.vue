@@ -18,6 +18,7 @@ const shouldShowHUD = computed(() => shouldTrackTasks.value && shouldHelpTrackSt
 watch(lastStepResponse, (response) => {
   if (!shouldTrackTasks.value) return
   if (!shouldHelpTrackStepsTaskProgress.value) return
+  if (!task.value) return
   if (!response) return
   if (!response.step_type) return
 

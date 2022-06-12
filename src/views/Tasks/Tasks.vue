@@ -6,10 +6,11 @@ import { onMounted } from "vue"
 import { useParser } from "@/views/Tasks/hooks"
 
 const tasksStore = useTasksStore()
-const { shouldTrackTasks, tasks } = storeToRefs(tasksStore)
+const { shouldTrackTasks, tasks, lastUpdateTimestamp } = storeToRefs(tasksStore)
 
 onMounted(() => {
   tasks.value = useParser()
+  lastUpdateTimestamp.value = new Date().toISOString()
 })
 </script>
 
