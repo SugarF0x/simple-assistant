@@ -59,6 +59,7 @@ watch([shouldShowTravelDestinationDetails, destinations], ([toggle, entries]) =>
   <Checkbox v-model="shouldHighlightBestStats" :parent="shouldShowTravelDestinationDetails">
     <template #default> Highlight best chances </template>
     <template #subtitle> Green is the best you have </template>
+    <template #requires> Requires travel destination details enabled </template>
   </Checkbox>
 
   <template v-if="shouldRenderDetails">

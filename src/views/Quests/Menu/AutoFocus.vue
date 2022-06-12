@@ -40,6 +40,7 @@ watch(
   <Checkbox v-model="shouldAutoFocusLastIncompleteQuest" :parent="shouldElevateLastIncompleteQuest">
     <template #default> Autofocus last incomplete quest </template>
     <template #subtitle> Just hit space/enter! </template>
+    <template #requires> Requires last incomplete quest elevation enabled </template>
   </Checkbox>
 </template>
 

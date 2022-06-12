@@ -118,6 +118,7 @@ function getSetterButtonText(url: string): string {
       <br />
       Backspace to unset
     </template>
+    <template #requires> Requires shortcuts enabled </template>
   </Checkbox>
 
   <template v-if="shouldUseShortcuts">

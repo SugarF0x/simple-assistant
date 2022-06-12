@@ -23,6 +23,7 @@ onMounted(() => {
     <Checkbox v-model="shouldShowReminders" :parent="shouldTrackTasks">
       <template #default> Show notifications </template>
       <template #subtitle> Remind you to update tasks & collect rewards </template>
+      <template #requires> Requires task tracking to be enabled </template>
     </Checkbox>
   </Controls>
 </template>

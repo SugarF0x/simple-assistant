@@ -56,6 +56,7 @@ watch(
   <Checkbox v-model="shouldHelpTrackStepsTaskProgress" :parent="shouldTrackTasks">
     <template #default> Help track steps task progress </template>
     <template #subtitle> See just how many steps you need </template>
+    <template #requires> Requires task tracking enabled </template>
   </Checkbox>
 
   <Teleport v-if="shouldShowHUD" to="#hudSlot">

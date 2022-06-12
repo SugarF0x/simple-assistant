@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Subtitle from "./Subtitle.vue"
-
 import { computed, useAttrs } from "vue"
 
 const props = withDefaults(
@@ -41,6 +40,9 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
     <Subtitle :class="{ fade: isDisabled }">
       <slot name="subtitle" />
     </Subtitle>
+    <div v-if="!parent" class="requires">
+      <slot name="requires" />
+    </div>
   </div>
 </template>
 
@@ -75,5 +77,14 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
 .fade,
 .disabledLabel {
   opacity: 0.4;
+}
+
+.requires {
+  color: darkred;
+  font-size: 0.8rem;
+
+  &:hover {
+    color: red;
+  }
 }
 </style>
