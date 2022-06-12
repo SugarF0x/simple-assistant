@@ -1,3 +1,12 @@
+## [3.3.1](https://github.com/SugarF0x/simple-assistant/compare/v3.3.0...v3.3.1) (2022-06-12)
+
+
+### Bug Fixes
+
+* **battle/travel/quest:** this aint funny mike ([95d8809](https://github.com/SugarF0x/simple-assistant/commit/95d88098431fee029b23629bf8cf230a2d3722fa))
+
+
+
 # [3.3.0](https://github.com/SugarF0x/simple-assistant/compare/v3.2.2...v3.3.0) (2022-06-12)
 
 
