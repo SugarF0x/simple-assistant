@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ExpandedDetails } from "./ExpandedDetails"
+import Task from "./Task.vue"
 
 import { Controls } from "@/components"
 import { onBeforeMount } from "vue"
@@ -18,5 +19,6 @@ onBeforeMount(() => {
 <template>
   <Controls to="#controlsContainer">
     <ExpandedDetails />
+    <Task />
   </Controls>
 </template>

@@ -6,10 +6,12 @@ export const useCarriageStore = defineStore(
   () => {
     const shouldShowTravelDestinationDetails = ref(false)
     const shouldHighlightBestStats = ref(false)
+    const shouldHighlightTrackedZones = ref(false)
 
     return {
       shouldShowTravelDestinationDetails,
       shouldHighlightBestStats,
+      shouldHighlightTrackedZones,
     }
   },
   {
