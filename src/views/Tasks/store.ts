@@ -7,6 +7,7 @@ export const useTasksStore = defineStore(
   "tasks",
   () => {
     const shouldTrackTasks = ref(false)
+    const shouldRemindToUpdateTasks = ref(false)
 
     const tasks = ref<Task[]>([])
     const lastUpdateTimestamp = ref<null | string>(null)
@@ -27,6 +28,7 @@ export const useTasksStore = defineStore(
 
     return {
       shouldTrackTasks,
+      shouldRemindToUpdateTasks,
       tasks,
       lastUpdateTimestamp,
       advanceTask,
@@ -44,7 +46,10 @@ export const useTasksStore = defineStore(
           const isNextDay =
             getLondonTime().valueOf() - MS_IN_DAY / 2 - getTimeWithLondonOffset(date).valueOf() >= MS_IN_DAY
 
-          if (isNextDay) parsed.tasks = []
+          if (isNextDay) {
+            parsed.tasks = []
+            parsed.lastUpdateTimestamp = null
+          }
           return parsed
         },
         serialize: JSON.stringify,

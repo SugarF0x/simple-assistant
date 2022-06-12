@@ -6,7 +6,7 @@ import { onMounted } from "vue"
 import { useParser } from "@/views/Tasks/hooks"
 
 const tasksStore = useTasksStore()
-const { shouldTrackTasks, tasks, lastUpdateTimestamp } = storeToRefs(tasksStore)
+const { shouldTrackTasks, shouldRemindToUpdateTasks, tasks, lastUpdateTimestamp } = storeToRefs(tasksStore)
 
 onMounted(() => {
   tasks.value = useParser()
@@ -19,6 +19,10 @@ onMounted(() => {
     <Checkbox v-model="shouldTrackTasks">
       <template #default> Track tasks </template>
       <template #subtitle> Help tracking step, kill & quest completion progress </template>
+    </Checkbox>
+    <Checkbox v-model="shouldRemindToUpdateTasks" :parent="shouldTrackTasks">
+      <template #default> Remind to update tasks </template>
+      <template #subtitle> Show daily notification to check on new tasks </template>
     </Checkbox>
   </Controls>
 </template>

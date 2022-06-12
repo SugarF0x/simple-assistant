@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Daily, SafeMode, Monthly } from "./Items"
+import { Daily, SafeMode, Monthly, Tasks } from "./Items"
 </script>
 
 <template>
@@ -8,6 +8,7 @@ import { Daily, SafeMode, Monthly } from "./Items"
       <Daily />
       <Monthly />
       <SafeMode />
+      <Tasks />
     </div>
   </Teleport>
 </template>
