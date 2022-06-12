@@ -11,7 +11,7 @@ const { cooldownTimeLeft, shouldPersistCooldown } = storeToRefs(travelStore)
 
 /** Step Button controls */
 
-const stepButton = document.querySelector<HTMLButtonElement>("#take_a_step_button")
+const stepButton = document.querySelector<HTMLButtonElement>("#step_button")
 
 watch(
   cooldownTimeLeft,

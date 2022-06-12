@@ -8,7 +8,7 @@ import { focusOnButtonEnable } from "@/utils"
 const questStore = useQuestStore()
 const { shouldAutoFocusPerform } = storeToRefs(questStore)
 
-const performButton = document.querySelector<HTMLButtonElement>("#performQuestButton")
+const performButton = document.querySelector<HTMLButtonElement>("#questButton")
 const observer = performButton && focusOnButtonEnable(performButton)
 
 onMounted(() => {

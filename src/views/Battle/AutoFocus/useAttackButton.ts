@@ -2,7 +2,7 @@ import { focusOnButtonEnable } from "@/utils"
 import { Ref, watch } from "vue"
 
 export function useAttackButton(shouldAutoFocusAttack: Ref<boolean>) {
-  const attackButton = document.querySelector<HTMLButtonElement>("#attackNPCButton")
+  const attackButton = document.querySelector<HTMLButtonElement>("#attackButton")
   const observer = attackButton && focusOnButtonEnable(attackButton)
 
   watch(
