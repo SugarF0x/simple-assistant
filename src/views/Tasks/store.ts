@@ -8,6 +8,15 @@ export const useTasksStore = defineStore(
 
     const tasks = ref<Task[]>([])
 
+    function advanceTask(task: Task) {
+      const index = tasks.value.indexOf(task)
+      if (index < 0) throw new Error(`No task "${task.title}" found in tracker`)
+      tasks.value[index] = {
+        ...task,
+        progress: Math.min(task.progress + 1, task.requirement),
+      }
+    }
+
     const areTasksComplete = computed(() => {
       if (!tasks.value.length) return false
       return tasks.value.every((entry) => entry.progress >= entry.requirement)
@@ -16,6 +25,7 @@ export const useTasksStore = defineStore(
     return {
       shouldTrackTasks,
       tasks,
+      advanceTask,
       areTasksComplete,
     }
   },

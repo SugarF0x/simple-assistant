@@ -8,6 +8,7 @@ export const useTravelStore = defineStore(
     const shouldPersistCooldown = ref(false)
     const shouldAutoFocusEncounters = ref(false)
     const shouldAutoFocusVerification = ref(false)
+    const shouldHelpTrackStepsTaskProgress = ref(false)
 
     const lastStepResponse = ref<null | TravelResponse>(null)
     const cooldownTimestamp = ref<null | string>(null)
@@ -30,6 +31,7 @@ export const useTravelStore = defineStore(
       shouldPersistCooldown,
       shouldAutoFocusEncounters,
       shouldAutoFocusVerification,
+      shouldHelpTrackStepsTaskProgress,
       cooldownTimestamp,
       cooldownTimeLeft,
       lastStepResponse,
