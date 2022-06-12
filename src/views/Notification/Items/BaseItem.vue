@@ -8,8 +8,6 @@ defineEmits<{
 
 <template>
   <Card class="notification">
-    <button class="dismissButton" @click="$emit('dismiss')">X</button>
-
     <div class="background">
       <h2 v-if="$slots.title" class="titleWrapper">
         <slot name="title"></slot>
@@ -21,6 +19,8 @@ defineEmits<{
         <slot name="actions"></slot>
       </div>
     </div>
+
+    <button class="dismissButton" @click="$emit('dismiss')">X</button>
   </Card>
 </template>
 

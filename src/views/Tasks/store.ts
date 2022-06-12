@@ -7,7 +7,7 @@ export const useTasksStore = defineStore(
   "tasks",
   () => {
     const shouldTrackTasks = ref(false)
-    const shouldRemindToUpdateTasks = ref(false)
+    const shouldShowReminders = ref(false)
 
     const tasks = ref<Task[]>([])
     const lastUpdateTimestamp = ref<null | string>(null)
@@ -21,6 +21,7 @@ export const useTasksStore = defineStore(
       }
     }
 
+    const isRewardCollected = ref(false)
     const areTasksComplete = computed(() => {
       if (!tasks.value.length) return false
       return tasks.value.every((entry) => entry.progress >= entry.requirement)
@@ -28,10 +29,11 @@ export const useTasksStore = defineStore(
 
     return {
       shouldTrackTasks,
-      shouldRemindToUpdateTasks,
+      shouldShowReminders,
       tasks,
       lastUpdateTimestamp,
       advanceTask,
+      isRewardCollected,
       areTasksComplete,
     }
   },
@@ -49,6 +51,7 @@ export const useTasksStore = defineStore(
           if (isNextDay) {
             parsed.tasks = []
             parsed.lastUpdateTimestamp = null
+            parsed.isRewardCollected = false
           }
           return parsed
         },
