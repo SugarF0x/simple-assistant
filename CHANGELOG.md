@@ -1,3 +1,26 @@
+# [3.3.0](https://github.com/SugarF0x/simple-assistant/compare/v3.2.2...v3.3.0) (2022-06-12)
+
+
+### Bug Fixes
+
+* **battle:** broken button order ([c012846](https://github.com/SugarF0x/simple-assistant/commit/c0128460fc2929a92199966d57d5fe66ae626612))
+* **carriage:** typo :sweat: ([a99493e](https://github.com/SugarF0x/simple-assistant/commit/a99493e03610bd0461e3e8ab928d2f97dc2b3f38))
+* **header:** update compatability version ([0beabc4](https://github.com/SugarF0x/simple-assistant/commit/0beabc4f2316764edf8aba9f47c8c3ffbc93a2fa))
+* **quest:** broken broken button (again) ([0d0e05e](https://github.com/SugarF0x/simple-assistant/commit/0d0e05e981d0fed5456393d413c99e691013643f))
+* **quest:** broken on click event after mike broke it :angry: ([42e1fdb](https://github.com/SugarF0x/simple-assistant/commit/42e1fdbba86d92007945e20b560e5e4cfb2dfaa6))
+* **travel:** mistargeted buttons ([352433e](https://github.com/SugarF0x/simple-assistant/commit/352433e8fc06324e651093861be1ce30de7c0470))
+
+
+### Features
+
+* **carriage:** add kill some task zone finder ([1be71d5](https://github.com/SugarF0x/simple-assistant/commit/1be71d55d1b067dd3098ca88864a42653b10f5cd))
+* **notification:** add collect rewards notification ([8340798](https://github.com/SugarF0x/simple-assistant/commit/8340798d3948d98a9bf86b13829a5976f8a38951))
+* **notification:** add Tasks notification ([7891f48](https://github.com/SugarF0x/simple-assistant/commit/7891f48d49e0ffd18deb6d1754e3ec532cad3724))
+* **travel:** add step task assist ([4995e38](https://github.com/SugarF0x/simple-assistant/commit/4995e38fa8d91a978d84146aebbffd14a7555544))
+* **ux:** add hints to parent dependant checkboxes ([dd8f4c4](https://github.com/SugarF0x/simple-assistant/commit/dd8f4c429ee029aa456dcb09bed03579d20ec2a2))
+
+
+
 ## [3.2.2](https://github.com/SugarF0x/simple-assistant/compare/v3.2.1...v3.2.2) (2022-05-03)
 
 
