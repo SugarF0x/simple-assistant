@@ -2,6 +2,7 @@
 import { Controls } from "@/components"
 
 import SpecialAttackLock from "./SpecialAttackLock.vue"
+import Task from "./Task.vue"
 import { AutoFocus } from "./AutoFocus"
 </script>
 
@@ -9,5 +10,6 @@ import { AutoFocus } from "./AutoFocus"
   <Controls to=".bg-white.mt-4.rounded-md.p-8.text-center">
     <AutoFocus />
     <SpecialAttackLock />
+    <Task />
   </Controls>
 </template>
