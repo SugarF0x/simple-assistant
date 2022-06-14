@@ -39,6 +39,7 @@ const progressText = computed(() => {
 .task-tracker {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .title {
