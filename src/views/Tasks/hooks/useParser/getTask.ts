@@ -57,13 +57,9 @@ function getCardText(el: HTMLElement): string {
   const onclickData = el.getAttribute("onclick")
   if (!onclickData) return "No meta found"
 
-  return (
-    onclickData
-      .slice(onclickData.indexOf("('"))
-      .replace(/[)("']/g, "")
-      .split(",")
-      .map((e) => e.trim())[1] ?? ""
-  )
+  const meta = onclickData.slice(onclickData.indexOf("('")).replace(/[)(]/g, "")
+  const parsedMeta = JSON.parse(`[${meta}]`.replace(/'/g, '"'))
+  return parsedMeta[1]
 }
 
 function getKillSomeTask(el: HTMLElement): KillSomeTask {
