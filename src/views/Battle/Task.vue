@@ -25,8 +25,6 @@ const matchingTasks = computed(() =>
   killTasks.value.filter((task) => task.type === TaskType.KILL_ANY || task.target === npcName)
 )
 
-const hasKillOtherTasks = computed(() => !matchingTasks.value.length && killTasks.value.length)
-
 useHealthObserver(shouldHelpTrackTasks, () => {
   matchingTasks.value.forEach((task) => {
     advanceTask(task)
@@ -51,7 +49,6 @@ onBeforeMount(() => {
     <Teleport to=".w-full.h-full.flex.items-center">
       <div class="tasks">
         <TaskTracker v-for="task in killTasks" :key="task.title" :task="task" />
-        <span v-if="hasKillOtherTasks"> No tasks of this type today, but you still have to kill something else! </span>
       </div>
     </Teleport>
   </template>
