@@ -4,9 +4,14 @@ import { useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 import { useParser } from "@/views/Tasks/hooks"
+import { useSwalObserver } from "@/hooks"
 
 const tasksStore = useTasksStore()
-const { shouldTrackTasks, shouldShowReminders, tasks, lastUpdateTimestamp } = storeToRefs(tasksStore)
+const { shouldTrackTasks, shouldShowReminders, tasks, lastUpdateTimestamp, isRewardCollected } = storeToRefs(tasksStore)
+
+useSwalObserver(() => {
+  isRewardCollected.value = true
+})
 
 onMounted(() => {
   tasks.value = useParser()
