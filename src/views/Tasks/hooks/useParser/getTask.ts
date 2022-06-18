@@ -33,7 +33,7 @@ export function getTask(el: HTMLElement): Task {
 
 function getMeta(el: HTMLElement): [string, string] {
   const textElement = el.children[0] as HTMLDivElement
-  const title = textElement.innerText
+  const title = textElement.innerText.trim()
 
   const imgElement = textElement.children[0] as HTMLImageElement
   const icon = imgElement.getAttribute("src") || ""
@@ -88,7 +88,7 @@ function getQuestSomeTask(el: HTMLElement): QuestSomeTask {
   const [title, icon] = getMeta(el)
 
   const text = getText(el)
-  const target = text.match(/(?<=Complete quest )(.*)(?= [0-9])/g)?.[0] ?? "UNKNOWN TARGET"
+  const target = text.match(/(?<=Complete the quest )(.*)(?= [0-9])/g)?.[0] ?? "UNKNOWN TARGET"
 
   return {
     type: TaskType.QUEST_SOME,
