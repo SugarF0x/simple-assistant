@@ -1,3 +1,12 @@
+## [3.4.1](https://github.com/SugarF0x/simple-assistant/compare/v3.4.0...v3.4.1) (2022-06-18)
+
+
+### Bug Fixes
+
+* **travel:** fix step button cooldown timer ([27bf721](https://github.com/SugarF0x/simple-assistant/commit/27bf7216e571a5e981f60fac941b11871e90ffa6))
+
+
+
 # [3.4.0](https://github.com/SugarF0x/simple-assistant/compare/v3.3.1...v3.4.0) (2022-06-18)
 
 
