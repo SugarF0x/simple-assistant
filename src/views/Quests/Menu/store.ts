@@ -6,10 +6,14 @@ export const useQuestsMenuStore = defineStore(
   () => {
     const shouldElevateLastIncompleteQuest = ref(false)
     const shouldAutoFocusLastIncompleteQuest = ref(false)
+    const shouldElevateTaskQuests = ref(false)
+    const shouldAutoFocusTaskQuest = ref(false)
 
     return {
       shouldElevateLastIncompleteQuest,
       shouldAutoFocusLastIncompleteQuest,
+      shouldElevateTaskQuests,
+      shouldAutoFocusTaskQuest,
     }
   },
   {

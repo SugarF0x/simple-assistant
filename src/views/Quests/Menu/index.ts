@@ -1,1 +1,1 @@
-export { default as QuestsMenu } from "./Menu.vue"
+export { default as QuestsMenu } from "./_Menu.vue"
