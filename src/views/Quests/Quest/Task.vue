@@ -69,6 +69,8 @@ const validTasks = computed(() =>
 
 <style lang="scss" scoped>
 .tasks {
+  display: flex;
+  justify-content: center;
   margin-top: 1rem;
 }
 </style>
