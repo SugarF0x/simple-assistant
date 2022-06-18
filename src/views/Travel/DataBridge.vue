@@ -10,11 +10,10 @@ const { cooldownTimestamp, lastStepResponse } = storeToRefs(travelStore)
 function handleBridge({ detail: data }: CustomEvent<TravelResponse>) {
   lastStepResponse.value = data
 
-  const msWait = data.nextwait * 1000
-  cooldownTimestamp.value = new Date(Date.now() + msWait).toISOString()
+  cooldownTimestamp.value = new Date(Date.now() + data.nextwait).toISOString()
   setTimeout(() => {
     cooldownTimestamp.value = null
-  }, msWait)
+  }, data.nextwait)
 }
 
 onMounted(() => {
