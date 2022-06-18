@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AutoFocus } from "./AutoFocus"
+import Task from "./Task.vue"
 
 import { Controls } from "@/components"
 import { onBeforeMount } from "vue"
@@ -16,5 +17,6 @@ onBeforeMount(() => {
 <template>
   <Controls to="#questControls">
     <AutoFocus />
+    <Task />
   </Controls>
 </template>

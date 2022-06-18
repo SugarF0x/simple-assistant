@@ -6,10 +6,12 @@ export const useQuestStore = defineStore(
   () => {
     const shouldAutoFocusPerform = ref(false)
     const shouldAutoFocusVerification = ref(false)
+    const shouldTrackTaskQuests = ref(false)
 
     return {
       shouldAutoFocusPerform,
       shouldAutoFocusVerification,
+      shouldTrackTaskQuests,
     }
   },
   {

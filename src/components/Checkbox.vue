@@ -62,7 +62,7 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
   }
 
   & + & {
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
 }
 
