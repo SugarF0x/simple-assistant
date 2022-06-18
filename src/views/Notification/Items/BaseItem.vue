@@ -7,7 +7,7 @@ defineEmits<{
 </script>
 
 <template>
-  <Card class="notification">
+  <Card shadow class="notification">
     <div class="background">
       <h2 v-if="$slots.title" class="titleWrapper">
         <slot name="title"></slot>

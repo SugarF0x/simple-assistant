@@ -6,6 +6,7 @@ const props = withDefaults(
   defineProps<{
     parent?: boolean
     modelValue?: boolean
+    pos?: "left" | "right"
   }>(),
   {
     parent: true,
@@ -23,7 +24,7 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :class="{ left: pos === 'left', right: pos === 'right' }">
     <label class="inputLabel" :class="{ disabledLabel: isDisabled }">
       <input
         type="checkbox"
@@ -37,7 +38,7 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
         <slot />
       </span>
     </label>
-    <Subtitle :class="{ fade: isDisabled }">
+    <Subtitle :class="{ fade: isDisabled }" :style="{ textAlign: pos }">
       <slot name="subtitle" />
     </Subtitle>
     <div v-if="!parent" class="requires">
@@ -50,8 +51,19 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
 .wrapper {
   display: flex;
   flex-flow: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  &.left {
+    align-items: flex-start;
+  }
+  &.right {
+    align-items: flex-end;
+  }
+
+  & + & {
+    margin-top: 0.5rem;
+  }
 }
 
 .inputLabel {
