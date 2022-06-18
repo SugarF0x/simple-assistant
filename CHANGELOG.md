@@ -1,3 +1,24 @@
+# [3.4.0](https://github.com/SugarF0x/simple-assistant/compare/v3.3.1...v3.4.0) (2022-06-18)
+
+
+### Bug Fixes
+
+* **battle:** remove "other kill task" prompt ([92b77b5](https://github.com/SugarF0x/simple-assistant/commit/92b77b5d15828f8842b1ad783a6542703166ac36))
+* **task:** auto hide notification on reward collection ([1c0ba7a](https://github.com/SugarF0x/simple-assistant/commit/1c0ba7a56e129d8495e18d8c4e61b839223c9670))
+* **tasks:** adjust tasks completion check logic ([cc1b5a7](https://github.com/SugarF0x/simple-assistant/commit/cc1b5a7cfd3e3b5e962bfcf2512a0b9388462419))
+* **tasks:** properly parse titles with comas in title ([3ec794f](https://github.com/SugarF0x/simple-assistant/commit/3ec794fd477fda639290366015679c3e076f61fd))
+* **travel:** verification focus fail ([3ba7372](https://github.com/SugarF0x/simple-assistant/commit/3ba7372b131bb3a68f63245cb798358aef42f586))
+
+
+### Features
+
+* **battle:** add kill task track assist ([e4a9d3c](https://github.com/SugarF0x/simple-assistant/commit/e4a9d3c513df258c53580d87a5914f96faba4fd0))
+* **general:** add option to replace swal background gloom with blur ([454d30a](https://github.com/SugarF0x/simple-assistant/commit/454d30adb8afc7688a4fe5581f3c69c20f02226c))
+* **quest:** add task quest progression tracking ([12fca70](https://github.com/SugarF0x/simple-assistant/commit/12fca70022ff91fda16bda9f5a2864efb88b6a16))
+* **quest:** add task quests elevation ([10fa336](https://github.com/SugarF0x/simple-assistant/commit/10fa33618e676b2e9843b4410b193bbb96401c74))
+
+
+
 ## [3.3.1](https://github.com/SugarF0x/simple-assistant/compare/v3.3.0...v3.3.1) (2022-06-12)
 
 
