@@ -8,6 +8,7 @@ const { tasks } = storeToRefs(tasksStore)
 
 const props = defineProps<{
   task: Task
+  stack?: boolean
 }>()
 const { task } = toRefs(props)
 
@@ -18,7 +19,15 @@ const progressText = computed(() => {
 </script>
 
 <template>
-  <div class="task-tracker">
+  <div v-if="stack" class="stack">
+    <div class="title">{{ task.title }}</div>
+    <div>
+      <img :src="task.icon" alt="step_icon" />
+      <span class="progress" :class="{ completed: task.progress >= task.requirement }"> [{{ progressText }}] </span>
+    </div>
+  </div>
+
+  <div v-else class="task-tracker">
     <template v-if="task">
       <img :src="task.icon" alt="step_icon" />
       <span class="title">{{ task.title }}</span>
@@ -44,6 +53,11 @@ const progressText = computed(() => {
 
 .title {
   margin-left: 0.5rem;
+
+  .stack & {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .progress {

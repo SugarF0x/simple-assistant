@@ -4,6 +4,7 @@ import { KillSomeTask, TaskType, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed, watch } from "vue"
 import { useCarriageStore } from "@/views/Carriage/store"
+import TaskTracker from "@/components/TaskTracker.vue"
 
 const carriageStore = useCarriageStore()
 const { shouldHighlightTrackedZones } = storeToRefs(carriageStore)
@@ -31,8 +32,10 @@ watch(
     const cards = Array.from(grid?.children || []) as HTMLElement[]
 
     for (const card of cards) {
-      if (!locations.value.includes(card.querySelector("h3")?.innerText || "")) continue
+      const locationIndex = locations.value.indexOf(card.querySelector("h3")?.innerText || "")
+      if (locationIndex === -1) continue
       card.classList.add("task-zone")
+      card.setAttribute("data-zone", String(locationIndex))
     }
   },
   { immediate: true }
@@ -42,9 +45,23 @@ watch(
 <template>
   <Checkbox v-model="shouldHighlightTrackedZones" :parent="shouldTrackTasks">
     <template #default> Track task locations </template>
-    <template #subtitle> Highlight zones where kill task NPCs reside </template>
+    <template #subtitle>
+      Highlight zones where kill task NPCs reside
+      <br />
+      Only highlights incomplete zones
+    </template>
     <template #requires> Requires task tracking enabled </template>
   </Checkbox>
+
+  <div v-if="shouldHighlightTrackedZones">
+    <Teleport
+      v-for="(task, index) of killTasks"
+      :key="task + index"
+      :to="`.task-zone[data-zone=&quot;${locations.indexOf(task.location)}&quot;] .flex-1.flex.flex-col.p-4`"
+    >
+      <TaskTracker stack :task="task" style="margin-top: 0.5rem" />
+    </Teleport>
+  </div>
 </template>
 
 <style lang="scss">
