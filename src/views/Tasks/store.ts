@@ -24,7 +24,7 @@ export const useTasksStore = defineStore(
     const isRewardCollected = ref(false)
     const areTasksComplete = computed(() => {
       if (!tasks.value.length) return false
-      return tasks.value.every((entry) => entry.progress >= entry.requirement)
+      return tasks.value.filter((entry) => entry.progress >= entry.requirement).length >= 5
     })
 
     return {
