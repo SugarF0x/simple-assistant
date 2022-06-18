@@ -9,8 +9,10 @@ import { useSwalObserver } from "@/hooks"
 const tasksStore = useTasksStore()
 const { shouldTrackTasks, shouldShowReminders, tasks, lastUpdateTimestamp, isRewardCollected } = storeToRefs(tasksStore)
 
-useSwalObserver(() => {
-  isRewardCollected.value = true
+useSwalObserver({
+  onResolve: () => {
+    isRewardCollected.value = true
+  },
 })
 
 onMounted(() => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Header, FTUE, Navigation, Notification } from "@/views"
+import { Header, FTUE, Navigation, Notification, General } from "@/views"
 </script>
 
 <template>
@@ -7,6 +7,7 @@ import { Header, FTUE, Navigation, Notification } from "@/views"
   <Navigation />
   <FTUE />
   <Notification />
+  <General />
   <router-view />
 </template>
 
