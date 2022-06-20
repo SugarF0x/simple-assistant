@@ -4,16 +4,25 @@ import Verification from "./Verification.vue"
 import { useHealthObserver } from "../hooks"
 
 import { useBattleStore } from "../store"
-import { useAttackButton } from "./useAttackButton"
 
 import { Checkbox } from "@/components"
 import { storeToRefs } from "pinia"
-import { wrapAnchorWithButton } from "@/utils"
+import { focusOnButtonEnable, wrapAnchorWithButton } from "@/utils"
+import { watchEffect } from "vue"
 
 const battleStore = useBattleStore()
 const { shouldAutoFocusAttack } = storeToRefs(battleStore)
 
-useAttackButton(shouldAutoFocusAttack)
+const attackButton = document.querySelector<HTMLButtonElement>("#attackButton")
+const observer = attackButton && focusOnButtonEnable(attackButton)
+
+watchEffect(() => {
+  if (!observer) return
+
+  if (shouldAutoFocusAttack.value) observer.connect()
+  else observer.disconnect()
+})
+
 useHealthObserver(shouldAutoFocusAttack, () => {
   const closeAnchor = document.querySelector<HTMLAnchorElement>(".swal2-popup.swal2-modal.swal2-show a")
   if (!closeAnchor) return

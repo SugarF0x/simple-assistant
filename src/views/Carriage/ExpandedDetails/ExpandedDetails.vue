@@ -5,7 +5,7 @@ import { Checkbox } from "@/components"
 import { useCarriageStore } from "../store"
 import { storeToRefs } from "pinia"
 import { useData } from "./useData"
-import { computed, watch } from "vue"
+import { computed, watchEffect } from "vue"
 
 const carriageStore = useCarriageStore()
 const { shouldShowTravelDestinationDetails, shouldHighlightBestStats } = storeToRefs(carriageStore)
@@ -19,10 +19,10 @@ function insertAfter(newNode: HTMLElement, referenceNode: HTMLElement) {
 }
 
 /** add teleport ids */
-watch(destinations, (entries) => {
-  if (!entries) return
+watchEffect(() => {
+  if (!destinations.value) return
 
-  for (const entry of entries) {
+  for (const entry of destinations.value) {
     const [card, data] = entry
     if (!data) continue
 
@@ -35,17 +35,17 @@ watch(destinations, (entries) => {
   }
 })
 
-watch([shouldShowTravelDestinationDetails, destinations], ([toggle, entries]) => {
-  if (!entries) return
+watchEffect(() => {
+  if (!destinations.value) return
 
-  for (const entry of entries) {
+  for (const entry of destinations.value) {
     const [card, data] = entry
     if (!data) continue
 
     const buttonWrapper = card.querySelector(".my-4")
     if (!buttonWrapper) return
 
-    if (toggle) buttonWrapper.setAttribute("style", "display: none;")
+    if (shouldShowTravelDestinationDetails.value) buttonWrapper.setAttribute("style", "display: none;")
     else buttonWrapper.removeAttribute("style")
   }
 })

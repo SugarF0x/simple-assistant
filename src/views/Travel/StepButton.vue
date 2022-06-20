@@ -3,7 +3,7 @@ import { Checkbox } from "@/components"
 
 import { useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onMounted, ref, watch } from "vue"
+import { onMounted, ref, watch, watchEffect } from "vue"
 import { TransitionPresets, useTransition } from "@vueuse/core"
 
 const travelStore = useTravelStore()
@@ -13,24 +13,19 @@ const { cooldownTimeLeft, shouldPersistCooldown } = storeToRefs(travelStore)
 
 const stepButton = document.querySelector<HTMLButtonElement>("#step_button")
 
-watch(
-  cooldownTimeLeft,
-  (val) => {
-    if (!shouldPersistCooldown.value) return
-    if (!stepButton) return
-    if (!val) return
-    stepButton.disabled = true
-    stepButton.classList.add("disabledTravelButton")
+watchEffect(() => {
+  if (!shouldPersistCooldown.value) return
+  if (!stepButton) return
+  if (!cooldownTimeLeft.value) return
 
-    setTimeout(() => {
-      stepButton.disabled = false
-      stepButton.classList.remove("disabledTravelButton")
-    }, val)
-  },
-  {
-    immediate: true,
-  }
-)
+  stepButton.disabled = true
+  stepButton.classList.add("disabledTravelButton")
+
+  setTimeout(() => {
+    stepButton.disabled = false
+    stepButton.classList.remove("disabledTravelButton")
+  }, cooldownTimeLeft.value)
+})
 
 /** Step Bar controls */
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { ref, watchEffect } from "vue"
 import { useSwalObserver } from "@/hooks"
 import { Checkbox, Controls } from "@/components"
 import { useGeneralStore } from "@/views/General/store"
@@ -18,16 +18,10 @@ useSwalObserver({
   },
 })
 
-watch(
-  shouldDisableSwalGloom,
-  (val) => {
-    if (val) document.body.classList.add("swal-gloom-override")
-    else document.body.classList.remove("swal-gloom-override")
-  },
-  {
-    immediate: true,
-  }
-)
+watchEffect(() => {
+  if (shouldDisableSwalGloom.value) document.body.classList.add("swal-gloom-override")
+  else document.body.classList.remove("swal-gloom-override")
+})
 </script>
 
 <template>

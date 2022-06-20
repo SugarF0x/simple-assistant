@@ -2,7 +2,7 @@
 import { Checkbox } from "@/components"
 import { useQuestStore } from "../store"
 import { storeToRefs } from "pinia"
-import { onMounted, watch } from "vue"
+import { onMounted, watchEffect } from "vue"
 import { focusOnButtonEnable } from "@/utils"
 
 const questStore = useQuestStore()
@@ -29,18 +29,12 @@ onMounted(() => {
   )
 })
 
-watch(
-  shouldAutoFocusPerform,
-  (val) => {
-    if (!observer) return
+watchEffect(() => {
+  if (!observer) return
 
-    if (val) observer.connect()
-    else observer.disconnect()
-  },
-  {
-    immediate: true,
-  }
-)
+  if (shouldAutoFocusPerform.value) observer.connect()
+  else observer.disconnect()
+})
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import { Checkbox } from "@/components"
 import { useQuestStore } from "@/views/Quests/Quest/store"
 import { QuestAnyTask, QuestSomeTask, TaskType, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
-import { computed, watch } from "vue"
+import { computed, watchEffect } from "vue"
 import TaskTracker from "@/components/TaskTracker.vue"
 
 const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>(".web-app-container a"))
@@ -26,28 +26,20 @@ const validTasks = computed(() =>
   questTasks.value.filter((task) => task.type === TaskType.QUEST_ANY || task.target === questTitle)
 )
 
-{
-  const resultsNode = document.querySelector("#result")
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((record) => {
-      const element = record.target.firstChild as HTMLElement
-      if (element.innerText.includes("Success")) validTasks.value.forEach((task) => advanceTask(task))
-    })
+const resultsNode = document.querySelector("#result")
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((record) => {
+    const element = record.target.firstChild as HTMLElement
+    if (element.innerText.includes("Success")) validTasks.value.forEach((task) => advanceTask(task))
   })
+})
 
-  watch(
-    shouldTrackTaskQuests,
-    (val) => {
-      if (!resultsNode) return
+watchEffect(() => {
+  if (!resultsNode) return
 
-      if (val) observer.observe(resultsNode, { childList: true, subtree: true })
-      else observer.disconnect()
-    },
-    {
-      immediate: true,
-    }
-  )
-}
+  if (shouldTrackTaskQuests.value) observer.observe(resultsNode, { childList: true, subtree: true })
+  else observer.disconnect()
+})
 </script>
 
 <template>

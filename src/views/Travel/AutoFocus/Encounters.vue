@@ -8,7 +8,7 @@ import { wrapAnchorWithButton } from "@/utils"
 const travelStore = useTravelStore()
 const { shouldAutoFocusEncounters, lastStepResponse } = storeToRefs(travelStore)
 
-watch(lastStepResponse, async (response) => {
+watch(lastStepResponse, (response) => {
   if (!response) return
   if (!shouldAutoFocusEncounters.value) return
 

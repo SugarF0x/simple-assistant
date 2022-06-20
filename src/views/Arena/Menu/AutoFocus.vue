@@ -3,23 +3,18 @@ import { Checkbox } from "@/components"
 
 import { useArenaStore } from "../store"
 import { storeToRefs } from "pinia"
-import { watch } from "vue"
+import { watchEffect } from "vue"
 
 const arenaStore = useArenaStore()
 const { shouldAutoFocusGenerate } = storeToRefs(arenaStore)
 
 const generateButton = document.querySelector<HTMLButtonElement>(".backdrop-blur-md button")
-watch(
-  shouldAutoFocusGenerate,
-  (val) => {
-    if (!generateButton) return
-    if (!val) return
-    generateButton.focus()
-  },
-  {
-    immediate: true,
-  }
-)
+watchEffect(() => {
+  if (!generateButton) return
+  if (!shouldAutoFocusGenerate.value) return
+
+  generateButton.focus()
+})
 </script>
 
 <template>

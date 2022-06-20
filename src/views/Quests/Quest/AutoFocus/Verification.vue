@@ -2,7 +2,7 @@
 import { Checkbox } from "@/components"
 import { useQuestStore } from "../store"
 import { storeToRefs } from "pinia"
-import { watch } from "vue"
+import { watchEffect } from "vue"
 
 const questStore = useQuestStore()
 const { shouldAutoFocusVerification } = storeToRefs(questStore)
@@ -26,18 +26,12 @@ const observer = new MutationObserver((mutations) => {
   })
 })
 
-watch(
-  shouldAutoFocusVerification,
-  (val) => {
-    if (!resultsNode) return
+watchEffect(() => {
+  if (!resultsNode) return
 
-    if (val) observer.observe(resultsNode, { childList: true, subtree: true })
-    else observer.disconnect()
-  },
-  {
-    immediate: true,
-  }
-)
+  if (shouldAutoFocusVerification.value) observer.observe(resultsNode, { childList: true, subtree: true })
+  else observer.disconnect()
+})
 </script>
 
 <template>

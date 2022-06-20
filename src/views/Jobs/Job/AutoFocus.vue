@@ -2,7 +2,7 @@
 import { Checkbox } from "@/components"
 import { useJobStore } from "./store"
 import { storeToRefs } from "pinia"
-import { watch } from "vue"
+import { watchEffect } from "vue"
 
 const jobStore = useJobStore()
 const { shouldAutoFocusJobActionButton } = storeToRefs(jobStore)
@@ -11,28 +11,22 @@ const performButton = document.querySelector<HTMLButtonElement>(
   ".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden button"
 )
 
-watch(
-  shouldAutoFocusJobActionButton,
-  (val) => {
-    if (!val) return
-    if (!performButton) return
+watchEffect(() => {
+  if (!shouldAutoFocusJobActionButton.value) return
+  if (!performButton) return
 
-    performButton.focus()
+  performButton.focus()
 
-    performButton.addEventListener("click", () => {
-      /** let dom hydrate */
-      setTimeout(() => {
-        const range = document.querySelector<HTMLInputElement>('input[type="range"]')
-        if (!range) return
+  performButton.addEventListener("click", () => {
+    /** let dom hydrate */
+    setTimeout(() => {
+      const range = document.querySelector<HTMLInputElement>('input[type="range"]')
+      if (!range) return
 
-        range.focus()
-      })
+      range.focus()
     })
-  },
-  {
-    immediate: true,
-  }
-)
+  })
+})
 </script>
 
 <template>

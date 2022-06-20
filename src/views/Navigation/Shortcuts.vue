@@ -2,7 +2,7 @@
 import { Checkbox, Button } from "@/components"
 import { useNavigationStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onMounted, reactive, ref, watch } from "vue"
+import { onMounted, reactive, ref, watchEffect } from "vue"
 import { wrapAnchorWithButton } from "@/utils"
 
 const navigationStore = useNavigationStore()
@@ -14,9 +14,10 @@ const urls = reactive<string[]>([])
 const visibleButtons = reactive<HTMLButtonElement[]>([])
 const arrowSelectedButton = ref<null | number>(null)
 
-watch(arrowSelectedButton, (val) => {
-  if (val === null) return
-  visibleButtons[val]?.focus()
+watchEffect(() => {
+  if (arrowSelectedButton.value === null) return
+
+  visibleButtons[arrowSelectedButton.value]?.focus()
 })
 
 /** Wrap navigation anchors with buttons */
@@ -49,16 +50,10 @@ function keyBindListener(e: KeyboardEvent) {
   }
 }
 
-watch(
-  shouldUseShortcuts,
-  (val) => {
-    if (val) document.addEventListener("keydown", keyBindListener)
-    else document.removeEventListener("keydown", keyBindListener)
-  },
-  {
-    immediate: true,
-  }
-)
+watchEffect(() => {
+  if (shouldUseShortcuts.value) document.addEventListener("keydown", keyBindListener)
+  else document.removeEventListener("keydown", keyBindListener)
+})
 
 function keyEditListener(e: KeyboardEvent) {
   if (!tabIdSelected.value) return
@@ -78,16 +73,10 @@ function keyEditListener(e: KeyboardEvent) {
   tabIdSelected.value = ""
 }
 
-watch(
-  shouldEditShortcuts,
-  (val) => {
-    if (val) document.addEventListener("keydown", keyEditListener)
-    else document.removeEventListener("keydown", keyEditListener)
-  },
-  {
-    immediate: true,
-  }
-)
+watchEffect(() => {
+  if (shouldEditShortcuts.value) document.addEventListener("keydown", keyEditListener)
+  else document.removeEventListener("keydown", keyEditListener)
+})
 
 function handleSetterButtonClick(url: string) {
   if (tabIdSelected.value === url) tabIdSelected.value = ""

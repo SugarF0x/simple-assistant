@@ -2,7 +2,7 @@
 import { Checkbox } from "@/components"
 import { useJobsMenuStore } from "./store"
 import { storeToRefs } from "pinia"
-import { watch } from "vue"
+import { watchEffect } from "vue"
 
 const jobsMenuStore = useJobsMenuStore()
 const { shouldAutoFocusGotoJobButton } = storeToRefs(jobsMenuStore)
@@ -11,18 +11,12 @@ const gotoButton = document.querySelector<HTMLButtonElement>(
   ".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.text-center button"
 )
 
-watch(
-  shouldAutoFocusGotoJobButton,
-  (val) => {
-    if (!val) return
-    if (!gotoButton) return
+watchEffect(() => {
+  if (!shouldAutoFocusGotoJobButton.value) return
+  if (!gotoButton) return
 
-    gotoButton.focus()
-  },
-  {
-    immediate: true,
-  }
-)
+  gotoButton.focus()
+})
 </script>
 
 <template>

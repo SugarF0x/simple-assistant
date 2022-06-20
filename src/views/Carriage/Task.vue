@@ -2,7 +2,7 @@
 import { Checkbox } from "@/components"
 import { KillSomeTask, TaskType, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
-import { computed, watch } from "vue"
+import { computed, watchEffect } from "vue"
 import { useCarriageStore } from "@/views/Carriage/store"
 import TaskTracker from "@/components/TaskTracker.vue"
 
@@ -18,28 +18,24 @@ const killTasks = computed(() =>
 )
 const locations = computed(() => killTasks.value.map((task) => task.location))
 
-watch(
-  shouldHighlightTrackedZones,
-  (val) => {
-    const grid = document.querySelector<HTMLUListElement>("ul.grid")
+watchEffect(() => {
+  const grid = document.querySelector<HTMLUListElement>("ul.grid")
 
-    if (!val || !shouldTrackTasks.value) {
-      grid?.classList.remove("task-zone-highlight")
-      return
-    }
+  if (!shouldHighlightTrackedZones.value || !shouldTrackTasks.value) {
+    grid?.classList.remove("task-zone-highlight")
+    return
+  }
 
-    grid?.classList.add("task-zone-highlight")
-    const cards = Array.from(grid?.children || []) as HTMLElement[]
+  grid?.classList.add("task-zone-highlight")
+  const cards = Array.from(grid?.children || []) as HTMLElement[]
 
-    for (const card of cards) {
-      const locationIndex = locations.value.indexOf(card.querySelector("h3")?.innerText || "")
-      if (locationIndex === -1) continue
-      card.classList.add("task-zone")
-      card.setAttribute("data-zone", String(locationIndex))
-    }
-  },
-  { immediate: true }
-)
+  for (const card of cards) {
+    const locationIndex = locations.value.indexOf(card.querySelector("h3")?.innerText || "")
+    if (locationIndex === -1) continue
+    card.classList.add("task-zone")
+    card.setAttribute("data-zone", String(locationIndex))
+  }
+})
 </script>
 
 <template>

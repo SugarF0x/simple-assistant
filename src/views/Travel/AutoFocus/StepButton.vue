@@ -3,7 +3,7 @@ import { Checkbox } from "@/components"
 import { useTravelStore } from "../store"
 import { storeToRefs } from "pinia"
 import { focusOnButtonEnable } from "@/utils"
-import { watch } from "vue"
+import { watchEffect } from "vue"
 
 const travelStore = useTravelStore()
 const { shouldAutoFocusStep } = storeToRefs(travelStore)
@@ -11,18 +11,12 @@ const { shouldAutoFocusStep } = storeToRefs(travelStore)
 const travelButton = document.querySelector<HTMLButtonElement>("#step_button")
 const observer = travelButton && focusOnButtonEnable(travelButton)
 
-watch(
-  shouldAutoFocusStep,
-  (val) => {
-    if (!observer) return
+watchEffect(() => {
+  if (!observer) return
 
-    if (val) observer.connect()
-    else observer.disconnect()
-  },
-  {
-    immediate: true,
-  }
-)
+  if (shouldAutoFocusStep.value) observer.connect()
+  else observer.disconnect()
+})
 </script>
 
 <template>
