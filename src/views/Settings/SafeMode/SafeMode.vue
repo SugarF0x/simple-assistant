@@ -22,7 +22,7 @@ onBeforeMount(() => {
     .map((e): [number, keyof Duration] => [Number(e[0]), e[1] as keyof Duration])
     .reduce<Duration>((acc, [val, key]) => ({ ...acc, [key]: val }), {})
 
-  const foo = Object.entries(remainingDuration)
+  expirationTimestamp.value = Object.entries(remainingDuration)
     .reduce((acc, [key, val]) => {
       switch (key as keyof Duration) {
         case "days":
@@ -36,8 +36,6 @@ onBeforeMount(() => {
       }
     }, new Date())
     .toISOString()
-
-  console.log(foo)
 })
 </script>
 
