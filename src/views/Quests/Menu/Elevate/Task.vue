@@ -23,7 +23,8 @@ onBeforeMount(() => {
 
   const children = Array.from(ul.children) as HTMLButtonElement[]
   for (const child of children) {
-    if (!questSomeTasks.value.some((task) => child.innerText.includes(task.target))) continue
+    if (!questSomeTasks.value.some((task) => child.innerText.toLowerCase().includes(task.target.toLowerCase())))
+      continue
     child.classList.add("incomplete-task-quest")
   }
 })
