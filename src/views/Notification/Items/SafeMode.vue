@@ -4,15 +4,23 @@ import BaseItem from "./BaseItem.vue"
 import { Button } from "@/components"
 import { useSafeModeStore } from "@/views/Settings/SafeMode/store"
 import { storeToRefs } from "pinia"
+import { addHours } from "date-fns"
 
 const safeModeStore = useSafeModeStore()
-const { shouldShowSafeModeNotification, lastSafeModeActivationTime } = storeToRefs(safeModeStore)
+const { shouldShowSafeModeNotification, expirationTimestamp } = storeToRefs(safeModeStore)
 </script>
 
 <template>
-  <BaseItem v-if="shouldShowSafeModeNotification" @dismiss="lastSafeModeActivationTime = new Date().toISOString()">
+  <BaseItem
+    v-if="shouldShowSafeModeNotification"
+    @dismiss="expirationTimestamp = addHours(new Date(), 1).toISOString()"
+  >
     <template #title> Your safe mode has expired! </template>
-    <template #text> Enable it now! </template>
+    <template #text>
+      Enable it now!
+      <br />
+      Dismissing hides the notification for 1 hour
+    </template>
     <template #actions>
       <Button href="/safemode"> Enable </Button>
     </template>

@@ -2,28 +2,42 @@
 import { Controls, Checkbox } from "@/components"
 import { useSafeModeStore } from "./store"
 import { storeToRefs } from "pinia"
-import { onMounted } from "vue"
+import { onBeforeMount } from "vue"
+import { Duration, addDays, addHours, addMinutes } from "date-fns"
 
 const safeModeStore = useSafeModeStore()
-const { shouldRemindSafeMode, lastSafeModeActivationTime } = storeToRefs(safeModeStore)
+const { shouldRemindSafeMode, expirationTimestamp } = storeToRefs(safeModeStore)
 
-onMounted(() => {
-  const enableButton = document.querySelector<HTMLButtonElement>(
-    ".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.mt-4 button"
-  )
-  if (!enableButton) return
+onBeforeMount(() => {
+  const timeDiv = document.querySelector<HTMLDivElement>("main .bg-white.mt-4 div.text-sm.text-gray-500")
+  if (!timeDiv) {
+    expirationTimestamp.value = new Date().toISOString()
+    return
+  }
 
-  enableButton.addEventListener("click", () => {
-    /** let native script hydrate dom */
-    setTimeout(() => {
-      const confirmButton = document.querySelector<HTMLButtonElement>(".swal2-actions button")
-      if (!confirmButton) return
+  const remainingTimeString = timeDiv.innerText.replace("Expires in ", "")
+  const remainingDuration = remainingTimeString
+    .split(",")
+    .map((e) => e.trim().split(" "))
+    .map((e): [number, keyof Duration] => [Number(e[0]), e[1] as keyof Duration])
+    .reduce<Duration>((acc, [val, key]) => ({ ...acc, [key]: val }), {})
 
-      confirmButton.addEventListener("click", () => {
-        lastSafeModeActivationTime.value = new Date().toISOString()
-      })
-    })
-  })
+  const foo = Object.entries(remainingDuration)
+    .reduce((acc, [key, val]) => {
+      switch (key as keyof Duration) {
+        case "days":
+          return addDays(acc, val)
+        case "hours":
+          return addHours(acc, val)
+        case "minutes":
+          return addMinutes(acc, val)
+        default:
+          return acc
+      }
+    }, new Date())
+    .toISOString()
+
+  console.log(foo)
 })
 </script>
 
@@ -31,11 +45,7 @@ onMounted(() => {
   <Controls to=".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.mt-4">
     <Checkbox v-model="shouldRemindSafeMode">
       <template #default> Remind to enable safe mode </template>
-      <template #subtitle>
-        Currently only works for 24h safe modes
-        <br />
-        Since i am no pleb, i cant do it for the extended functionality
-      </template>
+      <template #subtitle> A safe mode a day keeps the doctor away </template>
     </Checkbox>
   </Controls>
 </template>

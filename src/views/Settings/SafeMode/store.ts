@@ -1,24 +1,22 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { MS_IN_DAY } from "@/consts"
+import { isAfter } from "date-fns"
 
 export const useSafeModeStore = defineStore(
   "safeMode",
   () => {
     const shouldRemindSafeMode = ref(false)
 
-    const lastSafeModeActivationTime = ref<null | string>(null)
+    const expirationTimestamp = ref(new Date().toISOString())
 
-    const isSafeModeExpired = computed(() => {
-      if (!lastSafeModeActivationTime.value) return false
-      return Date.now() - new Date(lastSafeModeActivationTime.value).valueOf() > MS_IN_DAY
-    })
+    const isSafeModeExpired = computed(() => isAfter(new Date(), new Date(expirationTimestamp.value)))
 
     const shouldShowSafeModeNotification = computed(() => shouldRemindSafeMode.value && isSafeModeExpired.value)
 
     return {
       shouldRemindSafeMode,
-      lastSafeModeActivationTime,
+      expirationTimestamp,
+      isSafeModeExpired,
       shouldShowSafeModeNotification,
     }
   },
