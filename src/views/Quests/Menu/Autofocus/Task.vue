@@ -8,11 +8,11 @@ const questsStore = useQuestsMenuStore()
 const { shouldElevateTaskQuests, shouldAutoFocusTaskQuest } = storeToRefs(questsStore)
 
 watch(
-  shouldAutoFocusTaskQuest,
-  async (val) => {
+  [shouldElevateTaskQuests, shouldAutoFocusTaskQuest],
+  async ([foo, bar]) => {
     await nextTick()
 
-    if (!val) return
+    if (!foo || !bar) return
     document.querySelector<HTMLButtonElement>(".incomplete-task-quest")?.focus()
   },
   {
