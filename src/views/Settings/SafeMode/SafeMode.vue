@@ -17,7 +17,7 @@ onBeforeMount(() => {
 
   const remainingTimeString = timeDiv.innerText.replace("Expires in ", "")
   const remainingDuration = remainingTimeString
-    .split(",")
+    .split(/(,|and)/)
     .map((e) => e.trim().split(" "))
     .map((e): [number, keyof Duration] => [Number(e[0]), e[1] as keyof Duration])
     .reduce<Duration>((acc, [val, key]) => ({ ...acc, [key]: val }), {})

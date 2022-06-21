@@ -9,7 +9,7 @@ export const useSafeModeStore = defineStore(
 
     const expirationTimestamp = ref(new Date().toISOString())
 
-    const isSafeModeExpired = computed(() => isAfter(new Date(expirationTimestamp.value), new Date()))
+    const isSafeModeExpired = computed(() => isAfter(new Date(), new Date(expirationTimestamp.value)))
 
     const shouldShowSafeModeNotification = computed(() => shouldRemindSafeMode.value && isSafeModeExpired.value)
 
