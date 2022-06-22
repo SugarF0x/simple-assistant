@@ -1,12 +1,15 @@
+import { ref, Ref, watchEffect } from "vue"
+
 export interface UseSwalObserverOptions {
-  onResolve?: () => void
-  onReject?: () => void
-  onOpen?: () => void
+  toggle?: Ref<boolean>
+  onResolve?: (element: HTMLDivElement) => void
+  onReject?: (element: HTMLDivElement) => void
+  onOpen?: (element: HTMLDivElement) => void
   onClose?: () => void
 }
 
 export function useSwalObserver(options: UseSwalObserverOptions) {
-  const { onResolve, onOpen, onClose, onReject } = options
+  const { toggle = ref(true), onResolve, onOpen, onClose, onReject } = options
 
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -21,11 +24,14 @@ export function useSwalObserver(options: UseSwalObserverOptions) {
       )
       if (!swalContainer) return
 
-      onOpen?.()
-      if (swalContainer.querySelector('.swal2-success[style="display: flex;"]')) onResolve?.()
-      else if (swalContainer.querySelector('.swal2-error[style="display: flex;"]')) onReject?.()
+      onOpen?.(swalContainer)
+      if (swalContainer.querySelector('.swal2-success[style="display: flex;"]')) onResolve?.(swalContainer)
+      else if (swalContainer.querySelector('.swal2-error[style="display: flex;"]')) onReject?.(swalContainer)
     })
   })
 
-  observer.observe(document.body, { childList: true })
+  watchEffect(() => {
+    if (toggle.value) observer.observe(document.body, { childList: true })
+    else observer.disconnect()
+  })
 }
