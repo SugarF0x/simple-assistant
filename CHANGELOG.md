@@ -1,3 +1,14 @@
+## [3.4.2](https://github.com/SugarF0x/simple-assistant/compare/v3.4.1...v3.4.2) (2022-06-22)
+
+
+### Bug Fixes
+
+* **quest:** auto focus task target when disabled ([e56c941](https://github.com/SugarF0x/simple-assistant/commit/e56c9415f0b8c189294b2cb4d04a6eb76823704b))
+* **quest:** target title case mismatch ([582af01](https://github.com/SugarF0x/simple-assistant/commit/582af013b1d25b0dbf1a08af8792875a4e86d83a))
+* **safemode:** support every safe mode duration ([e008c0f](https://github.com/SugarF0x/simple-assistant/commit/e008c0fce22d12838c0a82de4e8c0aefe85f8d85))
+
+
+
 ## [3.4.1](https://github.com/SugarF0x/simple-assistant/compare/v3.4.0...v3.4.1) (2022-06-18)
 
 
