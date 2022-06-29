@@ -97,7 +97,7 @@ export type UnknownTask = BasicTask<TaskType.UNKNOWN>
 
 export interface KillSomeTask extends BasicTask<TaskType.KILL_SOME> {
   target: string
-  location: string
+  locations: string[]
 }
 
 export interface QuestSomeTask extends BasicTask<TaskType.QUEST_SOME> {

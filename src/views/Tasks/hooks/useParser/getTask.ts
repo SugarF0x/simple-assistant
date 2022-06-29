@@ -70,7 +70,11 @@ function getKillSomeTask(el: HTMLElement): KillSomeTask {
   const target = text.match(/(?<=Kill )(.*)(?= [0-9])/g)?.[0] ?? "UNKNOWN TARGET"
 
   const cardText = getCardText(el)
-  const location = cardText.slice(cardText.indexOf("found in ") + "found in ".length, -1)
+  const rawLocations = cardText.slice(cardText.indexOf("found in ") + "found in ".length, -1)
+  const locations = rawLocations
+    .split(/,|and/)
+    .map((e) => e.trim())
+    .filter((e) => !!e)
 
   return {
     type: TaskType.KILL_SOME,
@@ -79,7 +83,7 @@ function getKillSomeTask(el: HTMLElement): KillSomeTask {
     progress,
     requirement,
     target,
-    location,
+    locations,
   }
 }
 

@@ -16,7 +16,7 @@ const killTasks = computed(() =>
     (task): task is KillSomeTask => task.type === TaskType.KILL_SOME && task.progress < task.requirement
   )
 )
-const locations = computed(() => killTasks.value.map((task) => task.location))
+const locations = computed(() => killTasks.value.flatMap((task) => task.locations))
 
 watchEffect(() => {
   const grid = document.querySelector<HTMLUListElement>("ul.grid")
@@ -50,13 +50,15 @@ watchEffect(() => {
   </Checkbox>
 
   <div v-if="shouldHighlightTrackedZones">
-    <Teleport
-      v-for="(task, index) of killTasks"
-      :key="task + index"
-      :to="`.task-zone[data-zone=&quot;${locations.indexOf(task.location)}&quot;] .flex-1.flex.flex-col.p-4`"
-    >
-      <TaskTracker stack :task="task" style="margin-top: 0.5rem" />
-    </Teleport>
+    <template v-for="(task, index) of killTasks" :key="task + index">
+      <Teleport
+        v-for="location of task.locations"
+        :key="task.target + '-' + location"
+        :to="`.task-zone[data-zone=&quot;${locations.indexOf(location)}&quot;] .flex-1.flex.flex-col.p-4`"
+      >
+        <TaskTracker stack :task="task" style="margin-top: 0.5rem" />
+      </Teleport>
+    </template>
   </div>
 </template>
 
