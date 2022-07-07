@@ -1,3 +1,16 @@
+## [3.4.3](https://github.com/SugarF0x/simple-assistant/compare/v3.4.2...v3.4.3) (2022-07-07)
+
+
+### Bug Fixes
+
+* **battle:** attack button hijack ([a78e9e2](https://github.com/SugarF0x/simple-assistant/commit/a78e9e21eef02afb448e93d9ac67e381e7b46bec))
+* **quest:** perform button hijack ([b394329](https://github.com/SugarF0x/simple-assistant/commit/b39432967819ce3d7bcba5fa0a5da8fed8e97b15))
+* **tasks:** quest parsing crash ([09c9421](https://github.com/SugarF0x/simple-assistant/commit/09c94213417e14cae77c4624d404bf6c142e8359))
+* **tasks:** support multiple NPC locations ([a75950b](https://github.com/SugarF0x/simple-assistant/commit/a75950b72827ecc9b9fd0ea3662a60849f9ddf13))
+* **travel:** step button hijack (read my letter, mike) ([33ff00a](https://github.com/SugarF0x/simple-assistant/commit/33ff00abf9ced074802cf3e25c7d3d79e0fdcfee))
+
+
+
 ## [3.4.2](https://github.com/SugarF0x/simple-assistant/compare/v3.4.1...v3.4.2) (2022-06-22)
 
 
