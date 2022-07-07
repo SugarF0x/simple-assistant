@@ -5,9 +5,11 @@ import Task from "./Task.vue"
 import { Controls } from "@/components"
 import { onBeforeMount } from "vue"
 import { wrapElement } from "@/utils"
+import { getPerformButton } from "./utils"
+
+const performButton = getPerformButton()
 
 onBeforeMount(() => {
-  const performButton = document.querySelector<HTMLButtonElement>("#questButton")
   if (!performButton) return
 
   wrapElement(performButton, "questControls")

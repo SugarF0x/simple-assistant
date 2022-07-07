@@ -4,11 +4,12 @@ import { useQuestStore } from "../store"
 import { storeToRefs } from "pinia"
 import { onMounted, watchEffect } from "vue"
 import { focusOnButtonEnable } from "@/utils"
+import { getPerformButton } from "../utils"
 
 const questStore = useQuestStore()
 const { shouldAutoFocusPerform } = storeToRefs(questStore)
 
-const performButton = document.querySelector<HTMLButtonElement>("#questButton")
+const performButton = getPerformButton()
 const observer = performButton && focusOnButtonEnable(performButton)
 
 onMounted(() => {
