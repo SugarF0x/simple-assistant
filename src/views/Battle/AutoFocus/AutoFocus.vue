@@ -9,11 +9,12 @@ import { Checkbox } from "@/components"
 import { storeToRefs } from "pinia"
 import { focusOnButtonEnable, wrapAnchorWithButton } from "@/utils"
 import { watchEffect } from "vue"
+import { getAttackButton } from "../utils"
 
 const battleStore = useBattleStore()
 const { shouldAutoFocusAttack } = storeToRefs(battleStore)
 
-const attackButton = document.querySelector<HTMLButtonElement>("#attackButton")
+const attackButton = getAttackButton()
 const observer = attackButton && focusOnButtonEnable(attackButton)
 
 watchEffect(() => {
