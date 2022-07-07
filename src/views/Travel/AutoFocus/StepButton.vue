@@ -4,12 +4,13 @@ import { useTravelStore } from "../store"
 import { storeToRefs } from "pinia"
 import { focusOnButtonEnable } from "@/utils"
 import { watchEffect } from "vue"
+import { getStepButton } from "../utils"
 
 const travelStore = useTravelStore()
 const { shouldAutoFocusStep } = storeToRefs(travelStore)
 
-const travelButton = document.querySelector<HTMLButtonElement>("#step_button")
-const observer = travelButton && focusOnButtonEnable(travelButton)
+const stepButton = getStepButton()
+const observer = stepButton && focusOnButtonEnable(stepButton)
 
 watchEffect(() => {
   if (!observer) return

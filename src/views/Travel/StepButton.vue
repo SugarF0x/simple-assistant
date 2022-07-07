@@ -5,13 +5,14 @@ import { useTravelStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted, ref, watch, watchEffect } from "vue"
 import { TransitionPresets, useTransition } from "@vueuse/core"
+import { getStepButton } from "@/views/Travel/utils"
 
 const travelStore = useTravelStore()
 const { cooldownTimeLeft, shouldPersistCooldown } = storeToRefs(travelStore)
 
 /** Step Button controls */
 
-const stepButton = document.querySelector<HTMLButtonElement>("#step_button")
+const stepButton = getStepButton()
 
 watchEffect(() => {
   if (!shouldPersistCooldown.value) return
@@ -22,6 +23,8 @@ watchEffect(() => {
   stepButton.classList.add("disabledTravelButton")
 
   setTimeout(() => {
+    if (!stepButton) return
+
     stepButton.disabled = false
     stepButton.classList.remove("disabledTravelButton")
   }, cooldownTimeLeft.value)
