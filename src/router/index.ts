@@ -3,18 +3,19 @@ import {
   Arena,
   Battle,
   BattleMenu,
+  Bosses,
+  Carriage,
+  DailyReward,
   Gather,
   Home,
-  Quest,
-  Travel,
-  DailyReward,
-  SafeMode,
-  JobsMenu,
   Job,
-  QuestsMenu,
-  Carriage,
+  JobsMenu,
   MonthlyReward,
+  Quest,
+  QuestsMenu,
+  SafeMode,
   Tasks,
+  Travel,
 } from "@/views"
 import NotFound from "./NotFound.vue"
 
@@ -50,6 +51,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/battlearena",
     name: "arena",
     component: Arena,
+  },
+  {
+    path: "/worldboss/all",
+    name: "bosses",
+    component: Bosses,
   },
   {
     path: "/battle/menu",
