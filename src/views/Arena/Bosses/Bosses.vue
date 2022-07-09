@@ -6,11 +6,12 @@ import { onBeforeMount } from "vue"
 import { getBossElements, parseBossElements } from "./utils"
 
 const arenaStore = useArenaStore()
-const { bossList, shouldNotifyOfBosses, shouldTrackBosses } = storeToRefs(arenaStore)
+const { bossList, snapshotTimestamp, shouldNotifyOfBosses, shouldTrackBosses } = storeToRefs(arenaStore)
 
 onBeforeMount(() => {
   if (bossList.value.length) return
   bossList.value = parseBossElements(getBossElements())
+  snapshotTimestamp.value = new Date().toISOString()
 })
 </script>
 
