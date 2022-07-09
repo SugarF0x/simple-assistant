@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { Button } from "@/components"
+import { Button, Card } from "@/components"
 import { useFtueStore } from "./store"
+import { useGeneralStore } from "../General/store"
 import { storeToRefs } from "pinia"
 
-const ftueStore = useFtueStore()
-const { isDismissed } = storeToRefs(ftueStore)
+const { isDismissed } = storeToRefs(useFtueStore())
+const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
 </script>
 
 <template>
   <Teleport to="body" v-if="!isDismissed">
-    <div class="wrapper">
-      <div class="card">
+    <div class="wrapper" :class="{ gloom: shouldDisableSwalGloom }">
+      <Card outline class="card">
         <h1>Welcome!</h1>
         <div class="textContainer">
           <p>Looks like this is your first time using Simple Assistant, so here you have a quick rundown:</p>
@@ -23,7 +24,12 @@ const { isDismissed } = storeToRefs(ftueStore)
             </li>
             <li>
               The plugin was developed using light theme at desktop resolution - some features may not be working as
-              intended in dark theme and/or small resolution :(
+              intended in dark theme and/or small resolution, however i am doing my best to keep that working as well.
+              Feel free to open an
+              <a href="https://github.com/SugarF0x/simple-assistant/issues" target="_blank" class="text-indigo-600">
+                issue
+              </a>
+              should you find a poorly themed component.
             </li>
             <li>Verification page will <b>never</b> have an assistance module</li>
           </ul>
@@ -47,7 +53,7 @@ const { isDismissed } = storeToRefs(ftueStore)
         <div class="actions">
           <Button autofocus @click="isDismissed = true">DISMISS</Button>
         </div>
-      </div>
+      </Card>
     </div>
   </Teleport>
 </template>
@@ -59,18 +65,19 @@ const { isDismissed } = storeToRefs(ftueStore)
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  &.gloom {
+    background-color: transparent;
+    backdrop-filter: blur(2px);
+  }
 }
 
 .card {
-  padding: 2rem;
-  margin: 1rem;
-  background-color: white;
-  border-radius: 16px;
   max-width: 767px;
 }
 

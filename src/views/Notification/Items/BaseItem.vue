@@ -7,7 +7,7 @@ defineEmits<{
 </script>
 
 <template>
-  <Card shadow class="notification">
+  <Card shadow outline class="notification">
     <div class="background">
       <h2 v-if="$slots.title" class="titleWrapper">
         <slot name="title"></slot>
@@ -29,6 +29,7 @@ defineEmits<{
   position: relative;
   background-color: transparent;
   padding: 0;
+  max-width: min(80vw, 365px);
 }
 
 .background {
@@ -36,6 +37,10 @@ defineEmits<{
   background-color: white;
   -webkit-mask: radial-gradient(circle 17px at top 0+6px right 0+6px, #0000 98%, blue);
   border-radius: 16px;
+
+  .dark & {
+    background-color: black;
+  }
 }
 
 .dismissButton {
@@ -61,6 +66,11 @@ defineEmits<{
   -webkit-box-shadow: 0 0 16px 0 rgba(50, 50, 50, 0.75);
   -moz-box-shadow: 0 0 16px 0 rgba(50, 50, 50, 0.75);
   box-shadow: 0 0 16px 0 rgba(50, 50, 50, 0.75);
+
+  .dark & {
+    background-color: black;
+    color: white;
+  }
 }
 
 .titleWrapper {

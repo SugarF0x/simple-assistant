@@ -64,6 +64,10 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
   & + & {
     margin-top: 0.25rem;
   }
+
+  .dark & {
+    color: white;
+  }
 }
 
 .inputLabel {

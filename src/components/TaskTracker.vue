@@ -58,6 +58,10 @@ const progressText = computed(() => {
     margin-left: 0;
     margin-bottom: 0.5rem;
   }
+
+  .dark & {
+    color: white;
+  }
 }
 
 .progress {

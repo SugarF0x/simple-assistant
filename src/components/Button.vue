@@ -24,6 +24,13 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
+button {
+  .dark & {
+    background-color: black;
+    border: 1px solid rgba(211, 211, 211, 0.5);
+  }
+}
+
 button:disabled {
   opacity: 0.4;
   background-color: gray;

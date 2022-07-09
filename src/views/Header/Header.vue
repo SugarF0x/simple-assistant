@@ -10,7 +10,7 @@ const version = chrome.runtime.getManifest().version
 </script>
 
 <template>
-  <Controls to=".px-4.text-center">
+  <Controls to=".px-4.text-center" class="sa-header">
     <h2>
       <span>Simple assistant</span>
       <a
@@ -30,3 +30,11 @@ const version = chrome.runtime.getManifest().version
     </Subtitle>
   </Controls>
 </template>
+
+<style lang="scss">
+.sa-header {
+  .dark & {
+    color: white;
+  }
+}
+</style>
