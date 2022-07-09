@@ -28,6 +28,10 @@ button {
   .dark & {
     background-color: black;
     border: 1px solid rgba(211, 211, 211, 0.5);
+
+    &:hover {
+      background-color: rgba(211, 211, 211, 0.1);
+    }
   }
 }
 
