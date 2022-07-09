@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseItem from "./BaseItem.vue"
+import BaseItem from "./_BaseItem.vue"
 
 import { Button } from "@/components"
 import { useSafeModeStore } from "@/views/Settings/SafeMode/store"
