@@ -1,5 +1,5 @@
 import { Boss } from "../../store"
-import { addDays, addHours, addMinutes, setSeconds, setMilliseconds } from "date-fns"
+import { add, setSeconds, setMilliseconds } from "date-fns"
 
 export function parseBossElements(elements: HTMLDivElement[]) {
   return elements.reduce<Boss[]>((acc, val) => {
@@ -9,11 +9,13 @@ export function parseBossElements(elements: HTMLDivElement[]) {
     if (!level) throw new Error("Unable to parse level")
 
     const [days, hours, minutes] = time.split(",").map((e) => parseInt(e))
-    const timestamp = addDays(
-      addHours(addMinutes(setSeconds(setMilliseconds(new Date(), 0), 0), minutes + 1), hours),
-      days
-    )
-    if (isNaN(timestamp as any)) throw new Error("Unable to parse timestamp")
+    const flatTime = setSeconds(setMilliseconds(new Date(), 0), 0)
+    let timestamp
+    try {
+      timestamp = add(flatTime, { days, hours, minutes })
+    } catch (e) {
+      throw new Error("Unable to parse timestamp")
+    }
 
     const anchor = val.querySelector("a")
     const onClick = val.getAttribute("onclick") ?? ""

@@ -3,7 +3,7 @@ import { Controls, Checkbox } from "@/components"
 import { useSafeModeStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onBeforeMount } from "vue"
-import { Duration, addDays, addHours, addMinutes } from "date-fns"
+import { Duration, add } from "date-fns"
 
 const safeModeStore = useSafeModeStore()
 const { shouldRemindSafeMode, expirationTimestamp } = storeToRefs(safeModeStore)
@@ -22,20 +22,7 @@ onBeforeMount(() => {
     .map((e): [number, keyof Duration] => [Number(e[0]), e[1] as keyof Duration])
     .reduce<Duration>((acc, [val, key]) => ({ ...acc, [key]: val }), {})
 
-  expirationTimestamp.value = Object.entries(remainingDuration)
-    .reduce((acc, [key, val]) => {
-      switch (key as keyof Duration) {
-        case "days":
-          return addDays(acc, val)
-        case "hours":
-          return addHours(acc, val)
-        case "minutes":
-          return addMinutes(acc, val)
-        default:
-          return acc
-      }
-    }, new Date())
-    .toISOString()
+  expirationTimestamp.value = add(new Date(), remainingDuration).toISOString()
 })
 </script>
 
