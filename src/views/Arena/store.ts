@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { reactive, ref } from "vue"
+import { ref } from "vue"
 
 export const useArenaStore = defineStore(
   "arena",
@@ -7,19 +7,25 @@ export const useArenaStore = defineStore(
     const shouldAutoFocusGenerate = ref(false)
     const shouldTrackBosses = ref(false)
     const shouldNotifyOfBosses = ref(false)
-    const shouldNotifyOfAllBosses = ref(false)
 
-    const bossesToRemindOf = reactive([])
+    const bossList = ref<Boss[]>([])
 
     return {
       shouldAutoFocusGenerate,
       shouldTrackBosses,
       shouldNotifyOfBosses,
-      shouldNotifyOfAllBosses,
-      bossesToRemindOf,
+      bossList,
     }
   },
   {
     persist: true,
   }
 )
+
+export interface Boss {
+  name: string
+  level: number
+  timestamp: string
+  href: string
+  img: string
+}
