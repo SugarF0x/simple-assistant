@@ -20,7 +20,7 @@ export function useSwalObserver(options: UseSwalObserverOptions) {
       if (mutation.removedNodes.length) return
 
       const swalContainer = (Array.from(mutation.addedNodes) as HTMLDivElement[]).find((e) =>
-        e.classList.contains("swal2-container")
+        e.classList?.contains("swal2-container")
       )
       if (!swalContainer) return
 
