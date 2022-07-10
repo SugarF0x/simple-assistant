@@ -1,3 +1,18 @@
+# [3.5.0](https://github.com/SugarF0x/simple-assistant/compare/v3.4.3...v3.5.0) (2022-07-10)
+
+
+### Bug Fixes
+
+* **swal:** error on FTUE open ([6872e86](https://github.com/SugarF0x/simple-assistant/commit/6872e86e2746d1f00a33baee4b2c65ebb6643c4e))
+
+
+### Features
+
+* **bosses:** add boss notifications ([9b6a64e](https://github.com/SugarF0x/simple-assistant/commit/9b6a64ec7cefdbd731e96229d25081b799bcff28))
+* **theme:** add dark theme support (to some extent) ([22f2c5f](https://github.com/SugarF0x/simple-assistant/commit/22f2c5f1fb6a8479eaa308bdf0c63446ab6bd498))
+
+
+
 ## [3.4.3](https://github.com/SugarF0x/simple-assistant/compare/v3.4.2...v3.4.3) (2022-07-07)
 
 
