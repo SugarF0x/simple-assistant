@@ -32,6 +32,7 @@ export function parseBossElements(elements: HTMLDivElement[]) {
       href,
       img,
       timestamp: timestamp.toISOString(),
+      isDead: false,
     })
     return acc
   }, [])

@@ -54,7 +54,9 @@ export const useArenaStore = defineStore(
         deserialize: (store) => {
           const parsed = JSON.parse(store)
           const bossList: Boss[] = parsed.bossList
-          parsed.bossList = bossList.filter((entry) => isBefore(new Date(), addMinutes(new Date(entry.timestamp), 15)))
+          parsed.bossList = bossList.filter(
+            (entry) => !entry.isDead && isBefore(new Date(), addMinutes(new Date(entry.timestamp), 15))
+          )
           return parsed
         },
         serialize: JSON.stringify,
@@ -69,4 +71,5 @@ export interface Boss {
   timestamp: string
   href: string
   img: string
+  isDead: boolean
 }
