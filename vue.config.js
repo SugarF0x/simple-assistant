@@ -1,5 +1,6 @@
 const { defineConfig } = require("@vue/cli-service")
 const ZipPlugin = require("zip-webpack-plugin")
+const fs = require("fs")
 
 const isDev = process.env.NODE_ENV !== "production"
 
@@ -17,13 +18,23 @@ module.exports = defineConfig({
     config.plugins.delete("preload")
     config.plugins.delete("prefetch")
 
-    if (!isDev)
+    if (!isDev) {
       config.plugin("zip").use(ZipPlugin, [
         {
           path: "../",
           filename: "dist.zip",
         },
       ])
+    }
+
+    const backgroundModules = fs.readdirSync("./extension/ts")
+    backgroundModules.forEach((module) => {
+      config.entryPoints.set(module, {
+        values() {
+          return [`./extension/ts/${module}/index.ts`]
+        },
+      })
+    })
 
     config.plugin("copy").tap((args) => {
       args[0].patterns.push({
@@ -37,8 +48,10 @@ module.exports = defineConfig({
           manifest.version = version
           manifest.version_name = version
 
+          backgroundModules.forEach((module) => manifest.background.scripts.push(`js/${module}.js`))
+
           if (isDev) {
-            manifest.background = { scripts: ["hot-reload.js"] }
+            manifest.background.scripts.push("hot-reload.js")
             manifest.permissions = [...(manifest.permissions || []), "tabs"]
           }
 

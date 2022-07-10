@@ -6,13 +6,15 @@
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": [
-        "*://*.simple-mmo.com/*"
-      ],
+      "matches": ["*://*.simple-mmo.com/*"],
       "js": ["js/app.js"],
       "css": ["styles.css"]
     }
   ],
+  "background": {
+    "scripts": [],
+    "persistent": false
+  },
   "icons": {
     "128": "logo.png"
   }
