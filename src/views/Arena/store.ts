@@ -29,7 +29,12 @@ export const useArenaStore = defineStore(
       ).toISOString()
     })
     const areNewBossesAvailable = computed(
-      () => !bossList.value.length && refreshTimestamp.value && isAfter(new Date(), new Date(refreshTimestamp.value))
+      () =>
+        !bossList.value.length &&
+        refreshTimestamp.value &&
+        isAfter(new Date(), new Date(refreshTimestamp.value)) &&
+        snapshotTimestamp.value &&
+        isBefore(new Date(snapshotTimestamp.value), new Date(refreshTimestamp.value))
     )
 
     return {
