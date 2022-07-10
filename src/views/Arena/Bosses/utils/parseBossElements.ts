@@ -29,8 +29,8 @@ export function parseBossElements(elements: HTMLDivElement[]) {
     acc.push({
       name,
       level,
-      href,
       img,
+      href: href.replace(/view/gi, "attack").replace(/\?new_page=true/, ""),
       timestamp: timestamp.toISOString(),
       isDead: false,
     })
