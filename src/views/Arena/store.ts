@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { addHours, isAfter, nextMonday, subHours } from "date-fns"
+import { addHours, addMinutes, isAfter, isBefore, isWithinInterval, nextMonday, subHours } from "date-fns"
 import { getTimeWithLondonOffset } from "@/utils"
 
 export const useArenaStore = defineStore(
@@ -11,6 +11,15 @@ export const useArenaStore = defineStore(
     const shouldNotifyOfBosses = ref(false)
 
     const bossList = ref<Boss[]>([])
+    const attackableBosses = computed(() =>
+      bossList.value.filter((entry) =>
+        isWithinInterval(new Date(), {
+          start: new Date(entry.timestamp),
+          end: addMinutes(new Date(entry.timestamp), 15),
+        })
+      )
+    )
+
     const snapshotTimestamp = ref<string | null>(null)
     const refreshTimestamp = computed(() => {
       if (!snapshotTimestamp.value) return null
@@ -19,7 +28,6 @@ export const useArenaStore = defineStore(
         addHours(nextMonday(londonSnapshotTime), 12).valueOf() - new Date().getTimezoneOffset() * 60 * 1000
       ).toISOString()
     })
-
     const areNewBossesAvailable = computed(
       () => !bossList.value.length && refreshTimestamp.value && isAfter(new Date(), new Date(refreshTimestamp.value))
     )
@@ -29,13 +37,24 @@ export const useArenaStore = defineStore(
       shouldTrackBosses,
       shouldNotifyOfBosses,
       bossList,
+      attackableBosses,
       snapshotTimestamp,
       refreshTimestamp,
       areNewBossesAvailable,
     }
   },
   {
-    persist: true,
+    persist: {
+      serializer: {
+        deserialize: (store) => {
+          const parsed = JSON.parse(store)
+          const bossList: Boss[] = parsed.bossList
+          parsed.bossList = bossList.filter((entry) => isBefore(new Date(), addMinutes(new Date(entry.timestamp), 15)))
+          return parsed
+        },
+        serialize: JSON.stringify,
+      },
+    },
   }
 )
 
