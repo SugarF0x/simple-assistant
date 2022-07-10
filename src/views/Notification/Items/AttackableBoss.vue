@@ -12,7 +12,7 @@ const bosses: Ref<Boss[]> = attackableBosses
 
 <template>
   <template v-if="bosses.length">
-    <template v-for="boss in bosses" :key="boss.name">
+    <template v-for="boss in bosses" :key="boss.id">
       <BaseItem v-if="!boss.isDead" @dismiss="boss.isDead = true">
         <template #title> A boss is not attackable! </template>
         <template #text>

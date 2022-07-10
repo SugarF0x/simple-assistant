@@ -1,6 +1,7 @@
 const { defineConfig } = require("@vue/cli-service")
 const ZipPlugin = require("zip-webpack-plugin")
 const fs = require("fs")
+const path = require("path")
 
 const isDev = process.env.NODE_ENV !== "production"
 
@@ -17,6 +18,8 @@ module.exports = defineConfig({
     config.plugins.delete("html")
     config.plugins.delete("preload")
     config.plugins.delete("prefetch")
+
+    config.resolve.alias.set("~", path.resolve("extension/ts"))
 
     if (!isDev) {
       config.plugin("zip").use(ZipPlugin, [

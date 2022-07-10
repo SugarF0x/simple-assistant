@@ -26,8 +26,12 @@ export function parseBossElements(elements: HTMLDivElement[]) {
     const img = imgElement?.getAttribute("src")
     if (!img) throw new Error("Unable to parse image source")
 
+    const id = parseInt(href.replaceAll(/[a-z/?_=]/gi, ""))
+    if (isNaN(id)) throw new Error("Unable to parse ID")
+
     acc.push({
       name,
+      id,
       level,
       img,
       href: href.replace(/view/gi, "attack").replace(/\?new_page=true/, ""),

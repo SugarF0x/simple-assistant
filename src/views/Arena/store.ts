@@ -1,7 +1,8 @@
 import { defineStore } from "pinia"
-import { computed, ref } from "vue"
+import { computed, ref, watchEffect } from "vue"
 import { addHours, addMinutes, isAfter, isBefore, isWithinInterval, nextMonday, subHours } from "date-fns"
 import { getTimeWithLondonOffset } from "@/utils"
+import { sendBossNotificationMessage } from "~/notifications/utils"
 
 export const useArenaStore = defineStore(
   "arena",
@@ -37,6 +38,11 @@ export const useArenaStore = defineStore(
         isBefore(new Date(snapshotTimestamp.value), new Date(refreshTimestamp.value))
     )
 
+    watchEffect(() => {
+      if (!bossList.value.length) return
+      sendBossNotificationMessage(bossList.value, shouldNotifyOfBosses.value)
+    })
+
     return {
       shouldAutoFocusGenerate,
       shouldTrackBosses,
@@ -67,6 +73,7 @@ export const useArenaStore = defineStore(
 
 export interface Boss {
   name: string
+  id: number
   level: number
   timestamp: string
   href: string

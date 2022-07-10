@@ -4,6 +4,10 @@
   "version_name": "TBD",
   "description": "Quality of life SimpleMMO tweaks",
   "manifest_version": 2,
+  "permissions": [
+    "notifications",
+    "alarms"
+  ],
   "content_scripts": [
     {
       "matches": ["*://*.simple-mmo.com/*"],
@@ -12,8 +16,7 @@
     }
   ],
   "background": {
-    "scripts": [],
-    "persistent": false
+    "scripts": []
   },
   "icons": {
     "128": "logo.png"
