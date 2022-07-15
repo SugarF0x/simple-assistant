@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service")
 const ZipPlugin = require("zip-webpack-plugin")
-const fs = require("fs")
 const path = require("path")
+const { HotReload } = require("./plugins")
 
 const isDev = process.env.NODE_ENV !== "production"
 
@@ -19,7 +19,7 @@ module.exports = defineConfig({
     config.plugins.delete("preload")
     config.plugins.delete("prefetch")
 
-    config.resolve.alias.set("~", path.resolve("extension/ts"))
+    config.resolve.alias.set("~", path.resolve("extension/services"))
 
     if (!isDev) {
       config.plugin("zip").use(ZipPlugin, [
@@ -30,14 +30,7 @@ module.exports = defineConfig({
       ])
     }
 
-    const backgroundModules = fs.readdirSync("./extension/ts")
-    backgroundModules.forEach((module) => {
-      config.entryPoints.set(module, {
-        values() {
-          return [`./extension/ts/${module}/index.ts`]
-        },
-      })
-    })
+    config.entry("services").add(`./extension/services/index.ts`)
 
     config.plugin("copy").tap((args) => {
       args[0].patterns.push({
@@ -51,21 +44,26 @@ module.exports = defineConfig({
           manifest.version = version
           manifest.version_name = version
 
-          backgroundModules.forEach((module) => manifest.background.scripts.push(`js/${module}.js`))
-
-          if (isDev) {
-            manifest.background.scripts.push("hot-reload.js")
-            manifest.permissions = [...(manifest.permissions || []), "tabs"]
-          }
+          if (isDev) manifest.permissions = [...(manifest.permissions || []), "tabs"]
 
           return Buffer.from(JSON.stringify(manifest, null, 2))
         },
       })
 
-      if (isDev) args[0].patterns.push({ from: "extension/hot-reload.js" })
-
       return args
     })
+
+    if (isDev)
+      config
+        .plugin("HotReload")
+        .use(new HotReload())
+        .end()
+        .entry("app")
+        .add("./plugins/HotReload/content.js")
+        .end()
+        .entry("services")
+        .add("./plugins/HotReload/service.js")
+        .end()
 
     config.optimization.delete("splitChunks")
 

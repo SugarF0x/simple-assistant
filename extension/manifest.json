@@ -3,7 +3,7 @@
   "version": "TBD",
   "version_name": "TBD",
   "description": "Quality of life SimpleMMO tweaks",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "permissions": [
     "notifications",
     "alarms"
@@ -16,7 +16,7 @@
     }
   ],
   "background": {
-    "scripts": []
+    "service_worker": "js/services.js"
   },
   "icons": {
     "128": "logo.png"

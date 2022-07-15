@@ -21,7 +21,7 @@
         "src/*"
       ],
       "~/*": [
-        "extension/ts/*"
+        "extension/services/*"
       ]
     },
     "lib": [

@@ -6,4 +6,6 @@ chrome.runtime.onMessage.addListener((request) => {
 
   if (payload.toggle) payload.data.forEach((boss) => createBossNotification(boss))
   else payload.data.forEach((boss) => chrome.alarms.clear(getBossNotificationId(boss)))
+
+  return true
 })
