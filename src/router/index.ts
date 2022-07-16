@@ -10,6 +10,7 @@ import {
   Home,
   Job,
   JobsMenu,
+  Market,
   MonthlyReward,
   Quest,
   QuestsMenu,
@@ -30,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/travel",
     name: "travel",
     component: Travel,
+  },
+  {
+    path: "/market/listings",
+    name: "market",
+    component: Market,
   },
   {
     path: "/horse-and-carriage",
