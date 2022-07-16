@@ -53,17 +53,11 @@ module.exports = defineConfig({
       return args
     })
 
-    if (isDev)
-      config
-        .plugin("HotReload")
-        .use(new HotReload())
-        .end()
-        .entry("app")
-        .add("./plugins/HotReload/content.js")
-        .end()
-        .entry("services")
-        .add("./plugins/HotReload/service.js")
-        .end()
+    if (isDev) {
+      config.plugin("HotReload").use(new HotReload())
+      config.entry("app").add("./plugins/HotReload/content.js")
+      config.entry("services").add("./plugins/HotReload/service.js")
+    }
 
     config.optimization.delete("splitChunks")
 
