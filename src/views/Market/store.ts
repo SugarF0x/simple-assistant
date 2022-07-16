@@ -5,9 +5,11 @@ export const useMarketStore = defineStore(
   "market",
   () => {
     const shouldAutoFocusFirstItem = ref(false)
+    const shouldTrackPurchaseTask = ref(false)
 
     return {
       shouldAutoFocusFirstItem,
+      shouldTrackPurchaseTask,
     }
   },
   {
