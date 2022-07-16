@@ -1,23 +1,26 @@
-name: changelog
+name: Release flow
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
     paths-ignore:
-      - 'package.json'
-      - 'CHANGELOG.md'
+      - package.json
+      - CHANGELOG.md
 
 jobs:
-  build:
-    name: "Generate changelog & build dist"
+  setup:
+    name: Checkout & generate changelog
     runs-on: self-hosted
 
-    strategy:
-      matrix:
-        node-version: [14.x]
+    outputs:
+      clean_changelog: ${{ steps.changelog.outputs.clean_changelog }}
+      tag: ${{ steps.changelog.outputs.tag }}
+      skipped: ${{ steps.changelog.outputs.skipped }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Generate Changelog
         id: changelog
@@ -26,6 +29,16 @@ jobs:
           git-message: 'chore(release): {version}'
           release-count: 0
 
+  build:
+    name: Build distributive
+    needs: [ setup ]
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+
+    steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -35,11 +48,16 @@ jobs:
       - run: npm i
       - run: npm run build
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+  release:
+    name: Create release
+    needs: [ setup, build ]
+    if: ${{ needs.setup.outputs.skipped == 'false' }}
+    runs-on: self-hosted
+
+    steps:
+      - uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          tag_name: ${{ needs.setup.outputs.tag }}
+          name: ${{ needs.setup.outputs.tag }}
+          body: ${{ needs.setup.outputs.clean_changelog }}
           files: dist.zip
