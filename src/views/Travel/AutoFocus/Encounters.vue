@@ -23,7 +23,6 @@ watch(lastStepResponse, (response) => {
 
     if (response.step_type === "material") {
       const collectButton = document.querySelector<HTMLButtonElement>(".travel-text button")
-      console.log(collectButton)
       if (!collectButton) return
       collectButton.focus()
     }

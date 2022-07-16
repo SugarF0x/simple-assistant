@@ -17,7 +17,5 @@ onMounted(() => {
   Array.from(ul?.children ?? []).forEach((entry) => {
     if (questTitles.value.some((e) => entry.innerHTML.includes(e))) matches.value.push(entry as HTMLDivElement)
   })
-
-  console.log(Object.assign([], matches.value))
 })
 </script>
