@@ -1,3 +1,20 @@
+# [3.6.0](https://github.com/SugarF0x/simple-assistant/compare/v3.5.0...v3.6.0) (2022-07-16)
+
+
+### Bug Fixes
+
+* **notification:** boss available typo ([6884a17](https://github.com/SugarF0x/simple-assistant/commit/6884a171ad6922dd37452549adf54d82727974ca))
+* remove console logs ([0dcc883](https://github.com/SugarF0x/simple-assistant/commit/0dcc883170946b8c83eb6695e8bc18889e3512b2))
+
+
+### Features
+
+* **manifest:** upgrade to MV3 :tada: ([fbfc205](https://github.com/SugarF0x/simple-assistant/commit/fbfc205d3a234aa17a7d71c37444300fc96f73a6))
+* **market:** add buy task tracker ([dfeac7e](https://github.com/SugarF0x/simple-assistant/commit/dfeac7e5a806b604b5705d7d32570f58d565a206))
+* **market:** add first item autofocus ([8ad642a](https://github.com/SugarF0x/simple-assistant/commit/8ad642abe4cbcdeb56bf285b288d21d7df406717))
+
+
+
 # [3.5.0](https://github.com/SugarF0x/simple-assistant/compare/v3.4.3...v3.5.0) (2022-07-10)
 
 
