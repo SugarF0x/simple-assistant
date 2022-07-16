@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { Checkbox } from "@/components"
+import { Checkbox, TaskTracker } from "@/components"
 import { useMarketStore } from "./store"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { useSwalObserver } from "@/hooks"
 import { marketControlsId } from "./ids"
 import { TaskType, useTasksStore } from "../Tasks/store"
-import TaskTracker from "@/components/TaskTracker.vue"
 
 const { shouldTrackPurchaseTask } = storeToRefs(useMarketStore())
 const tasksStore = useTasksStore()
