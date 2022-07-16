@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Autofocus from "./Autofocus.vue"
 import { Controls } from "@/components"
 import { onBeforeMount } from "vue"
 
@@ -17,6 +18,6 @@ onBeforeMount(() => {
 
 <template>
   <Controls :to="`#${marketControlsId}`">
-    <div style="color: white">web-app-container</div>
+    <Autofocus />
   </Controls>
 </template>
