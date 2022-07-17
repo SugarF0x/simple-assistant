@@ -4,6 +4,7 @@ import { useBattleStore } from "@/views/Battle/store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 import { onReenable } from "@/utils"
+import { getAttackButton } from "@/views/Battle/utils"
 
 const battleStore = useBattleStore()
 const { shouldAutoFocusItem, carrotCapacityDepletionTime, isMushroomQuotaDepleted } = storeToRefs(battleStore)
@@ -15,7 +16,7 @@ onMounted(() => {
   const buttons = Array.from(
     document.querySelectorAll<HTMLButtonElement>(".bg-white.mt-4.rounded-md.p-8.text-center button")
   )
-  const attackButton = buttons[0]
+  const attackButton = getAttackButton()
   const itemButton = buttons.find((element) => element.innerText.toLowerCase().includes("item"))
   if (!itemButton) return
 
