@@ -6,6 +6,7 @@ export const useSafeModeStore = defineStore(
   "safeMode",
   () => {
     const shouldRemindSafeMode = ref(false)
+    const shouldDisplayRemainingTimeInHeader = ref(false)
 
     const expirationTimestamp = ref(new Date().toISOString())
 
@@ -15,6 +16,7 @@ export const useSafeModeStore = defineStore(
 
     return {
       shouldRemindSafeMode,
+      shouldDisplayRemainingTimeInHeader,
       expirationTimestamp,
       isSafeModeExpired,
       shouldShowSafeModeNotification,

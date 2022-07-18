@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SafeModeTimer from "./SafeModeTimer.vue"
 import { Controls, Subtitle } from "@/components"
 import { useFtueStore } from "@/views/FTUE/store"
 import { storeToRefs } from "pinia"
@@ -10,7 +11,7 @@ const version = chrome.runtime.getManifest().version
 </script>
 
 <template>
-  <Controls to=".px-4.text-center" class="sa-header">
+  <Controls to=".px-4.text-center" id="sa-header">
     <h2>
       <span>Simple assistant</span>
       <a
@@ -28,11 +29,15 @@ const version = chrome.runtime.getManifest().version
     <Subtitle>
       <button @click="isDismissed = false">&lt; show disclaimer &gt;</button>
     </Subtitle>
+
+    <SafeModeTimer />
   </Controls>
 </template>
 
 <style lang="scss">
-.sa-header {
+#sa-header {
+  margin-bottom: -1rem;
+
   .dark & {
     color: white;
   }

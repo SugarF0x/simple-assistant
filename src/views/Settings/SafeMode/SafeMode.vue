@@ -5,8 +5,9 @@ import { storeToRefs } from "pinia"
 import { onBeforeMount } from "vue"
 import { Duration, add } from "date-fns"
 
-const safeModeStore = useSafeModeStore()
-const { shouldRemindSafeMode, expirationTimestamp } = storeToRefs(safeModeStore)
+const { shouldRemindSafeMode, shouldDisplayRemainingTimeInHeader, expirationTimestamp } = storeToRefs(
+  useSafeModeStore()
+)
 
 onBeforeMount(() => {
   const timeDiv = document.querySelector<HTMLDivElement>("main .bg-white.mt-4 div.text-sm.text-gray-500")
@@ -31,6 +32,11 @@ onBeforeMount(() => {
     <Checkbox v-model="shouldRemindSafeMode">
       <template #default> Remind to enable safe mode </template>
       <template #subtitle> A safe mode a day keeps the doctor away </template>
+    </Checkbox>
+    <Checkbox v-model="shouldDisplayRemainingTimeInHeader" :parent="shouldRemindSafeMode">
+      <template #default> Display remaining time in header </template>
+      <template #subtitle> Know when the time to reenable is coming </template>
+      <template #requires> Requires reminder enabled </template>
     </Checkbox>
   </Controls>
 </template>
