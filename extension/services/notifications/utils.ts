@@ -28,7 +28,7 @@ export function createBossNotification(boss: Boss) {
     if (alarm.name !== id) return
 
     chrome.notifications.create(id, {
-      iconUrl: "https://web.simple-mmo.com" + boss.img,
+      iconUrl: `https://web.simple-mmo.com${boss.img}`,
       message: "A boss is now attackable!",
       type: "basic",
       title: boss.name,
@@ -37,8 +37,8 @@ export function createBossNotification(boss: Boss) {
     function onClick(clickId: string) {
       if (clickId !== id) return
 
-      window.open("https://web.simple-mmo.com" + boss.href)
-
+      chrome.tabs.create({ url: `https://web.simple-mmo.com${boss.href}?sa-notified=true` })
+      chrome.notifications.clear(id)
       chrome.notifications.onClicked.removeListener(onClick)
     }
 

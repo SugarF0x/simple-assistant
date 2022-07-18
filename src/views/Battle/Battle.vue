@@ -4,6 +4,10 @@ import { Controls } from "@/components"
 import SpecialAttackLock from "./SpecialAttackLock.vue"
 import Task from "./Task.vue"
 import { AutoFocus } from "./AutoFocus"
+
+import { useBossTracker } from "./hooks"
+
+useBossTracker()
 </script>
 
 <template>
