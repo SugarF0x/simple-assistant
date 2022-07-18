@@ -23,7 +23,9 @@ const questTasks = computed(() =>
   )
 )
 const validTasks = computed(() =>
-  questTasks.value.filter((task) => task.type === TaskType.QUEST_ANY || task.target === questTitle)
+  questTasks.value.filter(
+    (task) => task.type === TaskType.QUEST_ANY || task.target.toLowerCase() === questTitle?.toLowerCase()
+  )
 )
 
 const resultsNode = document.querySelector("#result")
