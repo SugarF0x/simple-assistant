@@ -1,43 +1,40 @@
-import { Boss } from "@/views/Arena/store"
+import { ServiceMessage } from "~/definitions"
 
-export interface BossNotification {
+export interface NotificationServiceMessage extends ServiceMessage {
   type: "notification"
-  variant: "boss"
-  toggle: boolean
-  data: Boss[]
 }
 
-export function sendBossNotificationMessage(data: Boss[], toggle: boolean) {
-  chrome.runtime.sendMessage({
-    data,
-    toggle,
-    variant: "boss",
-    type: "notification",
-  })
+export function isServiceNotification(val: any): val is NotificationServiceMessage {
+  return val?.type === "notification"
 }
 
-export function getBossNotificationId(boss: Boss) {
-  return `boss-${boss.id}`
+export interface NotificationOptions {
+  id: string
+  timestamp: number
+  iconUrl: string
+  title: string
+  message: string
+  href?: string
 }
 
-export function createBossNotification(boss: Boss) {
-  const id = getBossNotificationId(boss)
-  chrome.alarms.create(id, { when: new Date(boss.timestamp).valueOf() })
+export function createNotification(data: NotificationOptions) {
+  const { id, title, timestamp, iconUrl, href, message } = data
+  chrome.alarms.create(id, { when: new Date(timestamp).valueOf() })
 
   function onAlarm(alarm: chrome.alarms.Alarm) {
     if (alarm.name !== id) return
 
     chrome.notifications.create(id, {
-      iconUrl: `https://web.simple-mmo.com${boss.img}`,
-      message: "A boss is now attackable!",
       type: "basic",
-      title: boss.name,
+      message,
+      iconUrl,
+      title,
     })
 
     function onClick(clickId: string) {
       if (clickId !== id) return
 
-      chrome.tabs.create({ url: `https://web.simple-mmo.com${boss.href}?sa-notified=true` })
+      if (href) chrome.tabs.create({ url: href })
       chrome.notifications.clear(id)
       chrome.notifications.onClicked.removeListener(onClick)
     }

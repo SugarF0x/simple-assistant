@@ -29,12 +29,14 @@ export function parseBossElements(elements: HTMLDivElement[]) {
     const id = parseInt(href.replaceAll(/[a-z/?_=]/gi, ""))
     if (isNaN(id)) throw new Error("Unable to parse ID")
 
+    const origin = window.location.origin
+
     acc.push({
       name,
       id,
       level,
-      img,
-      href: href.replace(/view/gi, "attack").replace(/\?new_page=true/, ""),
+      img: origin + img,
+      href: origin + href.replace(/view/gi, "attack").replace(/\?new_page=true/, ""),
       timestamp: timestamp.toISOString(),
       isDead: false,
     })
