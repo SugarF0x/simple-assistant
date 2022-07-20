@@ -5,9 +5,11 @@ export const useJobStore = defineStore(
   "job",
   () => {
     const shouldAutoFocusJobActionButton = ref(false)
+    const shouldNotifyOnCompletion = ref(false)
 
     return {
       shouldAutoFocusJobActionButton,
+      shouldNotifyOnCompletion,
     }
   },
   {
