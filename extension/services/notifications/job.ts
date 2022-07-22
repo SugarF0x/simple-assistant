@@ -1,41 +1,22 @@
-import { createNotification, isServiceNotification, NotificationServiceMessage } from "./utils"
+import { isJobNotification, isServiceNotification, JobNotificationData } from "./utils"
 
-interface JobNotificationData {
-  href: string
-  timestamp: number
-  iconUrl: string
+type SanitizedJobData = Omit<JobNotificationData, "timestamp">
+
+function serializeJobData(job: JobNotificationData) {
+  const { href, iconUrl } = job
+  return JSON.stringify(["job", { href, iconUrl } as SanitizedJobData])
 }
 
-interface JobNotification extends NotificationServiceMessage {
-  variant: "job"
-  toggle: boolean
-  data: JobNotificationData
+function deserializeJobData(data: string) {
+  return JSON.parse(data) as [string, SanitizedJobData]
 }
 
-function isJobNotification(val: NotificationServiceMessage): val is JobNotification {
-  return val.variant === "job"
+function createJobNotification(job: JobNotificationData) {
+  chrome.alarms.create(serializeJobData(job), { when: new Date(job.timestamp).valueOf() })
 }
 
-export function sendJobNotificationMessage(data: JobNotificationData, toggle: boolean) {
-  chrome.runtime.sendMessage<JobNotification>({
-    data,
-    toggle,
-    variant: "job",
-    type: "notification",
-  })
-}
-
-function createJobNotification(data: JobNotificationData) {
-  const { timestamp, iconUrl, href } = data
-
-  createNotification({
-    id: "job",
-    message: "You have finished working!",
-    title: "Job completed",
-    timestamp,
-    iconUrl,
-    href,
-  })
+function clearJobNotification(job: JobNotificationData) {
+  chrome.alarms.clear(serializeJobData(job))
 }
 
 chrome.runtime.onMessage.addListener((payload) => {
@@ -43,7 +24,31 @@ chrome.runtime.onMessage.addListener((payload) => {
   if (!isJobNotification(payload)) return
 
   if (payload.toggle) createJobNotification(payload.data)
-  else chrome.alarms.clear("job")
+  else clearJobNotification(payload.data)
+
+  return true
+})
+
+chrome.alarms.onAlarm.addListener(({ name: id }) => {
+  const [notification, { iconUrl }] = deserializeJobData(id)
+  if (notification !== "job") return
+
+  chrome.notifications.create(id, {
+    type: "basic",
+    message: "You have finished working",
+    title: "Job finished",
+    iconUrl,
+  })
+
+  return true
+})
+
+chrome.notifications.onClicked.addListener((id) => {
+  const [notification, { href }] = deserializeJobData(id)
+  if (notification !== "job") return
+
+  chrome.tabs.create({ url: href })
+  chrome.notifications.clear(id)
 
   return true
 })

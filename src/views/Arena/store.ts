@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import { computed, ref, watchEffect } from "vue"
 import { addHours, addMinutes, isAfter, isBefore, isWithinInterval, nextMonday, subHours } from "date-fns"
 import { getTimeWithLondonOffset } from "@/utils"
-import { sendBossNotificationMessage } from "~/notifications/bosses"
+import { sendBossNotificationMessage } from "~/notifications/utils"
 
 export const useArenaStore = defineStore(
   "arena",

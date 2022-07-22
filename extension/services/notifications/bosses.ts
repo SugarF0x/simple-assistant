@@ -1,48 +1,55 @@
-import { createNotification, isServiceNotification, NotificationServiceMessage } from "./utils"
+import { isBossNotification, isServiceNotification } from "./utils"
 import { Boss } from "@/views/Arena/store"
 
-interface BossNotification extends NotificationServiceMessage {
-  variant: "boss"
-  toggle: boolean
-  data: Boss[]
+type SanitizedBossData = Pick<Boss, "href" | "name" | "img">
+
+function serializeBossData(boss: Boss) {
+  const { href, name, img } = boss
+  return JSON.stringify(["boss", { href, name, img } as SanitizedBossData])
 }
 
-function isBossNotification(val: NotificationServiceMessage): val is BossNotification {
-  return val.variant === "boss"
-}
-
-export function sendBossNotificationMessage(data: Boss[], toggle: boolean) {
-  chrome.runtime.sendMessage<BossNotification>({
-    data,
-    toggle,
-    variant: "boss",
-    type: "notification",
-  })
-}
-
-function getBossNotificationId(boss: Boss) {
-  return `boss-${boss.id}`
+function deserializeBossData(data: string) {
+  return JSON.parse(data) as [string, SanitizedBossData]
 }
 
 function createBossNotification(boss: Boss) {
-  const { timestamp, href, name: title, img: iconUrl } = boss
+  chrome.alarms.create(serializeBossData(boss), { when: new Date(boss.timestamp).valueOf() })
+}
 
-  createNotification({
-    id: getBossNotificationId(boss),
-    timestamp: new Date(timestamp).valueOf(),
-    message: "A boss is now attackable!",
-    href,
-    title,
-    iconUrl,
-  })
+function clearBossNotification(boss: Boss) {
+  chrome.alarms.clear(serializeBossData(boss))
 }
 
 chrome.runtime.onMessage.addListener((payload) => {
   if (!isServiceNotification(payload)) return
   if (!isBossNotification(payload)) return
 
-  if (payload.toggle) payload.data.forEach((boss) => createBossNotification(boss))
-  else payload.data.forEach((boss) => chrome.alarms.clear(getBossNotificationId(boss)))
+  if (payload.toggle) payload.data.forEach(createBossNotification)
+  else payload.data.forEach(clearBossNotification)
+
+  return true
+})
+
+chrome.alarms.onAlarm.addListener(({ name: id }) => {
+  const [notification, { img, name }] = deserializeBossData(id)
+  if (notification !== "boss") return
+
+  chrome.notifications.create(id, {
+    type: "basic",
+    message: "A boss is now attackable!",
+    iconUrl: img,
+    title: name,
+  })
+
+  return true
+})
+
+chrome.notifications.onClicked.addListener((id) => {
+  const [notification, { href }] = deserializeBossData(id)
+  if (notification !== "boss") return
+
+  chrome.tabs.create({ url: href })
+  chrome.notifications.clear(id)
 
   return true
 })

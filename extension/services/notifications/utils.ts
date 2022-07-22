@@ -1,4 +1,5 @@
 import { ServiceMessage } from "~/definitions"
+import { Boss } from "@/views/Arena/store"
 
 export interface NotificationServiceMessage extends ServiceMessage {
   type: "notification"
@@ -8,40 +9,50 @@ export function isServiceNotification(val: any): val is NotificationServiceMessa
   return val?.type === "notification"
 }
 
-export interface NotificationOptions {
-  id: string
-  timestamp: number
-  iconUrl: string
-  title: string
-  message: string
-  href?: string
+// boss
+
+export interface BossNotification extends NotificationServiceMessage {
+  variant: "boss"
+  toggle: boolean
+  data: Boss[]
 }
 
-export function createNotification(data: NotificationOptions) {
-  const { id, title, timestamp, iconUrl, href, message } = data
-  chrome.alarms.create(id, { when: new Date(timestamp).valueOf() })
+export function isBossNotification(val: NotificationServiceMessage): val is BossNotification {
+  return val.variant === "boss"
+}
 
-  function onAlarm(alarm: chrome.alarms.Alarm) {
-    if (alarm.name !== id) return
+export function sendBossNotificationMessage(data: Boss[], toggle: boolean) {
+  chrome.runtime.sendMessage<BossNotification>({
+    data,
+    toggle,
+    variant: "boss",
+    type: "notification",
+  })
+}
 
-    chrome.notifications.create(id, {
-      type: "basic",
-      message,
-      iconUrl,
-      title,
-    })
+// job
 
-    function onClick(clickId: string) {
-      if (clickId !== id) return
+export interface JobNotificationData {
+  href: string
+  timestamp: number
+  iconUrl: string
+}
 
-      if (href) chrome.tabs.create({ url: href })
-      chrome.notifications.clear(id)
-      chrome.notifications.onClicked.removeListener(onClick)
-    }
+interface JobNotification extends NotificationServiceMessage {
+  variant: "job"
+  toggle: boolean
+  data: JobNotificationData
+}
 
-    chrome.notifications.onClicked.addListener(onClick)
-    chrome.alarms.onAlarm.removeListener(onAlarm)
-  }
+export function isJobNotification(val: NotificationServiceMessage): val is JobNotification {
+  return val.variant === "job"
+}
 
-  chrome.alarms.onAlarm.addListener(onAlarm)
+export function sendJobNotificationMessage(data: JobNotificationData, toggle: boolean) {
+  chrome.runtime.sendMessage<JobNotification>({
+    data,
+    toggle,
+    variant: "job",
+    type: "notification",
+  })
 }

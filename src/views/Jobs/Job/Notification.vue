@@ -3,7 +3,7 @@ import { Checkbox } from "@/components"
 import { useJobStore } from "./store"
 import { storeToRefs } from "pinia"
 import { watchEffect } from "vue"
-import { sendJobNotificationMessage } from "~/notifications/job"
+import { sendJobNotificationMessage } from "~/notifications/utils"
 
 const { shouldNotifyOnCompletion } = storeToRefs(useJobStore())
 
@@ -14,7 +14,7 @@ function getNotificationIconUrl() {
   if (!item) return ""
   const img = item.querySelector("img")
   if (!img?.src) return ""
-  return window.location.origin + img.src
+  return img.src
 }
 
 function getTimestamp() {
@@ -26,6 +26,8 @@ function getTimestamp() {
 }
 
 watchEffect(() => {
+  if (!getTimestamp()) return
+
   sendJobNotificationMessage(
     {
       iconUrl: getNotificationIconUrl(),
