@@ -1,8 +1,8 @@
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "HMR") {
     chrome.tabs.query({ url: "*://*.simple-mmo.com/*" }, (tabs) => {
-      if (tabs[0]) {
-        chrome.tabs.reload(tabs[0].id)
+      for (const tab of tabs) {
+        chrome.tabs.reload(tab.id)
       }
       chrome.runtime.reload()
     })
