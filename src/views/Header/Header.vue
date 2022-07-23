@@ -25,7 +25,7 @@ const version = chrome.runtime.getManifest().version
       </a>
     </h2>
     <div>
-      <i>v11.8.1 compatible</i>
+      <i>v11.8.3 compatible</i>
     </div>
     <Subtitle>
       <button @click="isDismissed = false">&lt; show disclaimer &gt;</button>
