@@ -5,12 +5,16 @@ import { useBattleStore } from "./store"
 import { storeToRefs } from "pinia"
 import { computed, onBeforeMount } from "vue"
 import { useHealthObserver } from "./hooks"
+import { getBackgroundImageUrl } from "./utils"
+import { getAverageImageColor, getContrastingColor } from "@/utils"
 
 const tasksStore = useTasksStore()
 const { advanceTask } = tasksStore
 const { tasks, shouldTrackTasks } = storeToRefs(tasksStore)
 const battleStore = useBattleStore()
 const { shouldHelpTrackTasks } = storeToRefs(battleStore)
+
+const contrastingColor = getContrastingColor(getAverageImageColor(getBackgroundImageUrl()))
 
 const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>(".web-app-container a"))
 const npcAnchor = anchors.find((e) => e.href.includes("npc"))
@@ -48,7 +52,7 @@ onBeforeMount(() => {
   <template v-if="shouldHelpTrackTasks">
     <Teleport to=".w-full.h-full.flex.items-center">
       <div class="tasks">
-        <TaskTracker v-for="task in killTasks" :key="task.title" :task="task" />
+        <TaskTracker v-for="task in killTasks" :key="task.title" :task="task" :color="contrastingColor" />
       </div>
     </Teleport>
   </template>

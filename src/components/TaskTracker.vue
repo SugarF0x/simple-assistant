@@ -9,6 +9,7 @@ const { tasks } = storeToRefs(tasksStore)
 const props = defineProps<{
   task: Task
   stack?: boolean
+  color?: string
 }>()
 const { task } = toRefs(props)
 
@@ -19,7 +20,7 @@ const progressText = computed(() => {
 </script>
 
 <template>
-  <div v-if="stack" class="stack">
+  <div v-if="stack" class="stack" :class="{ 'color-override': color }">
     <div class="title">{{ task.title }}</div>
     <div>
       <img :src="task.icon" alt="step_icon" />
@@ -27,7 +28,7 @@ const progressText = computed(() => {
     </div>
   </div>
 
-  <div v-else class="task-tracker">
+  <div v-else class="task-tracker" :class="{ 'color-override': color }">
     <template v-if="task">
       <img :src="task.icon" alt="step_icon" />
       <span class="title">{{ task.title }}</span>
@@ -45,6 +46,12 @@ const progressText = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+.color-override {
+  * {
+    color: v-bind(color) !important;
+  }
+}
+
 .task-tracker {
   display: flex;
   align-items: center;
@@ -66,10 +73,14 @@ const progressText = computed(() => {
 
 .progress {
   margin-left: 0.25rem;
-  color: lightgray;
-}
+  opacity: 0.8;
 
-.completed {
-  color: lightgreen;
+  .dark & {
+    color: white;
+  }
+
+  &.completed {
+    color: lightgreen;
+  }
 }
 </style>
