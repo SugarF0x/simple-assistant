@@ -1,7 +1,7 @@
 import { rgbToHex } from "@/utils/convertColors"
 
 /**
- * Courtesy of StackOverflow allmighty: https://stackoverflow.com/questions/2541481/get-average-color-of-image-via-javascript
+ * Courtesy of StackOverflow almighty: https://stackoverflow.com/questions/2541481/get-average-color-of-image-via-javascript
  *
  * Modified a bit to accept image url instead of img element & return HEX instead of RGB
  */

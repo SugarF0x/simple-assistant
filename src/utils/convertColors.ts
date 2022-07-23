@@ -1,5 +1,5 @@
 /**
- * Courtesy of StackOverflow allmighty:
+ * Courtesy of StackOverflow almighty:
  *   https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
  *   https://stackoverflow.com/questions/635022/calculating-contrasting-colours-in-javascript
  */
