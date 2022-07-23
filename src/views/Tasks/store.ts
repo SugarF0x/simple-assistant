@@ -62,15 +62,15 @@ export const useTasksStore = defineStore(
 )
 
 export enum TaskType {
-  QUEST_SOME,
-  QUEST_ANY,
-  KILL_SOME,
-  KILL_ANY,
-  STEP,
-  WORSHIP,
-  VOTE,
-  BUY,
-  UNKNOWN,
+  QUEST_SOME = "QUEST_SOME",
+  QUEST_ANY = "QUEST_ANY",
+  KILL_SOME = "KILL_SOME",
+  KILL_ANY = "KILL_ANY",
+  STEP = "STEP",
+  WORSHIP = "WORSHIP",
+  VOTE = "VOTE",
+  BUY = "BUY",
+  UNKNOWN = "UNKNOWN",
 }
 
 export type ComplexTaskType = Extract<TaskType, TaskType.WORSHIP | TaskType.QUEST_SOME | TaskType.KILL_SOME>

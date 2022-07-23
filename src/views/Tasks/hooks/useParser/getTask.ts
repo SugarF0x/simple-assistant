@@ -8,6 +8,7 @@ import {
   WorshipTask,
 } from "../../store"
 import { getType } from "./getType"
+import { getCardText } from "./utils"
 
 const complexTaskToParserMap: Record<ComplexTaskType, (el: HTMLElement) => Task> = {
   [TaskType.WORSHIP]: getWorshipTask,
@@ -53,15 +54,6 @@ function getText(el: HTMLElement): string {
   return el.querySelector<HTMLSpanElement>("span.truncate")?.innerText ?? ""
 }
 
-function getCardText(el: HTMLElement): string {
-  const onclickData = el.getAttribute("onclick")
-  if (!onclickData) return "No meta found"
-
-  const meta = onclickData.slice(onclickData.indexOf("('")).replace(/[)(]/g, "")
-  const parsedMeta = JSON.parse(`[${meta.replace(/"/g, '\\"').replace(/'/g, '"')}]`)
-  return parsedMeta[1]
-}
-
 function getKillSomeTask(el: HTMLElement): KillSomeTask {
   const [progress, requirement] = getProgress(el)
   const [title, icon] = getMeta(el)
@@ -91,8 +83,8 @@ function getQuestSomeTask(el: HTMLElement): QuestSomeTask {
   const [progress, requirement] = getProgress(el)
   const [title, icon] = getMeta(el)
 
-  const text = getText(el)
-  const target = text.match(/(?<=Complete the quest )(.*)(?= [0-9])/g)?.[0] ?? "UNKNOWN TARGET"
+  const cardText = getCardText(el)
+  const target = cardText.match(/(?<=Complete the quest )(.*)(?= [0-9])/g)?.[0]?.replace(/"/g, "") ?? "UNKNOWN TARGET"
 
   return {
     type: TaskType.QUEST_SOME,

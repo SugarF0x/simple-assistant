@@ -1,4 +1,5 @@
 import { TaskType } from "../../store"
+import { getCardText } from "@/views/Tasks/hooks/useParser/utils"
 
 const regexpToTypeMap: Array<[RegExp, TaskType]> = [
   [/kill.*times/gi, TaskType.KILL_SOME],
@@ -12,7 +13,7 @@ const regexpToTypeMap: Array<[RegExp, TaskType]> = [
 ]
 
 export function getType(el: HTMLElement): TaskType {
-  const text = el.querySelector<HTMLSpanElement>("span.truncate")?.innerText || ""
+  const text = getCardText(el)
   const [_, type] = regexpToTypeMap.find(([regexp]) => text.match(regexp)) ?? []
   return type ?? TaskType.UNKNOWN
 }
