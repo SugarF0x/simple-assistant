@@ -80,7 +80,8 @@ const progressText = computed(() => {
   }
 
   &.completed {
-    color: lightgreen;
+    color: lime !important;
+    opacity: 1;
   }
 }
 </style>
