@@ -3,7 +3,6 @@ import { Boss } from "@/views/Arena/store"
 
 export interface BossNotification extends NotificationServiceMessage {
   variant: "boss"
-  toggle: boolean
   data: Boss[]
 }
 

@@ -6,7 +6,6 @@ export interface SafeModeNotificationData {
 
 export interface SafeModeNotification extends NotificationServiceMessage {
   variant: "safeMode"
-  toggle: boolean
   data: SafeModeNotificationData
 }
 

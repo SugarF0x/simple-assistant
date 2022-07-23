@@ -7,7 +7,6 @@ export interface JobNotificationData {
 
 export interface JobNotification extends NotificationServiceMessage {
   variant: "job"
-  toggle: boolean
   data: JobNotificationData
 }
 
