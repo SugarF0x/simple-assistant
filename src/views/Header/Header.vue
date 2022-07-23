@@ -38,11 +38,15 @@ const version = chrome.runtime.getManifest().version
 
 <style lang="scss">
 #sa-header {
-  position: relative;
   margin-bottom: -1rem;
 
   .dark & {
     color: white;
   }
+}
+
+// sa header parent
+.px-4.text-center[x-show="webAppSideBar"] {
+  position: relative;
 }
 </style>
