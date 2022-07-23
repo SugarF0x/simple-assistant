@@ -7,19 +7,18 @@ export const useSafeModeStore = defineStore(
   () => {
     const shouldRemindSafeMode = ref(false)
     const shouldDisplayRemainingTimeInHeader = ref(false)
+    const shouldUseChromeNotifications = ref(false)
 
     const expirationTimestamp = ref(new Date().toISOString())
 
     const isSafeModeExpired = computed(() => isAfter(new Date(), new Date(expirationTimestamp.value)))
 
-    const shouldShowSafeModeNotification = computed(() => shouldRemindSafeMode.value && isSafeModeExpired.value)
-
     return {
       shouldRemindSafeMode,
       shouldDisplayRemainingTimeInHeader,
+      shouldUseChromeNotifications,
       expirationTimestamp,
       isSafeModeExpired,
-      shouldShowSafeModeNotification,
     }
   },
   {

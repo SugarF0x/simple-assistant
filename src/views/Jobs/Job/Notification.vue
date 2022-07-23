@@ -32,7 +32,6 @@ watchEffect(() => {
     {
       iconUrl: getNotificationIconUrl(),
       timestamp: getTimestamp(),
-      href: window.location.origin,
     },
     shouldNotifyOnCompletion.value
   )

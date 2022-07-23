@@ -1,7 +1,6 @@
 import { NotificationServiceMessage } from "../utils"
 
 export interface JobNotificationData {
-  href: string
   timestamp: number
   iconUrl: string
 }

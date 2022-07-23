@@ -5,9 +5,12 @@ import { Button } from "@/components"
 import { useSafeModeStore } from "@/views/Settings/SafeMode/store"
 import { storeToRefs } from "pinia"
 import { addHours } from "date-fns"
+import { computed } from "vue"
 
 const safeModeStore = useSafeModeStore()
-const { shouldShowSafeModeNotification, expirationTimestamp } = storeToRefs(safeModeStore)
+const { shouldRemindSafeMode, isSafeModeExpired, expirationTimestamp } = storeToRefs(safeModeStore)
+
+const shouldShowSafeModeNotification = computed(() => shouldRemindSafeMode.value && isSafeModeExpired.value)
 </script>
 
 <template>

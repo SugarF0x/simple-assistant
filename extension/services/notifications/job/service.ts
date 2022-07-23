@@ -1,11 +1,12 @@
 import { isServiceNotification } from "../utils"
 import { JobNotificationData, isJobNotification } from "./types"
+import { ORIGIN } from "~/consts"
 
 type SanitizedJobData = Omit<JobNotificationData, "timestamp">
 
 function serializeJobData(job: JobNotificationData) {
-  const { href, iconUrl } = job
-  return JSON.stringify(["job", { href, iconUrl } as SanitizedJobData])
+  const { iconUrl } = job
+  return JSON.stringify(["job", { iconUrl } as SanitizedJobData])
 }
 
 function deserializeJobData(data: string) {
@@ -45,10 +46,10 @@ chrome.alarms.onAlarm.addListener(({ name: id }) => {
 })
 
 chrome.notifications.onClicked.addListener((id) => {
-  const [notification, { href }] = deserializeJobData(id)
+  const [notification] = deserializeJobData(id)
   if (notification !== "job") return
 
-  chrome.tabs.create({ url: href })
+  chrome.tabs.create({ url: ORIGIN })
   chrome.notifications.clear(id)
 
   return true
