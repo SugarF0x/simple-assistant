@@ -1,3 +1,24 @@
+# [3.7.0](https://github.com/SugarF0x/simple-assistant/compare/v3.6.0...v3.7.0) (2022-07-23)
+
+
+### Bug Fixes
+
+* **battle:** focus attack after item usage ([b88f057](https://github.com/SugarF0x/simple-assistant/commit/b88f057bc8ecb9094be8b1d9476051c362b8775a))
+* **boss:** update chrome notifications ([bbf601a](https://github.com/SugarF0x/simple-assistant/commit/bbf601ab3b762639fe511304d8024e9f28a50759))
+* **header:** bump supported version ([0bc656c](https://github.com/SugarF0x/simple-assistant/commit/0bc656c76909ad6eec5cd545a6ef83c1c4a47a39))
+* **notification:** get notifications finally working ([4bad602](https://github.com/SugarF0x/simple-assistant/commit/4bad602221f8f53ceaedd7a0358ef99ca1bc5288))
+* **task:** quest task title case mismatch ([d0c9262](https://github.com/SugarF0x/simple-assistant/commit/d0c926261afa51257231c984342c8bcb2c4f5c37))
+
+
+### Features
+
+* **header:** add a small SA icon ([bc10ca8](https://github.com/SugarF0x/simple-assistant/commit/bc10ca8e89de73e579320831f5fad61d2002c9a1))
+* **jobs:** add job completion notification ([da61a83](https://github.com/SugarF0x/simple-assistant/commit/da61a833f5fdbe870278e173cc9dcad104061a70))
+* **safeMode:** add chrome notification ([20e9a59](https://github.com/SugarF0x/simple-assistant/commit/20e9a596b8815cda74e6a9af9babad510c622b1b))
+* **safeMode:** add time remaining tracket to header ([fb0f150](https://github.com/SugarF0x/simple-assistant/commit/fb0f15032131c62f0e4e1d18d71b06906216dfe9))
+
+
+
 # [3.6.0](https://github.com/SugarF0x/simple-assistant/compare/v3.5.0...v3.6.0) (2022-07-16)
 
 
