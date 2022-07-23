@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SafeModeTimer from "./SafeModeTimer.vue"
+import DevStateIcon from "./DevStateIcon.vue"
 import { Controls, Subtitle } from "@/components"
 import { useFtueStore } from "@/views/FTUE/store"
 import { storeToRefs } from "pinia"
@@ -30,12 +31,14 @@ const version = chrome.runtime.getManifest().version
       <button @click="isDismissed = false">&lt; show disclaimer &gt;</button>
     </Subtitle>
 
+    <DevStateIcon />
     <SafeModeTimer />
   </Controls>
 </template>
 
 <style lang="scss">
 #sa-header {
+  position: relative;
   margin-bottom: -1rem;
 
   .dark & {
