@@ -1,4 +1,5 @@
-import { isBossNotification, isServiceNotification } from "./utils"
+import { isServiceNotification } from "../utils"
+import { isBossNotification } from "./types"
 import { Boss } from "@/views/Arena/store"
 
 type SanitizedBossData = Pick<Boss, "href" | "name" | "img">

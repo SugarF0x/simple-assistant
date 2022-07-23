@@ -3,7 +3,7 @@ import { Checkbox } from "@/components"
 import { useJobStore } from "./store"
 import { storeToRefs } from "pinia"
 import { watchEffect } from "vue"
-import { sendJobNotificationMessage } from "~/notifications/utils"
+import { sendJobNotificationMessage } from "~/notifications/job/client"
 
 const { shouldNotifyOnCompletion } = storeToRefs(useJobStore())
 

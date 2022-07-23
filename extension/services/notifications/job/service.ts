@@ -1,4 +1,5 @@
-import { isJobNotification, isServiceNotification, JobNotificationData } from "./utils"
+import { isServiceNotification } from "../utils"
+import { JobNotificationData, isJobNotification } from "./types"
 
 type SanitizedJobData = Omit<JobNotificationData, "timestamp">
 
