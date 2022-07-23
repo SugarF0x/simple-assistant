@@ -1,3 +1,13 @@
+## [3.7.1](https://github.com/SugarF0x/simple-assistant/compare/v3.7.0...v3.7.1) (2022-07-23)
+
+
+### Bug Fixes
+
+* **battle:** dynamically pick contrasting task color ([7789626](https://github.com/SugarF0x/simple-assistant/commit/7789626bcf711e0e2e79ee2a107347c8ed682580))
+* **tasks:** parse malformed quest titles ([95bbdbd](https://github.com/SugarF0x/simple-assistant/commit/95bbdbde957b6bf757589d1a7b82c0eaa9eae6b8))
+
+
+
 # [3.7.0](https://github.com/SugarF0x/simple-assistant/compare/v3.6.0...v3.7.0) (2022-07-23)
 
 
