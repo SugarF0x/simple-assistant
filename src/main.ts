@@ -33,7 +33,9 @@ app.mount("#app")
  *  > Add inventory upgrade highlight
  *  > Add crafting autofocus
  *  > Add crafting assistant (mats tracking & craft availability highlight)
- *  > Add tasks assistant (quests & steps)
  *  > Add travel statistics (session & overall) for gold, exp, etc...
  *  > Add global "Hide all controls" toggle
  */
+
+// TODO: fix light theme notification outline
+// TODO: fix quests with 'kill' in them being counted as KILL_SOME tasks

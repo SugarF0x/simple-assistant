@@ -10,7 +10,7 @@ const { shouldAutoFocusVerification, lastStepResponse } = storeToRefs(travelStor
 
 watch(lastStepResponse, (val) => {
   if (!shouldAutoFocusVerification.value) return
-  if (!val?.text?.includes("verif")) return
+  if (!val?.text?.includes("/i-am-not-a-bot")) return
 
   /** let dom hydrate */
   setTimeout(() => {
