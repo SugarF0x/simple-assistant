@@ -1,3 +1,19 @@
+## [3.7.2](https://github.com/SugarF0x/simple-assistant/compare/v3.7.1...v3.7.2) (2022-07-28)
+
+
+### Bug Fixes
+
+* **battle:** done state counter color ([f14c837](https://github.com/SugarF0x/simple-assistant/commit/f14c837b29fb1404d5168c1b8c1d65471e0557c8))
+* **boss:** fire notification a minute earlier ([ae7325a](https://github.com/SugarF0x/simple-assistant/commit/ae7325aee6e51326aa550e948f75f750213369d7))
+* **header:** bump supported version ([f249cb4](https://github.com/SugarF0x/simple-assistant/commit/f249cb46311839efd26ce249280344859f39505b))
+* **job:** fire notification a bit later ([a669583](https://github.com/SugarF0x/simple-assistant/commit/a669583c8dcc756b2bc19ab323e5276aead3325a))
+* **notification:** light theme thicc outline ([7d8e233](https://github.com/SugarF0x/simple-assistant/commit/7d8e23322a2ab376d2e074332afe7724281f0fc6))
+* **safeMode:** fire notification a bit later ([f54e6c9](https://github.com/SugarF0x/simple-assistant/commit/f54e6c90774c6840e14345583656ac52d9ef81a6))
+* **tasks:** quests mislabeled for kill tasks ([99ee492](https://github.com/SugarF0x/simple-assistant/commit/99ee4920fcbeebd3284fbba114f2b953244b93c4))
+* **travel:** verification not focusing ([4852201](https://github.com/SugarF0x/simple-assistant/commit/485220131c497a7827db42f471d61c56428cc301))
+
+
+
 ## [3.7.1](https://github.com/SugarF0x/simple-assistant/compare/v3.7.0...v3.7.1) (2022-07-23)
 
 
