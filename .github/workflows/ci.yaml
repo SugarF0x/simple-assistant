@@ -32,6 +32,7 @@ jobs:
   build:
     name: Build distributive
     needs: [ setup ]
+    if: ${{ needs.setup.outputs.skipped == 'false' }}
     runs-on: ubuntu-latest
 
     steps:
