@@ -14,7 +14,14 @@ function deserializeJobData(data: string) {
 }
 
 function createJobNotification(job: JobNotificationData) {
-  chrome.alarms.create(serializeJobData(job), { when: new Date(job.timestamp).valueOf() })
+  /**
+   * Come on, Mike, it aint that difficult to have the job end when it says it should
+   * instead of displaying shit like "will finish working in -2 minutes"
+   *
+   * Anyway, this was getting annoying, so lets leave it at that for now
+   */
+  const when = new Date(job.timestamp).valueOf() + 1000 * 60 * 2
+  chrome.alarms.create(serializeJobData(job), { when })
 }
 
 function clearJobNotification(job: JobNotificationData) {
