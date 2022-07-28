@@ -37,5 +37,4 @@ app.mount("#app")
  *  > Add global "Hide all controls" toggle
  */
 
-// TODO: fix light theme notification outline
 // TODO: fix quests with 'kill' in them being counted as KILL_SOME tasks

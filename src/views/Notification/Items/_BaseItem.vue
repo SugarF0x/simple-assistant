@@ -4,10 +4,12 @@ import { Card } from "@/components"
 defineEmits<{
   (e: "dismiss"): void
 }>()
+
+const isDark = document.querySelector("html")?.classList.contains("dark")
 </script>
 
 <template>
-  <Card shadow outline class="notification">
+  <Card shadow :outline="isDark" class="notification">
     <div class="background">
       <h2 v-if="$slots.title" class="titleWrapper">
         <slot name="title"></slot>
