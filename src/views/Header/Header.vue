@@ -9,6 +9,7 @@ const ftueStore = useFtueStore()
 const { isDismissed } = storeToRefs(ftueStore)
 
 const version = chrome.runtime.getManifest().version
+const gameVersion = "11.8.4"
 </script>
 
 <template>
@@ -25,7 +26,7 @@ const version = chrome.runtime.getManifest().version
       </a>
     </h2>
     <div>
-      <i>v11.8.3 compatible</i>
+      <i>v{{ gameVersion }} compatible</i>
     </div>
     <Subtitle>
       <button @click="isDismissed = false">&lt; show disclaimer &gt;</button>
