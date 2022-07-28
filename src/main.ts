@@ -36,5 +36,3 @@ app.mount("#app")
  *  > Add travel statistics (session & overall) for gold, exp, etc...
  *  > Add global "Hide all controls" toggle
  */
-
-// TODO: fix quests with 'kill' in them being counted as KILL_SOME tasks
