@@ -11,7 +11,11 @@ function deserializeSafeModeData(data: string) {
 }
 
 function createSafeModeNotification(safeMode: SafeModeNotificationData) {
-  chrome.alarms.create(serializeSafeModeData(), { when: new Date(safeMode.timestamp).valueOf() })
+  /**
+   * Same issue as with jobs finish times going into the negative ¯\_(ツ)_/¯
+   */
+  const when = new Date(safeMode.timestamp).valueOf() + 1000 * 60 * 2
+  chrome.alarms.create(serializeSafeModeData(), { when })
 }
 
 function clearSafeModeNotification() {
