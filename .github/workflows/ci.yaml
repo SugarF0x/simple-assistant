@@ -11,7 +11,7 @@ on:
 jobs:
   setup:
     name: Checkout & generate changelog
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     outputs:
       clean_changelog: ${{ steps.changelog.outputs.clean_changelog }}
@@ -32,7 +32,7 @@ jobs:
   build:
     name: Build distributive
     needs: [ setup ]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -52,7 +52,7 @@ jobs:
     name: Create release
     needs: [ setup, build ]
     if: ${{ needs.setup.outputs.skipped == 'false' }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - uses: softprops/action-gh-release@v1
