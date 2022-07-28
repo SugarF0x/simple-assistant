@@ -14,7 +14,13 @@ function deserializeBossData(data: string) {
 }
 
 function createBossNotification(boss: Boss) {
-  chrome.alarms.create(serializeBossData(boss), { when: new Date(boss.timestamp).valueOf() })
+  /**
+   * Since boss timestamp is not always accurate and people tend to kill them within 30 seconds,
+   * its better to show the notification a bit earlier and stress that the boss is "SOON" to become attackable
+   */
+  const when = new Date(boss.timestamp).valueOf() - 1000 * 60
+
+  chrome.alarms.create(serializeBossData(boss), { when })
 }
 
 function clearBossNotification(boss: Boss) {
@@ -37,7 +43,7 @@ chrome.alarms.onAlarm.addListener(({ name: id }) => {
 
   chrome.notifications.create(id, {
     type: "basic",
-    message: "A boss is now attackable!",
+    message: "A boss soon to become attackable!",
     iconUrl: img,
     title: name,
   })
