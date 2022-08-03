@@ -27,7 +27,7 @@ onMounted(() => {
       <template #default> Track tasks </template>
       <template #subtitle> Help tracking step, kill & quest completion progress </template>
     </Checkbox>
-    <Checkbox v-model="shouldShowReminders" :parent="shouldTrackTasks">
+    <Checkbox v-model="shouldShowReminders" :parent="shouldTrackTasks" @enable-required="shouldTrackTasks = true">
       <template #default> Show notifications </template>
       <template #subtitle> Remind you to update tasks & collect rewards </template>
       <template #requires> Requires task tracking to be enabled </template>

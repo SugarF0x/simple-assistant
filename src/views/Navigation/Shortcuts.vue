@@ -100,7 +100,7 @@ function getSetterButtonText(url: string): string {
       Use Shift + Arrow keys to select
     </template>
   </Checkbox>
-  <Checkbox v-model="shouldEditShortcuts" :parent="shouldUseShortcuts">
+  <Checkbox v-model="shouldEditShortcuts" :parent="shouldUseShortcuts" @enable-required="shouldUseShortcuts = true">
     <template #default> Edit keybindings </template>
     <template #subtitle>
       Hit select & press desired button

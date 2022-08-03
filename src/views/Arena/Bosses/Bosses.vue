@@ -25,7 +25,7 @@ onBeforeMount(() => {
         A notification will be displayed when boss is attackable
       </template>
     </Checkbox>
-    <Checkbox v-model="shouldNotifyOfBosses" :parent="shouldTrackBosses">
+    <Checkbox v-model="shouldNotifyOfBosses" :parent="shouldTrackBosses" @enable-required="shouldTrackBosses = true">
       <template #default> Use chrome notifications </template>
       <template #subtitle> Keep track of bosses even when you are not on simple-mmo page </template>
       <template #requires> Requires boss tracking enabled </template>
