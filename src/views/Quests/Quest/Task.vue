@@ -45,7 +45,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Checkbox v-model="shouldTrackTaskQuests" :parent="shouldTrackTasks">
+  <Checkbox v-model="shouldTrackTaskQuests" :parent="shouldTrackTasks" @enable-required="shouldTrackTasks = true">
     <template #default> Track task quests </template>
     <template #subtitle> See your daily task progress </template>
     <template #requires> Requires task tracking enabled </template>

@@ -53,7 +53,11 @@ watch(
 </script>
 
 <template>
-  <Checkbox v-model="shouldHelpTrackStepsTaskProgress" :parent="shouldTrackTasks">
+  <Checkbox
+    v-model="shouldHelpTrackStepsTaskProgress"
+    :parent="shouldTrackTasks"
+    @enable-required="shouldTrackTasks = true"
+  >
     <template #default> Help track steps task progress </template>
     <template #subtitle> See just how many steps you need </template>
     <template #requires> Requires task tracking enabled </template>

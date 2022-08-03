@@ -22,7 +22,12 @@ watch(
 </script>
 
 <template>
-  <Checkbox pos="left" v-model="shouldAutoFocusLastIncompleteQuest" :parent="shouldElevateLastIncompleteQuest">
+  <Checkbox
+    pos="left"
+    v-model="shouldAutoFocusLastIncompleteQuest"
+    :parent="shouldElevateLastIncompleteQuest"
+    @enable-required="shouldElevateLastIncompleteQuest = true"
+  >
     <template #default> Autofocus last incomplete quest </template>
     <template #subtitle> Just hit space/enter! </template>
     <template #requires> Requires last incomplete quest elevation enabled </template>

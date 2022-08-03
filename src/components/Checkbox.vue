@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Subtitle from "./Subtitle.vue"
 import { computed, useAttrs } from "vue"
+import { Button } from "@/components"
 
 const props = withDefaults(
   defineProps<{
@@ -15,6 +16,7 @@ const props = withDefaults(
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void
+  (e: "enable-required"): void
 }>()
 
 const attrs = useAttrs()
@@ -42,7 +44,10 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
       <slot name="subtitle" />
     </Subtitle>
     <div v-if="!parent" class="requires">
-      <slot name="requires" />
+      <div class="requires-text">
+        <slot name="requires" />
+      </div>
+      <Button class="requires-enable" @click="emit('enable-required')"> Enable </Button>
     </div>
   </div>
 </template>
@@ -96,11 +101,22 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
 }
 
 .requires {
-  color: darkred;
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
 
-  &:hover {
-    color: red;
+  &-text {
+    color: darkred;
+    font-size: 0.8rem;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  &-enable {
+    padding: 0 4px;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
   }
 }
 </style>

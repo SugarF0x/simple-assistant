@@ -43,7 +43,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <Checkbox v-model="shouldHelpTrackTasks" :parent="shouldTrackTasks">
+  <Checkbox v-model="shouldHelpTrackTasks" :parent="shouldTrackTasks" @enable-required="shouldTrackTasks = true">
     <template #default> Help track quests </template>
     <template #subtitle> See how many kills got left </template>
     <template #requires> Requires task tracking enabled </template>

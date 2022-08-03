@@ -22,7 +22,12 @@ watch(
 </script>
 
 <template>
-  <Checkbox pos="left" v-model="shouldAutoFocusTaskQuest" :parent="shouldElevateTaskQuests">
+  <Checkbox
+    pos="left"
+    v-model="shouldAutoFocusTaskQuest"
+    :parent="shouldElevateTaskQuests"
+    @enable-required="shouldElevateTaskQuests = true"
+  >
     <template #default> Autofocus quest tasks </template>
     <template #subtitle>
       Autofocus first elevated task quest

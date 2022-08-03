@@ -56,7 +56,11 @@ watchEffect(() => {
     <template #default> Show travel destination details </template>
     <template #subtitle> See your chances up front </template>
   </Checkbox>
-  <Checkbox v-model="shouldHighlightBestStats" :parent="shouldShowTravelDestinationDetails">
+  <Checkbox
+    v-model="shouldHighlightBestStats"
+    :parent="shouldShowTravelDestinationDetails"
+    @enable-required="shouldShowTravelDestinationDetails = true"
+  >
     <template #default> Highlight best chances </template>
     <template #subtitle> Green is the best you have </template>
     <template #requires> Requires travel destination details enabled </template>

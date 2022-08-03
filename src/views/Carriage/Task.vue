@@ -39,7 +39,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Checkbox v-model="shouldHighlightTrackedZones" :parent="shouldTrackTasks">
+  <Checkbox v-model="shouldHighlightTrackedZones" :parent="shouldTrackTasks" @enable-required="shouldTrackTasks = true">
     <template #default> Track task locations </template>
     <template #subtitle>
       Highlight zones where kill task NPCs reside
