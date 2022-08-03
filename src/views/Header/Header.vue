@@ -9,7 +9,7 @@ const ftueStore = useFtueStore()
 const { isDismissed } = storeToRefs(ftueStore)
 
 const version = chrome.runtime.getManifest().version
-const gameVersion = "11.8.4"
+const gameVersion = "11.9"
 </script>
 
 <template>
