@@ -1,3 +1,14 @@
+## [3.7.3](https://github.com/SugarF0x/simple-assistant/compare/v3.7.2...v3.7.3) (2022-08-03)
+
+
+### Bug Fixes
+
+* **header:** update compatible version ([944b80f](https://github.com/SugarF0x/simple-assistant/commit/944b80f49679a16e46202da118b713b1accf4fa7))
+* **quests:** make quest mismatch check more robust ([3a2a4ab](https://github.com/SugarF0x/simple-assistant/commit/3a2a4abbc9de83dda3774f026f738d29181dd3f9))
+* **UX:** add enable button to checkbox required text ([8ea1d56](https://github.com/SugarF0x/simple-assistant/commit/8ea1d56c3ec3918ecc57e8af4934af33dcdd6d91))
+
+
+
 ## [3.7.2](https://github.com/SugarF0x/simple-assistant/compare/v3.7.1...v3.7.2) (2022-07-28)
 
 
