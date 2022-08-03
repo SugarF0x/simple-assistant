@@ -13,8 +13,8 @@ const props = withDefaults(
   }
 )
 
-defineEmits<{
-  (e: "update:modelValue"): boolean
+const emit = defineEmits<{
+  (e: "update:modelValue", value: boolean): void
 }>()
 
 const attrs = useAttrs()
@@ -32,7 +32,7 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
         :checked="isChecked"
         :disabled="isDisabled"
         v-bind="$attrs"
-        @input="$emit('update:modelValue', $event.target.checked)"
+        @input="emit('update:modelValue', $event.target.checked)"
       />
       <span class="labelText">
         <slot />

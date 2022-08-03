@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Card } from "@/components"
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "dismiss"): void
 }>()
 
@@ -22,7 +22,7 @@ const isDark = document.querySelector("html")?.classList.contains("dark")
       </div>
     </div>
 
-    <button class="dismissButton" @click="$emit('dismiss')">X</button>
+    <button class="dismissButton" @click="emit('dismiss')">X</button>
   </Card>
 </template>
 
