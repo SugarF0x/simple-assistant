@@ -23,8 +23,24 @@ onBeforeMount(() => {
 
   const children = Array.from(ul.children) as HTMLButtonElement[]
   for (const child of children) {
-    if (!questSomeTasks.value.some((task) => child.innerText.toLowerCase().includes(task.target.toLowerCase())))
-      continue
+    const img = child.querySelector("img")
+    if (!img) continue
+
+    const src = img.getAttribute("src")
+    if (!src) continue
+
+    if (!questSomeTasks.value.some((task) => task.icon === src)) continue
+
+    const matchedWords = child.innerText
+      .toLowerCase()
+      .split(/[ \n]/)
+      .reduce<string[]>((acc, val) => {
+        if (["the", "of", "in", "at", "as", "from", ""].includes(val)) return acc
+        if (questSomeTasks.value.some((task) => task.target.toLowerCase().includes(val))) acc.push(val)
+        return acc
+      }, [])
+    if (matchedWords.length < 2) continue
+
     child.classList.add("incomplete-task-quest")
   }
 })
@@ -55,12 +71,19 @@ watch(
       Search task quests no more
       <br />
       Elevated as long as task is incomplete
+      <br />
+      <span class="footnote">Might be not 100% accurate cuz Mike does not like me :(</span>
     </template>
   </Checkbox>
 </template>
 
 <style lang="scss">
 $COLOR: goldenrod;
+
+.footnote {
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
 
 .task-color-highlight {
   color: $COLOR;
