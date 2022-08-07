@@ -2,7 +2,7 @@
 import { useSafeModeStore } from "../Settings/SafeMode/store"
 import { storeToRefs } from "pinia"
 import { onBeforeMount, ref } from "vue"
-import { formatDistance } from "date-fns"
+import { formatDistance, isAfter } from "date-fns"
 
 const { expirationTimestamp, shouldDisplayRemainingTimeInHeader, shouldRemindSafeMode } = storeToRefs(
   useSafeModeStore()
@@ -11,7 +11,8 @@ const { expirationTimestamp, shouldDisplayRemainingTimeInHeader, shouldRemindSaf
 const formattedTimeRemaining = ref("")
 
 function getFormattedTimeRemaining() {
-  formattedTimeRemaining.value = formatDistance(new Date(), new Date(expirationTimestamp.value))
+  if (isAfter(new Date(), new Date(expirationTimestamp.value))) formattedTimeRemaining.value = ""
+  else formattedTimeRemaining.value = formatDistance(new Date(), new Date(expirationTimestamp.value))
 }
 
 onBeforeMount(() => {
@@ -25,6 +26,13 @@ onBeforeMount(() => {
 <template>
   <div v-if="shouldDisplayRemainingTimeInHeader && shouldRemindSafeMode" class="safe-mode-timer">
     <div>Safe mode time remaining:</div>
-    <div>{{ formattedTimeRemaining }}</div>
+    <div v-if="formattedTimeRemaining">{{ formattedTimeRemaining }}</div>
+    <div v-else class="expired">Expired</div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.expired {
+  color: red;
+}
+</style>
