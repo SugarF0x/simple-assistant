@@ -1,5 +1,5 @@
 export function getBackgroundImageUrl() {
-  const element = document.querySelector<HTMLDivElement>(".mt-4.h-96.rounded-md")
+  const element = document.querySelector<HTMLDivElement>(".rounded-lg.h-96")
   if (!element) throw new Error("Could not locate battle background image element")
   const urlStyle = element.style.backgroundImage
   if (!urlStyle) throw new Error("No background image style found on image element")

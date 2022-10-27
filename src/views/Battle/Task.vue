@@ -36,9 +36,9 @@ useHealthObserver(shouldHelpTrackTasks, () => {
 })
 
 onBeforeMount(() => {
-  const tasksContainer = document.querySelector<HTMLDivElement>(".w-full.h-full.flex.items-center")
+  const tasksContainer = document.querySelector<HTMLDivElement>(".rounded-lg.h-96")
   if (!tasksContainer) throw new Error("No task tracker container found")
-  tasksContainer.setAttribute("style", "position: relative")
+  tasksContainer.style.position = "relative"
 })
 </script>
 

@@ -10,7 +10,7 @@ useBossTracker()
 </script>
 
 <template>
-  <Controls to=".bg-white.mt-4.rounded-md.p-8.text-center">
+  <Controls to=".py-6.max-w-6xl.mx-auto.px-4">
     <AutoFocus />
     <Task />
   </Controls>
