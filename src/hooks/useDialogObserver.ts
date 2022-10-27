@@ -1,4 +1,7 @@
+import { ref, Ref, watchEffect } from "vue"
+
 export interface DialogObserverOptions {
+  toggle?: Ref<boolean>
   onOpen?: (el: DialogObserverResponse) => void
   onClose?: (el: DialogObserverResponse) => void
 }
@@ -9,7 +12,7 @@ export interface DialogObserverResponse {
 }
 
 export function useDialogObserver(options: DialogObserverOptions = {}) {
-  const { onOpen, onClose } = options
+  const { toggle = ref(true), onOpen, onClose } = options
 
   const modals = Array.from(document.querySelectorAll("div[role=dialog]"))
 
@@ -34,5 +37,8 @@ export function useDialogObserver(options: DialogObserverOptions = {}) {
     })
   })
 
-  modals.forEach((modal) => observer.observe(modal, { attributes: true }))
+  watchEffect(() => {
+    if (toggle.value) modals.forEach((modal) => observer.observe(modal, { attributes: true }))
+    else observer.disconnect()
+  })
 }
