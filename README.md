@@ -88,7 +88,6 @@ has to be done manually
   * attack NPC button
   * gather materials button
   * verification button
-* Preserve step cooldown on page refresh
 * Step task progression tracking assistance
 
 ## Installation

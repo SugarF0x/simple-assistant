@@ -2,7 +2,6 @@
 import { Controls } from "@/components"
 
 import DataBridge from "./DataBridge.vue"
-import StepButton from "./StepButton.vue"
 import Task from "./Task.vue"
 import { AutoFocus } from "./AutoFocus"
 </script>
@@ -10,7 +9,6 @@ import { AutoFocus } from "./AutoFocus"
 <template>
   <Controls to="#complete-travel-container">
     <DataBridge />
-    <StepButton />
     <AutoFocus />
     <Task />
   </Controls>
