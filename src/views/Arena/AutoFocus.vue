@@ -8,9 +8,8 @@ import { watchEffect } from "vue"
 const arenaStore = useArenaStore()
 const { shouldAutoFocusGenerate } = storeToRefs(arenaStore)
 
-const generateButton = document.querySelector<HTMLButtonElement>(
-  ".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.text-center button"
-)
+const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".col-span-2 button"))
+const generateButton = buttons.find((b) => b.innerText.toLowerCase().includes("generate"))
 
 watchEffect(() => {
   if (!generateButton) return

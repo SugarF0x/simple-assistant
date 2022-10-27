@@ -54,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Gather,
   },
   {
-    path: "/battlearena",
+    path: "/battle/arena",
     name: "arena",
     component: Arena,
   },
