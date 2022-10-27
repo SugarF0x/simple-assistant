@@ -1,6 +1,11 @@
 export interface DialogObserverOptions {
-  onOpen?: (el: HTMLDivElement) => void
-  onClose?: (el: HTMLDivElement) => void
+  onOpen?: (el: DialogObserverResponse) => void
+  onClose?: (el: DialogObserverResponse) => void
+}
+
+export interface DialogObserverResponse {
+  el: HTMLDivElement
+  title: string
 }
 
 export function useDialogObserver(options: DialogObserverOptions = {}) {
@@ -13,11 +18,19 @@ export function useDialogObserver(options: DialogObserverOptions = {}) {
       if (mutation.type !== "attributes") return
       if (mutation.attributeName !== "style") return
 
-      const element = mutation.target as HTMLDivElement
-      const isShown = !element.style.display
+      const wrapper = mutation.target as HTMLDivElement
+      const isShown = !wrapper.style.display
 
-      if (isShown) onOpen?.(element)
-      else onClose?.(element)
+      const cardElement = wrapper.querySelector<HTMLDivElement>("div.relative")
+      if (!cardElement) return
+
+      const result: DialogObserverResponse = {
+        el: cardElement,
+        title: cardElement.querySelector("h3")?.innerText ?? "",
+      }
+
+      if (isShown) onOpen?.(result)
+      else onClose?.(result)
     })
   })
 
