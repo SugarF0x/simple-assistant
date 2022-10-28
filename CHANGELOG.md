@@ -1,3 +1,22 @@
+## [3.7.4](https://github.com/SugarF0x/simple-assistant/compare/v3.7.3...v3.7.4) (2022-10-28)
+
+
+### Bug Fixes
+
+* **arena:** generate auto focus ([a8acc32](https://github.com/SugarF0x/simple-assistant/commit/a8acc32e674e222235d2595e72dd98a29d1d2b0f))
+* **arena:** menu controls ([ab4298a](https://github.com/SugarF0x/simple-assistant/commit/ab4298a7336605bbbed4c613a42474ebcd93c58e))
+* **battle:** attack autofocus ([2b9c89f](https://github.com/SugarF0x/simple-assistant/commit/2b9c89f5b01f5f1afeebb256331c269e0ccda396))
+* **battle:** item auto focus ([86df7cb](https://github.com/SugarF0x/simple-assistant/commit/86df7cbc768bd96b19904593a775c58ad3a0c284))
+* **battle:** missing controls ([df194c2](https://github.com/SugarF0x/simple-assistant/commit/df194c29f75a9f14025c2628b501229c089a2291))
+* **battle:** missing tasks tracker ([5dffe84](https://github.com/SugarF0x/simple-assistant/commit/5dffe8482165959a998354d07f45270e06b4ce7f))
+* **battle:** remove special attack lock ([1dbae28](https://github.com/SugarF0x/simple-assistant/commit/1dbae2819b3403ec9553eed12fa49ea893cb9591))
+* **battle:** verification autofocus ([e831501](https://github.com/SugarF0x/simple-assistant/commit/e831501a18ee441d523dd6b95bdd1e9a317c4ea0))
+* **boss:** broken boss list page ([1ca60b1](https://github.com/SugarF0x/simple-assistant/commit/1ca60b1240c5fc6c8266fec8d67fa728c9e443e4))
+* **safeMode:** header timer expiration state ([380708d](https://github.com/SugarF0x/simple-assistant/commit/380708d05b5b19f1efc078a40ed764050cf6b21b))
+* **travel:** remove step cooldown preservation ([e6cfe18](https://github.com/SugarF0x/simple-assistant/commit/e6cfe186d24ab9c35315fab3c4e73a5a4be6f36e))
+
+
+
 ## [3.7.3](https://github.com/SugarF0x/simple-assistant/compare/v3.7.2...v3.7.3) (2022-08-03)
 
 
