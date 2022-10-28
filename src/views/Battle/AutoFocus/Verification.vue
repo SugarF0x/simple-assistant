@@ -2,19 +2,24 @@
 import { Checkbox } from "@/components"
 import { useBattleStore } from "../store"
 import { storeToRefs } from "pinia"
-import { useSwalObserver } from "@/hooks"
+import { useDialogObserver } from "@/hooks"
+import { wrapAnchorWithButton } from "@/utils"
 
 const battleStore = useBattleStore()
 const { shouldAutoFocusVerification } = storeToRefs(battleStore)
 
-useSwalObserver({
+useDialogObserver({
   toggle: shouldAutoFocusVerification,
-  onOpen(element) {
-    const anchor = element.querySelector<HTMLAnchorElement>("a")
-    if (!anchor) return
-    if (!anchor.innerText.includes("verif")) return
+  onOpen: ({ title, el }) => {
+    if (!title.toLowerCase().includes("hold")) return
 
-    anchor.removeAttribute("target")
+    const verificationAnchor = el.querySelector("a")
+    if (!verificationAnchor) return
+
+    verificationAnchor.removeAttribute("target")
+
+    const verificationButton = wrapAnchorWithButton(verificationAnchor)
+    verificationButton.focus()
   },
 })
 </script>
