@@ -50,7 +50,7 @@ onBeforeMount(() => {
   </Checkbox>
 
   <template v-if="shouldHelpTrackTasks">
-    <Teleport to=".w-full.h-full.flex.items-center">
+    <Teleport to=".rounded-lg.h-96">
       <div class="tasks">
         <TaskTracker v-for="task in killTasks" :key="task.title" :task="task" :color="contrastingColor" />
       </div>
@@ -61,7 +61,7 @@ onBeforeMount(() => {
 <style lang="scss" scoped>
 .tasks {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   padding: 1rem;
   color: white;

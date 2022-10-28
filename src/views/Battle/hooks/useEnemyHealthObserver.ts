@@ -1,14 +1,10 @@
 import { Ref, watch } from "vue"
 
-const isSpan = (node: Node): node is HTMLSpanElement => "innerText" in node
-
 export function useHealthObserver(toggle: Ref<boolean>, callback: () => void) {
-  const opponentHp = document.querySelector("#opponent-hp")
+  const opponentHp = document.querySelectorAll(".rounded-lg.h-96 .flex.justify-center.bg-gradient-to-r")[1]
   const hpObserver = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
-      if (mutation.removedNodes.length) return
-      if (!isSpan(mutation.target)) return
-      if (mutation.target.innerText !== "0") return
+      if ((mutation.target as HTMLDivElement).innerText !== "") return
 
       callback()
     })
