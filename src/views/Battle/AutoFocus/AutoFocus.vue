@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import FocusItem from "./FocusItem.vue"
 import Verification from "./Verification.vue"
-import { useHealthObserver } from "../hooks"
 
 import { useBattleStore } from "../store"
 
@@ -35,13 +34,6 @@ useDialogObserver({
     const exitButton = wrapAnchorWithButton(exitAnchor)
     exitButton.focus()
   },
-})
-
-useHealthObserver(shouldAutoFocusAttack, () => {
-  const closeAnchor = document.querySelector<HTMLAnchorElement>(".swal2-popup.swal2-modal.swal2-show a")
-  if (!closeAnchor) return
-
-  wrapAnchorWithButton(closeAnchor).focus()
 })
 </script>
 
