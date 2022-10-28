@@ -33,9 +33,7 @@ useDialogObserver({
     if (!exitAnchor) return
 
     const exitButton = wrapAnchorWithButton(exitAnchor)
-    setTimeout(() => {
-      exitButton.focus()
-    }, 200)
+    exitButton.focus()
   },
 })
 

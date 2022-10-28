@@ -19,10 +19,7 @@ useDialogObserver({
     if (!button) return
     if (!["generate", "battle"].some((key) => button.innerText.toLowerCase().includes(key))) return
 
-    const TRANSITION_TIMEOUT = 200
-    setTimeout(() => {
-      button.focus()
-    }, TRANSITION_TIMEOUT)
+    button.focus()
   },
 })
 

@@ -11,6 +11,8 @@ export interface DialogObserverResponse {
   title: string
 }
 
+const TRANSITION_DURATION_DELAY = 200
+
 export function useDialogObserver(options: DialogObserverOptions = {}) {
   const { toggle = ref(true), onOpen, onClose } = options
 
@@ -32,8 +34,10 @@ export function useDialogObserver(options: DialogObserverOptions = {}) {
         title: cardElement.querySelector("h3")?.innerText ?? "",
       }
 
-      if (isShown) onOpen?.(result)
-      else onClose?.(result)
+      setTimeout(() => {
+        if (isShown) onOpen?.(result)
+        else onClose?.(result)
+      }, TRANSITION_DURATION_DELAY)
     })
   })
 
