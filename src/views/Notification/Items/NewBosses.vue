@@ -12,7 +12,7 @@ const { areNewBossesAvailable, refreshTimestamp } = storeToRefs(useArenaStore())
     <template #title> New bosses have emerged! </template>
     <template #text> Go check them out! </template>
     <template #actions>
-      <Button href="/worldboss/all"> To boss list </Button>
+      <Button href="/battle/world-bosses"> To boss list </Button>
     </template>
   </BaseItem>
 </template>

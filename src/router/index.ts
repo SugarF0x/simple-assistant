@@ -59,7 +59,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Arena,
   },
   {
-    path: "/worldboss/all",
+    path: "/battle/world-bosses",
     name: "bosses",
     component: Bosses,
   },

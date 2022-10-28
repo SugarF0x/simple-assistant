@@ -16,7 +16,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <Controls to=".py-6.max-w-6xl.mx-auto.px-4 div">
+  <Controls to=".px-2.py-4.mx-6.my-4.text-center.rounded-lg.backdrop-blur-md">
     <Checkbox v-model="shouldTrackBosses">
       <template #default> Track bosses </template>
       <template #subtitle>
