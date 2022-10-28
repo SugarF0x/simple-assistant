@@ -3,6 +3,7 @@ import { Controls, Checkbox } from "@/components"
 import { useMaholDailyStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
+import { useSwalObserver } from "@/hooks"
 
 const notificationStore = useMaholDailyStore()
 const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
@@ -22,6 +23,12 @@ onMounted(() => {
       })
     })
   })
+})
+
+useSwalObserver({
+  onResolve: () => {
+    lastRewardClaimTimestamp.value = new Date().toISOString()
+  },
 })
 </script>
 
