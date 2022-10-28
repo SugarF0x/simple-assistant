@@ -25,6 +25,7 @@ watchEffect(() => {
 })
 
 useDialogObserver({
+  toggle: shouldAutoFocusAttack,
   onOpen: ({ title, el }) => {
     if (!title.toLowerCase().includes("winner")) return
 

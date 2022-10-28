@@ -13,9 +13,7 @@ onMounted(() => {
   if (!shouldAutoFocusItem.value) return
   if (isMushroomQuotaDepleted.value) return
 
-  const buttons = Array.from(
-    document.querySelectorAll<HTMLButtonElement>(".bg-white.mt-4.rounded-md.p-8.text-center button")
-  )
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".rounded-lg.h-96 button"))
   const attackButton = getAttackButton()
   const itemButton = buttons.find((element) => element.innerText.toLowerCase().includes("item"))
   if (!itemButton) return
