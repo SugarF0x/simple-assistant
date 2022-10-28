@@ -8,6 +8,10 @@ on:
       - package.json
       - CHANGELOG.md
 
+env:
+  DIST_PATH: dist
+  RELEASE_PATH: output.zip
+
 jobs:
   setup:
     name: Checkout & generate changelog
@@ -39,23 +43,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v2
+      - name: Set up Node.js & yarn
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: '16'
+          cache: 'yarn'
 
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: build
+      - name: Install project dependencies
+        run: yarn --prefer-offline
 
-      - name: Upload artifact
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ${{ env.RELEASE_PATH }} ${{ env.DIST_PATH }}
+
+      - name: Upload deployment artifact
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: dist.zip
+          path: ${{ env.DIST_PATH }}
+          retention-days: 3
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: ${{ env.RELEASE_PATH }}
           retention-days: 3
 
   release:
@@ -65,14 +83,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifact
+      - name: Download release artifact
         uses: actions/download-artifact@v3
         with:
-          name: dist
+          name: release
 
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.setup.outputs.tag }}
           name: ${{ needs.setup.outputs.tag }}
           body: ${{ needs.setup.outputs.clean_changelog }}
-          files: dist.zip
+          files: ${{ env.RELEASE_PATH }}
