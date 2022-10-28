@@ -10,6 +10,7 @@ import { storeToRefs } from "pinia"
 import { focusOnButtonEnable, wrapAnchorWithButton } from "@/utils"
 import { watchEffect } from "vue"
 import { getAttackButton } from "../utils"
+import { useDialogObserver } from "@/hooks"
 
 const battleStore = useBattleStore()
 const { shouldAutoFocusAttack } = storeToRefs(battleStore)
@@ -22,6 +23,20 @@ watchEffect(() => {
 
   if (shouldAutoFocusAttack.value) observer.connect()
   else observer.disconnect()
+})
+
+useDialogObserver({
+  onOpen: ({ title, el }) => {
+    if (!title.toLowerCase().includes("winner")) return
+
+    const exitAnchor = el.querySelector("a")
+    if (!exitAnchor) return
+
+    const exitButton = wrapAnchorWithButton(exitAnchor)
+    setTimeout(() => {
+      exitButton.focus()
+    }, 200)
+  },
 })
 
 useHealthObserver(shouldAutoFocusAttack, () => {
