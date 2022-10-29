@@ -30,7 +30,6 @@ app.mount("#app")
 
 /**
  * TODO:
- *  > Add inventory upgrade highlight
  *  > Add crafting autofocus
  *  > Add crafting assistant (mats tracking & craft availability highlight)
  *  > Add travel statistics (session & overall) for gold, exp, etc...
