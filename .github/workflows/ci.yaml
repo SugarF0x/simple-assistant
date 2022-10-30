@@ -3,7 +3,7 @@ name: Release flow
 on:
   push:
     branches:
-      - master
+      - release
     paths-ignore:
       - package.json
       - CHANGELOG.md
