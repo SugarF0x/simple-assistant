@@ -7,12 +7,15 @@ import { useBattleStore } from "../store"
 import { Checkbox } from "@/components"
 import { storeToRefs } from "pinia"
 import { focusOnButtonEnable, wrapAnchorWithButton } from "@/utils"
-import { watchEffect } from "vue"
+import { computed, ref, watchEffect } from "vue"
 import { getAttackButton } from "../utils"
 import { useDialogObserver } from "@/hooks"
 
 const battleStore = useBattleStore()
 const { shouldAutoFocusAttack } = storeToRefs(battleStore)
+
+const isFoeKilled = ref(false)
+const focusToggle = computed(() => shouldAutoFocusAttack.value && !isFoeKilled.value)
 
 const attackButton = getAttackButton()
 const observer = attackButton && focusOnButtonEnable(attackButton)
@@ -20,7 +23,7 @@ const observer = attackButton && focusOnButtonEnable(attackButton)
 watchEffect(() => {
   if (!observer) return
 
-  if (shouldAutoFocusAttack.value) observer.connect()
+  if (focusToggle.value) observer.connect()
   else observer.disconnect()
 })
 
@@ -28,6 +31,8 @@ useDialogObserver({
   toggle: shouldAutoFocusAttack,
   onOpen: ({ title, el }) => {
     if (!title.toLowerCase().includes("winner")) return
+
+    isFoeKilled.value = true
 
     const exitAnchor = el.querySelector("a")
     if (!exitAnchor) return
