@@ -38,4 +38,8 @@ const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
     backdrop-filter: blur(2px);
   }
 }
+
+.card {
+  max-width: 767px;
+}
 </style>
