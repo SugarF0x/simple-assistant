@@ -3,15 +3,11 @@ import { Card } from "@/components"
 import { storeToRefs } from "pinia"
 import { useGeneralStore } from "@/views/General/store"
 
-defineProps<{
-  open?: boolean
-}>()
-
 const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
 </script>
 
 <template>
-  <Teleport to="body" v-if="open">
+  <Teleport to="body">
     <div class="wrapper" :class="{ gloom: shouldDisableSwalGloom }">
       <Card outline class="card">
         <slot />

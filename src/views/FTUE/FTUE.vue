@@ -7,7 +7,7 @@ const { isDismissed } = storeToRefs(useFtueStore())
 </script>
 
 <template>
-  <Modal :open="!isDismissed">
+  <Modal v-if="!isDismissed">
     <h1>Welcome!</h1>
 
     <div class="textContainer">
