@@ -10,7 +10,7 @@ const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
   <Teleport to="body">
     <div class="wrapper" :class="{ gloom: shouldDisableSwalGloom }">
       <div class="scroller">
-        <Card outline class="card">
+        <Card outline class="card" v-bind="$attrs">
           <slot />
         </Card>
       </div>
