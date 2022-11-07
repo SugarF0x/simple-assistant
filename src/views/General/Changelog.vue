@@ -45,11 +45,60 @@ if (lastSeenVersion.value !== currentVersion) {
 </script>
 
 <template>
-  <Modal v-if="lastSeenVersion !== currentVersion && htmlToDisplay">
-    <h1>What's new?</h1>
+  <Modal v-if="lastSeenVersion !== currentVersion && htmlToDisplay" class="sa-changelog-modal">
+    <h1 class="title">What's new?</h1>
 
-    <div v-html="htmlToDisplay" />
+    <div class="changelog" v-html="htmlToDisplay" />
 
-    <Button @click="lastSeenVersion = currentVersion"> Dismiss </Button>
+    <Button class="dismiss" @click="lastSeenVersion = currentVersion"> Dismiss </Button>
   </Modal>
 </template>
+
+<style scoped lang="scss">
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+
+.changelog {
+  display: flex;
+  flex-direction: column;
+
+  :deep(h1),
+  :deep(h2) {
+    margin: 8px auto;
+  }
+  :deep(h1) {
+    font-size: 24px;
+  }
+  :deep(h2) {
+    font-size: 20px;
+  }
+  :deep(h3) {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  :deep(ul) {
+    list-style: unset;
+  }
+  :deep(li) {
+    margin-left: 16px;
+  }
+  :deep(a) {
+    text-decoration: underline;
+  }
+}
+
+.dismiss {
+  margin-left: auto;
+  margin-top: 16px;
+}
+</style>
+
+<style lang="scss">
+.sa-changelog-modal {
+  display: flex;
+  flex-direction: column;
+}
+</style>
