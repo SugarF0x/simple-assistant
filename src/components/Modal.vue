@@ -9,9 +9,11 @@ const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
 <template>
   <Teleport to="body">
     <div class="wrapper" :class="{ gloom: shouldDisableSwalGloom }">
-      <Card outline class="card">
-        <slot />
-      </Card>
+      <div class="scroller">
+        <Card outline class="card">
+          <slot />
+        </Card>
+      </div>
     </div>
   </Teleport>
 </template>
@@ -25,9 +27,13 @@ const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.5);
+
+  overflow: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &.gloom {
     background-color: transparent;
@@ -35,7 +41,19 @@ const { shouldDisableSwalGloom } = storeToRefs(useGeneralStore())
   }
 }
 
+.scroller {
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .card {
+  margin: auto;
   max-width: 767px;
 }
 </style>
