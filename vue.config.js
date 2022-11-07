@@ -21,6 +21,16 @@ module.exports = defineConfig({
 
     config.resolve.alias.set("~", path.resolve("extension/services"))
 
+    config.module
+      .rule("markdown")
+      .test(/\.md$/)
+      .use("html-loader")
+      .loader("html-loader")
+      .end()
+      .use("markdown-loader")
+      .loader("markdown-loader")
+      .end()
+
     if (!isDev) {
       config.plugin("zip").use(ZipPlugin, [
         {

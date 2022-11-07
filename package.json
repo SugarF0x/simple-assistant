@@ -12,6 +12,8 @@
     "core-js": "^3.8.3",
     "date-fns": "^2.28.0",
     "flat": "^5.0.2",
+    "html-loader": "^4.2.0",
+    "markdown-loader": "^8.0.0",
     "pinia": "^2.0.13",
     "pinia-plugin-persistedstate": "^1.5.1",
     "vue": "^3.2.13",
