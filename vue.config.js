@@ -47,12 +47,10 @@ module.exports = defineConfig({
         from: "extension/manifest.json",
         transform(content) {
           const VERSION = require("./package.json").version
-          const REVISION = require("child_process").execSync("git rev-list --count HEAD").toString().trim()
-          const version = isDev ? `${VERSION}.${REVISION}` : VERSION
 
           let manifest = JSON.parse(content.toString())
-          manifest.version = version
-          manifest.version_name = version
+          manifest.version = VERSION
+          manifest.version_name = VERSION
 
           if (isDev) manifest.permissions = [...(manifest.permissions || []), "tabs"]
 
