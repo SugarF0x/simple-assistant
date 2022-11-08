@@ -20,5 +20,11 @@
   },
   "icons": {
     "128": "logo.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [ "img/*" ],
+      "matches": [ "*://*.simple-mmo.com/*" ]
+    }
+  ]
 }

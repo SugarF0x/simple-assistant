@@ -3,6 +3,7 @@ import { Controls } from "@/components"
 
 import DataBridge from "./DataBridge.vue"
 import Task from "./Task.vue"
+import Leaves from "./Leaves.vue"
 import { AutoFocus } from "./AutoFocus"
 </script>
 
@@ -11,5 +12,6 @@ import { AutoFocus } from "./AutoFocus"
     <DataBridge />
     <AutoFocus />
     <Task />
+    <Leaves />
   </Controls>
 </template>

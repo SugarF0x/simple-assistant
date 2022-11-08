@@ -8,6 +8,7 @@ export const useTravelStore = defineStore(
     const shouldAutoFocusEncounters = ref(false)
     const shouldAutoFocusVerification = ref(false)
     const shouldHelpTrackStepsTaskProgress = ref(false)
+    const shouldDisplayLeaves = ref(false)
 
     const lastStepResponse = ref<null | TravelResponse>(null)
 
@@ -16,6 +17,7 @@ export const useTravelStore = defineStore(
       shouldAutoFocusEncounters,
       shouldAutoFocusVerification,
       shouldHelpTrackStepsTaskProgress,
+      shouldDisplayLeaves,
       lastStepResponse,
     }
   },
