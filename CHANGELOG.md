@@ -1,3 +1,19 @@
+# [3.8.0](https://github.com/SugarF0x/simple-assistant/compare/v3.7.4...v3.8.0) (2022-11-09)
+
+
+### Bug Fixes
+
+* **battle:** auto focus attack after for killed ([89f1963](https://github.com/SugarF0x/simple-assistant/commit/89f1963d9d61554b139298f303903aacdfcbacd2))
+* **daily:** reward claim timer update ([6a4af6f](https://github.com/SugarF0x/simple-assistant/commit/6a4af6f10737e277388964a6f631f8fe5f13e89b))
+
+
+### Features
+
+* add changelog modal ([dab8406](https://github.com/SugarF0x/simple-assistant/commit/dab84066dead11de88ed4ff2d1bc5341a5ca826f))
+* **travel:** add leaffall ([169936e](https://github.com/SugarF0x/simple-assistant/commit/169936ec7ccc384d4e050fb977fc1959cf9d0bb3))
+
+
+
 ## [3.7.4](https://github.com/SugarF0x/simple-assistant/compare/v3.7.3...v3.7.4) (2022-10-28)
 
 
