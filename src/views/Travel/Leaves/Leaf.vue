@@ -17,24 +17,20 @@ const travelSpeed = Math.floor(Math.random() * 10) + 5 + "s"
 </script>
 
 <template>
-  <div class="leaf-container">
-    <img :src="leaves[index % leaves.length]" :alt="`leaf-${index}`" class="leaf" />
-  </div>
+  <img :src="leaves[index % leaves.length]" :alt="`leaf-${index}`" class="leaf" />
 </template>
 
 <style lang="scss" scoped>
-.leaf-container {
+.leaf {
   position: absolute;
   top: -25%;
   left: v-bind(startX);
 
-  animation: v-bind(travelSpeed) linear v-bind(startDelay) infinite leaf-fall;
-}
-
-.leaf {
-  transform: scale(v-bind(startSize)) rotate(v-bind(startRotation));
   width: 32px;
   height: 32px;
+  transform: scale(v-bind(startSize)) rotate(v-bind(startRotation));
+
+  animation: v-bind(travelSpeed) linear v-bind(startDelay) infinite leaf-fall;
 }
 
 @keyframes leaf-fall {
