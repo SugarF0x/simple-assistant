@@ -25,7 +25,7 @@ if (nativeWindow) nativeWindow.setAttribute("style", "z-index: 999;")
   </Checkbox>
 
   <Teleport v-if="shouldDisplayLeaves && travelContainer" :to="`#${leavesContainer.id}`">
-    <Leaf v-for="n in 37" :key="n" />
+    <Leaf v-for="n in 100" :key="n" />
   </Teleport>
 </template>
 
