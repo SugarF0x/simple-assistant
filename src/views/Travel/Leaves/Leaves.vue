@@ -10,8 +10,12 @@ const leavesContainer = document.createElement("div")
 leavesContainer.id = "sa-leaves-container"
 
 const travelContainer = Array.from(document.querySelectorAll("#complete-travel-container > div"))[1]
+const nativeWindow = travelContainer?.children[0] as HTMLDivElement
+
 if (travelContainer) travelContainer.prepend(leavesContainer)
 else console.error("No travel container found")
+
+if (nativeWindow) nativeWindow.setAttribute("style", "z-index: 999;")
 </script>
 
 <template>
