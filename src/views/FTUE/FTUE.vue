@@ -50,48 +50,6 @@ const { isDismissed } = storeToRefs(useFtueStore())
     <div class="actions">
       <Button autofocus @click="isDismissed = true">DISMISS</Button>
     </div>
-    <h1>Welcome!</h1>
-    <div class="textContainer">
-      <p>Looks like this is your first time using Simple Assistant, so here you have a quick rundown:</p>
-      <ul>
-        <li>All features are optional and are disabled by default</li>
-        <li>Enabling certain features might require a page refresh (marked by *)</li>
-        <li>
-          No data is being collected. All your settings & stats are being stored locally and will not be accessible on
-          another device
-        </li>
-        <li>
-          The plugin was developed using light theme at desktop resolution - some features may not be working as
-          intended in dark theme and/or small resolution, however i am doing my best to keep that working as well. Feel
-          free to open an
-          <a href="https://github.com/SugarF0x/simple-assistant/issues" target="_blank" class="text-indigo-600">
-            issue
-          </a>
-          should you find a poorly themed component.
-        </li>
-        <li>Verification page will <b>never</b> have an assistance module</li>
-      </ul>
-      <p>
-        If you find a bug or have a suggestion - feel free to report an
-        <a href="https://github.com/SugarF0x/simple-assistant/issues" target="_blank" class="text-indigo-600">
-          issue
-        </a>
-      </p>
-      <h2>WARNING</h2>
-      <p>
-        This plugin was developed with no association with the Simple MMO developers. The plugin developer bears no
-        responsibility for the usage of this plugin and the consequences it may bring
-      </p>
-      <p>
-        That being said, no actions are automatic and everything still requires user input, giving users no advantage
-        over other players and in no way impacting their experience, which <b>should</b> be fine
-      </p>
-      <p class="condition">By clicking "DISMISS" button below you consent to the implied risks</p>
-    </div>
-
-    <div class="actions">
-      <Button autofocus @click="isDismissed = true">DISMISS</Button>
-    </div>
   </Modal>
 </template>
 
