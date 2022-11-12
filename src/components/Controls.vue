@@ -1,7 +1,14 @@
 <script setup lang="ts">
-defineProps<{
-  to: string
-}>()
+import { SA_CONTROLS_ID } from "@/utils"
+
+withDefaults(
+  defineProps<{
+    to?: string
+  }>(),
+  {
+    to: `#${SA_CONTROLS_ID}`,
+  }
+)
 </script>
 
 <template>

@@ -1,10 +1,12 @@
 export type ControlsSlotType = "before" | "after"
 
-export function createControlsSlot(type: ControlsSlotType = "after", target?: Element): HTMLDivElement | null {
+export const SA_CONTROLS_ID = "sa-controls"
+
+export function createControlsSlot(target: Element | null, type: ControlsSlotType = "after"): HTMLDivElement | null {
   if (!target) return null
 
   const controlsSlot = document.createElement("div")
-  controlsSlot.id = "sa-controls"
+  controlsSlot.id = SA_CONTROLS_ID
 
   switch (type) {
     case "before":

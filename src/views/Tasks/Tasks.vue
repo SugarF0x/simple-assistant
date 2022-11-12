@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Controls to=".backdrop-blur-md" class="wrapper">
+  <Controls class="wrapper">
     <Checkbox v-model="shouldTrackTasks">
       <template #default> Track tasks </template>
       <template #subtitle> Help tracking step, kill & quest completion progress </template>
