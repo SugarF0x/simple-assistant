@@ -2,27 +2,21 @@
 import { Controls, Checkbox } from "@/components"
 import { useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
+import { createControlsSlot } from "@/utils"
 import { onMounted } from "vue"
-import { useParser } from "@/views/Tasks/hooks"
-import { useSwalObserver } from "@/hooks"
 
-const tasksStore = useTasksStore()
-const { shouldTrackTasks, shouldShowReminders, tasks, lastUpdateTimestamp, isRewardCollected } = storeToRefs(tasksStore)
+const controlsAnchor = document.querySelector(".web-app-container div")
+createControlsSlot(controlsAnchor)
 
-useSwalObserver({
-  onResolve: () => {
-    isRewardCollected.value = true
-  },
-})
+const { shouldTrackTasks, shouldShowReminders, tasks, lastUpdateTimestamp } = storeToRefs(useTasksStore())
 
 onMounted(() => {
-  tasks.value = useParser()
   lastUpdateTimestamp.value = new Date().toISOString()
 })
 </script>
 
 <template>
-  <Controls class="wrapper">
+  <Controls>
     <Checkbox v-model="shouldTrackTasks">
       <template #default> Track tasks </template>
       <template #subtitle> Help tracking step, kill & quest completion progress </template>
@@ -34,9 +28,3 @@ onMounted(() => {
     </Checkbox>
   </Controls>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  color: white;
-}
-</style>
