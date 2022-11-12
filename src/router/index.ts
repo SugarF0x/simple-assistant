@@ -75,6 +75,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/tasks/viewall",
+    alias: ["/tasks/daily", "/tasks/weekly", "/tasks/monthly"],
     name: "tasks",
     component: Tasks,
   },
