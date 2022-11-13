@@ -1,65 +1,107 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { getLondonTime, getTimeWithLondonOffset } from "@/utils"
-import { MS_IN_DAY } from "@/consts"
+import { createMigration } from "@/utils"
+import { isAfter } from "date-fns"
 
 export const useTasksStore = defineStore(
   "tasks",
   () => {
+    const version = ref(1)
+
     const shouldTrackTasks = ref(false)
     const shouldShowReminders = ref(false)
 
-    const tasks = ref<Task[]>([])
-    const lastUpdateTimestamp = ref<null | string>(null)
+    const tasks = ref<CategoryMap<Task[]>>(getInitialCategoryMap([]))
+    const resetTimestamp = ref<CategoryMap<string | null>>(getInitialCategoryMap(null))
+
+    function getIsRewardReady(category: TaskCategory): boolean {
+      return tasks.value[category].filter((entry) => entry.progress >= entry.requirement).length >= 5
+    }
+
+    const isRewardReady = computed<CategoryMap<boolean>>(() => mapCategoryMap(getIsRewardReady))
+    const isRewardCollected = ref<CategoryMap<boolean>>(getInitialCategoryMap(false))
 
     function advanceTask(task: Task) {
-      const index = tasks.value.indexOf(task)
+      const { category } = task
+
+      const index = tasks.value[category].indexOf(task)
       if (index < 0) throw new Error(`No task "${task.title}" found in tracker`)
-      tasks.value[index] = {
+
+      tasks.value[category][index] = {
         ...task,
         progress: Math.min(task.progress + 1, task.requirement),
       }
     }
 
-    const isRewardCollected = ref(false)
-    const areTasksComplete = computed(() => {
-      if (!tasks.value.length) return false
-      return tasks.value.filter((entry) => entry.progress >= entry.requirement).length >= 5
-    })
-
     return {
+      version,
       shouldTrackTasks,
       shouldShowReminders,
       tasks,
-      lastUpdateTimestamp,
+      resetTimestamp,
       advanceTask,
       isRewardCollected,
-      areTasksComplete,
+      isRewardReady,
     }
   },
   {
     persist: {
       serializer: {
         deserialize: (store) => {
-          const parsed = JSON.parse(store)
-          if (!parsed.lastUpdateTimestamp) return parsed
+          const state = migrate(JSON.parse(store))
 
-          const date = new Date(parsed.lastUpdateTimestamp)
-          const isNextDay =
-            getLondonTime().valueOf() - MS_IN_DAY / 2 - getTimeWithLondonOffset(date).valueOf() >= MS_IN_DAY
+          for (const category of Object.keys(state.resetTimestamp)) {
+            const timestamp = state.resetTimestamp[category]
+            if (!timestamp) continue
 
-          if (isNextDay) {
-            parsed.tasks = []
-            parsed.lastUpdateTimestamp = null
-            parsed.isRewardCollected = false
+            if (!isAfter(new Date(), new Date(timestamp))) continue
+
+            state.resetTimestamp[category] = null
+            state.tasks[category] = []
+            state.isRewardCollected[category] = false
           }
-          return parsed
+
+          return state
         },
         serialize: JSON.stringify,
       },
     },
   }
 )
+
+type CategoryMap<T> = Record<TaskCategory, T>
+
+function getInitialCategoryMap<T>(value: T): CategoryMap<T> {
+  return {
+    [TaskCategory.DAILY]: structuredClone(value),
+    [TaskCategory.WEEKLY]: structuredClone(value),
+    [TaskCategory.MONTHLY]: structuredClone(value),
+  }
+}
+
+function mapCategoryMap<T>(mapper: (category: TaskCategory) => T): CategoryMap<T> {
+  return {
+    [TaskCategory.DAILY]: mapper(TaskCategory.DAILY),
+    [TaskCategory.WEEKLY]: mapper(TaskCategory.WEEKLY),
+    [TaskCategory.MONTHLY]: mapper(TaskCategory.MONTHLY),
+  }
+}
+
+const migrate = createMigration([
+  (state) => {
+    delete state.tasks
+    delete state.lastUpdateTimestamp
+    delete state.isRewardCollected
+
+    return state
+  },
+])
+
+export enum TaskCategory {
+  DAILY = "DAILY",
+  WEEKLY = "WEEKLY",
+  MONTHLY = "MONTHLY",
+}
 
 export enum TaskType {
   QUEST_SOME = "QUEST_SOME",
@@ -82,6 +124,7 @@ export function isComplexTaskType(task: TaskType): task is ComplexTaskType {
 
 export type BasicTask<T = TaskType> = {
   type: T
+  category: TaskCategory
   title: string
   icon: string
   progress: number
