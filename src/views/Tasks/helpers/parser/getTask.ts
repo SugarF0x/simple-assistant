@@ -2,20 +2,22 @@ import { Task, TaskCategory, TaskType } from "../../store"
 import { ORIGIN } from "~/consts"
 
 export function getTask(el: HTMLElement): Task {
-  const type = getType(el)
-  const title = getTitle(el)
-  const icon = getIconUrl(el)
   const [progress, requirement] = getProgress(el)
   const category = getCategory()
+  const icon = getIconUrl(el)
+  const isRedeemed = getIsRedeemed(el)
+  const title = getTitle(el)
+  const type = getType(el)
   const url = getUrl(el)
 
   return {
-    type,
-    title,
+    category,
     icon,
+    isRedeemed,
     progress,
     requirement,
-    category,
+    title,
+    type,
     url,
   }
 }

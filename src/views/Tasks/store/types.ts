@@ -30,4 +30,5 @@ export type Task = {
   progress: number
   requirement: number
   url: string
+  isRedeemed: boolean
 }
