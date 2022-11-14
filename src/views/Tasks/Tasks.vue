@@ -3,16 +3,14 @@ import { Controls, Checkbox } from "@/components"
 import { useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { createControlsSlot } from "@/utils"
-import { onMounted } from "vue"
+import { parseTasks } from "./helpers"
 
 const controlsAnchor = document.querySelector(".web-app-container div")
 createControlsSlot(controlsAnchor)
 
-const { shouldTrackTasks, shouldShowReminders, tasks, lastUpdateTimestamp } = storeToRefs(useTasksStore())
+const { shouldTrackTasks, shouldShowReminders } = storeToRefs(useTasksStore())
 
-onMounted(() => {
-  lastUpdateTimestamp.value = new Date().toISOString()
-})
+console.log(JSON.stringify(parseTasks(), null, 2))
 </script>
 
 <template>
