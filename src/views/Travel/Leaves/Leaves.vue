@@ -15,7 +15,7 @@ const nativeWindow = travelContainer?.children[0] as HTMLDivElement
 if (travelContainer) travelContainer.prepend(leavesContainer)
 else console.error("No travel container found")
 
-if (nativeWindow) nativeWindow.setAttribute("style", "z-index: 999;")
+if (nativeWindow) nativeWindow.setAttribute("style", "z-index: 0;")
 </script>
 
 <template>
