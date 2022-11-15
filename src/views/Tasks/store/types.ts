@@ -19,6 +19,8 @@ export enum TaskType {
   ORPHANAGE = "ORPHANAGE",
   LIBRARY = "LIBRARY",
   WAVE = "WAVE",
+  REPLY = "REPLY",
+  KEY = "KEY",
   UNKNOWN = "UNKNOWN",
 }
 

@@ -42,11 +42,13 @@ const keywordToTaskTypeMap: Record<string, TaskType> = {
   purchase: TaskType.BUY,
   find: TaskType.MATERIAL,
   dump: TaskType.DUMP,
+  book: TaskType.LIBRARY,
+  reply: TaskType.REPLY,
+  key: TaskType.KEY,
+  wave: TaskType.WAVE,
 
   // TODO: confirm these
-  library: TaskType.LIBRARY,
   orphanage: TaskType.ORPHANAGE,
-  wave: TaskType.WAVE,
   vote: TaskType.VOTE,
 }
 
