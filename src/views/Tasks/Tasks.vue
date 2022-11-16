@@ -3,15 +3,23 @@ import { Controls, Checkbox } from "@/components"
 import { useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { createControlsSlot } from "@/utils"
-import { parseTasks } from "./helpers"
+import { getResetTimestamp, parseTasks } from "./helpers"
+import { onMounted } from "vue"
 
 const controlsAnchor = document.querySelector(".web-app-container div")
 createControlsSlot(controlsAnchor)
 
-const { shouldTrackTasks, shouldShowReminders, tasks } = storeToRefs(useTasksStore())
+const { shouldTrackTasks, shouldShowReminders, tasks, resetTimestamp } = storeToRefs(useTasksStore())
 
 const parsedTasks = parseTasks()
 const category = parsedTasks[0].category
+
+onMounted(async () => {
+  const timestamp = await getResetTimestamp()
+
+  tasks.value[category] = parsedTasks
+  resetTimestamp.value[category] = timestamp
+})
 </script>
 
 <template>
