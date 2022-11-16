@@ -8,9 +8,10 @@ import { parseTasks } from "./helpers"
 const controlsAnchor = document.querySelector(".web-app-container div")
 createControlsSlot(controlsAnchor)
 
-const { shouldTrackTasks, shouldShowReminders } = storeToRefs(useTasksStore())
+const { shouldTrackTasks, shouldShowReminders, tasks } = storeToRefs(useTasksStore())
 
-console.log(JSON.stringify(parseTasks(), null, 2))
+const parsedTasks = parseTasks()
+const category = parsedTasks[0].category
 </script>
 
 <template>
