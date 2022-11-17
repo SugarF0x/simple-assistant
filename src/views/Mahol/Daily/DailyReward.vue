@@ -4,6 +4,10 @@ import { useMaholDailyStore } from "./store"
 import { storeToRefs } from "pinia"
 import { onMounted } from "vue"
 import { useSwalObserver } from "@/hooks"
+import { createControlsSlot } from "@/utils"
+
+const controlsAnchor = document.querySelector(".web-app-container div[style]")
+createControlsSlot(controlsAnchor?.parentElement ?? null, "before")
 
 const notificationStore = useMaholDailyStore()
 const { shouldRemindDailyReward, lastRewardClaimTimestamp } = storeToRefs(notificationStore)
@@ -33,7 +37,7 @@ useSwalObserver({
 </script>
 
 <template>
-  <Controls to=".max-w-7xl.mx-auto.text-center.py-12.px-4">
+  <Controls>
     <Checkbox v-model="shouldRemindDailyReward">
       <template #default> Remind about daily rewards </template>
       <template #subtitle> Miss them daily rewards never more </template>
