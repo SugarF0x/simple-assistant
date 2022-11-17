@@ -5,10 +5,11 @@ import { TaskCategory, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { taskCategoryToUrlMap } from "@/consts"
+import { add } from "date-fns"
 
-const { shouldShowReminders, isRewardCollected, isRewardReady, tasks } = storeToRefs(useTasksStore())
+const { shouldShowReminders, isRewardCollected, isRewardReady, tasks, resetTimestamp } = storeToRefs(useTasksStore())
 
-const readyRewardCategoryStrings = computed(() =>
+const readyRewardCategoryStrings = computed<TaskCategory[]>(() =>
   Object.entries(isRewardReady.value).reduce<TaskCategory[]>((acc, [key, value]) => {
     const category = key as TaskCategory
 
@@ -19,7 +20,7 @@ const readyRewardCategoryStrings = computed(() =>
 
 const rewardReadyHref = computed<string>(() => taskCategoryToUrlMap[readyRewardCategoryStrings.value[0]] ?? "")
 
-const tasksUpdatedCategoryStrings = computed(() =>
+const tasksUpdatedCategoryStrings = computed<TaskCategory[]>(() =>
   Object.entries(tasks.value).reduce<TaskCategory[]>((acc, [key, val]) => {
     if (!val.length) acc.push(key as TaskCategory)
     return acc
@@ -30,10 +31,22 @@ const taskUpdatedHref = computed<string>(() => taskCategoryToUrlMap[tasksUpdated
 
 const shouldShowUpdateNotification = computed(() => Boolean(shouldShowReminders.value && tasksUpdatedCategoryStrings.value.length))
 const shouldShowCollectNotification = computed(() => Boolean(shouldShowReminders.value && readyRewardCategoryStrings.value.length))
+
+function flagReadyRewardsAsCollected() {
+  for (const category of readyRewardCategoryStrings.value) {
+    isRewardReady.value[category] = true
+  }
+}
+
+function postponeRefreshedTaskUpdateByOneHour() {
+  for (const category of tasksUpdatedCategoryStrings.value) {
+    resetTimestamp.value[category] = add(new Date(), { hours: 1 }).toISOString()
+  }
+}
 </script>
 
 <template>
-  <BaseItem v-if="shouldShowUpdateNotification" @dismiss="lastUpdateTimestamp = new Date().toISOString()">
+  <BaseItem v-if="shouldShowUpdateNotification" @dismiss="postponeRefreshedTaskUpdateByOneHour">
     <template #title> New tasks available! </template>
     <template #text>
       <p>Go see what's on your today's TODO list!</p>
@@ -44,7 +57,7 @@ const shouldShowCollectNotification = computed(() => Boolean(shouldShowReminders
     </template>
   </BaseItem>
 
-  <BaseItem v-if="shouldShowCollectNotification" @dismiss="isRewardCollected = true">
+  <BaseItem v-if="shouldShowCollectNotification" @dismiss="flagReadyRewardsAsCollected">
     <template #title> All tasks complete! </template>
     <template #text>
       <p>Go get your reward!</p>
