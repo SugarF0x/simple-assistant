@@ -2,6 +2,9 @@
 import { Autofocus } from "./Autofocus"
 import { Elevate } from "./Elevate"
 import { Controls, Card } from "@/components"
+import { markQuests } from "./helpers"
+
+markQuests()
 </script>
 
 <template>
@@ -9,7 +12,7 @@ import { Controls, Card } from "@/components"
     <Card class="card">
       <div id="elevation">
         <h2>Elevation</h2>
-        <Elevate />
+        <!--        <Elevate />-->
       </div>
       <div id="autofocus">
         <h2>Autofocus</h2>
