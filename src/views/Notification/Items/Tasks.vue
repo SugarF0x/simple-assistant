@@ -1,31 +1,57 @@
 <script setup lang="ts">
 import BaseItem from "./_BaseItem.vue"
 import { Button } from "@/components"
-import { useTasksStore } from "@/views/Tasks/store"
+import { TaskCategory, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
+import { taskCategoryToUrlMap } from "@/consts"
 
-const tasksStore = useTasksStore()
-const { shouldShowReminders, lastUpdateTimestamp, areTasksComplete, isRewardCollected } = storeToRefs(tasksStore)
-const shouldShowUpdateNotification = computed(() => shouldShowReminders.value && !lastUpdateTimestamp.value)
-const shouldShowCollectNotification = computed(
-  () => shouldShowReminders.value && areTasksComplete.value && !isRewardCollected.value
+const { shouldShowReminders, isRewardCollected, isRewardReady, tasks } = storeToRefs(useTasksStore())
+
+const readyRewardCategoryStrings = computed(() =>
+  Object.entries(isRewardReady.value).reduce<TaskCategory[]>((acc, [key, value]) => {
+    const category = key as TaskCategory
+
+    if (value && !isRewardCollected.value[category]) acc.push(category)
+    return acc
+  }, [])
 )
+
+const rewardReadyHref = computed<string>(() => taskCategoryToUrlMap[readyRewardCategoryStrings.value[0]] ?? "")
+
+const tasksUpdatedCategoryStrings = computed(() =>
+  Object.entries(tasks.value).reduce<TaskCategory[]>((acc, [key, val]) => {
+    if (!val.length) acc.push(key as TaskCategory)
+    return acc
+  }, [])
+)
+
+const taskUpdatedHref = computed<string>(() => taskCategoryToUrlMap[tasksUpdatedCategoryStrings.value[0]] ?? "")
+
+const shouldShowUpdateNotification = computed(() => Boolean(shouldShowReminders.value && tasksUpdatedCategoryStrings.value.length))
+const shouldShowCollectNotification = computed(() => Boolean(shouldShowReminders.value && readyRewardCategoryStrings.value.length))
 </script>
 
 <template>
   <BaseItem v-if="shouldShowUpdateNotification" @dismiss="lastUpdateTimestamp = new Date().toISOString()">
     <template #title> New tasks available! </template>
-    <template #text> Go see what's on your today's TODO list! </template>
+    <template #text>
+      <p>Go see what's on your today's TODO list!</p>
+      <p>Tasks have updated for the following categories: {{ tasksUpdatedCategoryStrings.join(", ") }}</p>
+    </template>
     <template #actions>
-      <Button href="/tasks/viewall"> Go to Tasks </Button>
+      <Button :href="taskUpdatedHref"> Go to Tasks </Button>
     </template>
   </BaseItem>
+
   <BaseItem v-if="shouldShowCollectNotification" @dismiss="isRewardCollected = true">
     <template #title> All tasks complete! </template>
-    <template #text> Go get your reward! </template>
+    <template #text>
+      <p>Go get your reward!</p>
+      <p>Reward is available for the following categories: {{ readyRewardCategoryStrings.join(", ") }}</p>
+    </template>
     <template #actions>
-      <Button href="/tasks/viewall"> Collect </Button>
+      <Button :href="rewardReadyHref"> Collect </Button>
     </template>
   </BaseItem>
 </template>
