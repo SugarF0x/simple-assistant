@@ -1,24 +1,18 @@
 <script setup lang="ts">
 import { AutoFocus } from "./AutoFocus"
 import Task from "./Task.vue"
+import { Controls, Card } from "@/components"
+import { createControlsSlot } from "@/utils"
 
-import { Controls } from "@/components"
-import { onBeforeMount } from "vue"
-import { wrapElement } from "@/utils"
-import { getPerformButton } from "./utils"
-
-const performButton = getPerformButton()
-
-onBeforeMount(() => {
-  if (!performButton) return
-
-  wrapElement(performButton, "questControls")
-})
+const controlsAnchor = document.querySelector(".web-app-container > div > div")
+createControlsSlot(controlsAnchor)
 </script>
 
 <template>
-  <Controls to="#questControls">
-    <AutoFocus />
-    <Task />
+  <Controls>
+    <Card>
+      <AutoFocus />
+      <Task />
+    </Card>
   </Controls>
 </template>

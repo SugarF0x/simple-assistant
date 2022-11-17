@@ -1,7 +1,6 @@
 export * from "./interceptRequest"
 export * from "./wrapAnchorWithButton"
 export * from "./focusOnButtonEnable"
-export * from "./wrapElement"
 export * from "./londonTime"
 export * from "./onReenable"
 export * from "./getAverageImageColor"

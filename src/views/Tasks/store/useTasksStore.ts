@@ -12,6 +12,7 @@ export const useTasksStore = defineStore(
     const shouldShowReminders = ref(false)
 
     const tasks = ref<CategoryMap<Task[]>>(getInitialCategoryMap([]))
+    const allTasks = computed<Task[]>(() => Object.values(tasks.value).flat())
     const resetTimestamp = ref<CategoryMap<string | null>>(getInitialCategoryMap(null))
 
     function getIsRewardReady(category: TaskCategory): boolean {
@@ -38,6 +39,7 @@ export const useTasksStore = defineStore(
       shouldTrackTasks,
       shouldShowReminders,
       tasks,
+      allTasks,
       resetTimestamp,
       advanceTask,
       isRewardCollected,

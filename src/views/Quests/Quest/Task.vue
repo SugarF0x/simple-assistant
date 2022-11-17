@@ -1,32 +1,19 @@
 <script setup lang="ts">
-import { Checkbox } from "@/components"
+import { Checkbox, Card } from "@/components"
 import { useQuestStore } from "@/views/Quests/Quest/store"
-import { QuestAnyTask, QuestSomeTask, TaskType, useTasksStore } from "@/views/Tasks/store"
+import { useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed, watchEffect } from "vue"
 import TaskTracker from "@/components/TaskTracker.vue"
-
-const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>(".web-app-container a"))
-const questAnchor = anchors.find((e) => e.href.includes("view/"))
-const questTitle = questAnchor?.innerText
 
 const questsStore = useQuestStore()
 const { shouldTrackTaskQuests } = storeToRefs(questsStore)
 
 const tasksStore = useTasksStore()
 const { advanceTask } = tasksStore
-const { shouldTrackTasks, tasks } = storeToRefs(tasksStore)
+const { shouldTrackTasks, allTasks } = storeToRefs(tasksStore)
 
-const questTasks = computed(() =>
-  tasks.value.filter((task): task is QuestSomeTask | QuestAnyTask =>
-    [TaskType.QUEST_ANY, TaskType.QUEST_SOME].includes(task.type)
-  )
-)
-const validTasks = computed(() =>
-  questTasks.value.filter(
-    (task) => task.type === TaskType.QUEST_ANY || task.target.toLowerCase() === questTitle?.toLowerCase()
-  )
-)
+const validTasks = computed(() => allTasks.value.filter((task) => task.url === location.pathname || task.url.includes("quests/viewall")))
 
 const resultsNode = document.querySelector("#result")
 const observer = new MutationObserver((mutations) => {
@@ -51,12 +38,11 @@ watchEffect(() => {
     <template #requires> Requires task tracking enabled </template>
   </Checkbox>
 
-  <template v-if="shouldTrackTaskQuests">
-    <Teleport to="main .text-center">
-      <div class="tasks">
-        <TaskTracker v-for="task in questTasks" :key="task.title" :task="task" />
-        <TaskTracker v-if="!questTasks.length" :task="null" />
-      </div>
+  <template v-if="shouldTrackTaskQuests && validTasks.length">
+    <Teleport to="#sa-controls">
+      <Card class="tasks">
+        <TaskTracker v-for="task in validTasks" :key="task.title" :task="task" />
+      </Card>
     </Teleport>
   </template>
 </template>
@@ -64,7 +50,12 @@ watchEffect(() => {
 <style lang="scss" scoped>
 .tasks {
   display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+
+  & > div {
+    min-width: 40%;
+  }
 }
 </style>
