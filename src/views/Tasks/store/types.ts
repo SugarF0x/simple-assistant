@@ -11,7 +11,7 @@ export enum TaskType {
   KILL = "KILL",
   STEP = "STEP",
   WORSHIP = "WORSHIP",
-  VOTE = "VOTE",
+  BOARD = "BOARD",
   BUY = "BUY",
   MATERIAL = "MATERIAL",
   DUMP = "DUMP",
@@ -19,7 +19,6 @@ export enum TaskType {
   ORPHANAGE = "ORPHANAGE",
   LIBRARY = "LIBRARY",
   WAVE = "WAVE",
-  REPLY = "REPLY",
   KEY = "KEY",
   UNKNOWN = "UNKNOWN",
 }

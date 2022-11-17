@@ -35,7 +35,7 @@ export function getCategory(): TaskCategory {
 const keywordToTaskTypeMap: Record<string, TaskType> = {
   quest: TaskType.QUEST,
   worship: TaskType.WORSHIP,
-  step: TaskType.WORSHIP,
+  step: TaskType.STEP,
   task: TaskType.TASK,
   kill: TaskType.KILL,
   defeat: TaskType.KILL,
@@ -43,13 +43,12 @@ const keywordToTaskTypeMap: Record<string, TaskType> = {
   find: TaskType.MATERIAL,
   dump: TaskType.DUMP,
   book: TaskType.LIBRARY,
-  reply: TaskType.REPLY,
+  board: TaskType.BOARD,
   key: TaskType.KEY,
   wave: TaskType.WAVE,
 
   // TODO: confirm these
   orphanage: TaskType.ORPHANAGE,
-  vote: TaskType.VOTE,
 }
 
 function getType(el: HTMLElement): TaskType {
