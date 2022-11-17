@@ -6,6 +6,11 @@ import { storeToRefs } from "pinia"
 import { computed, watchEffect } from "vue"
 import TaskTracker from "@/components/TaskTracker.vue"
 
+const questPointsElement = Array.from(document.querySelector(".web-app-container > div")?.children ?? []).at(-4)
+const questsTrackerSlot = document.createElement("div")
+questsTrackerSlot.id = "sa-quest-tracker"
+questPointsElement?.insertAdjacentElement("afterend", questsTrackerSlot)
+
 const questsStore = useQuestStore()
 const { shouldTrackTaskQuests } = storeToRefs(questsStore)
 
@@ -39,7 +44,7 @@ watchEffect(() => {
   </Checkbox>
 
   <template v-if="shouldTrackTaskQuests && validTasks.length">
-    <Teleport to="#sa-controls">
+    <Teleport to="#sa-quest-tracker">
       <Card class="tasks">
         <TaskTracker v-for="task in validTasks" :key="task.title" :task="task" />
       </Card>
@@ -52,7 +57,7 @@ watchEffect(() => {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0;
 
   & > div {
     min-width: 40%;
