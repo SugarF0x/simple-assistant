@@ -9,13 +9,14 @@ import { computed, watchEffect } from "vue"
 
 const UI_TOGGLE_CLASSNAME = "sa-quests-markup-enabled"
 
-const { shouldAutoFocusLastIncompleteQuest, shouldAutoFocusTaskQuest, shouldElevateLastIncompleteQuest, shouldElevateTaskQuests } = storeToRefs(
-  useQuestsMenuStore()
-)
+const { shouldAutoFocusLastIncompleteQuest, shouldAutoFocusTaskQuest, shouldElevateLastIncompleteQuest, shouldElevateTaskQuests } = storeToRefs(useQuestsMenuStore())
 const shouldEnableMarkup = computed(() =>
-  [shouldAutoFocusLastIncompleteQuest.value, shouldAutoFocusTaskQuest.value, shouldElevateLastIncompleteQuest.value, shouldElevateTaskQuests.value].some(
-    Boolean
-  )
+  [
+    shouldAutoFocusLastIncompleteQuest.value,
+    shouldAutoFocusTaskQuest.value,
+    shouldElevateLastIncompleteQuest.value,
+    shouldElevateTaskQuests.value
+  ].some(Boolean)
 )
 
 markQuests()
@@ -31,7 +32,7 @@ watchEffect(() => {
     <Card class="card">
       <div id="elevation">
         <h2>Elevation</h2>
-        <!--        <Elevate />-->
+        <Elevate />
       </div>
       <div id="autofocus">
         <h2>Autofocus</h2>

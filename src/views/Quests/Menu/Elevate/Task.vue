@@ -2,11 +2,7 @@
 import { Checkbox } from "@/components"
 import { useQuestsMenuStore } from "../store"
 import { storeToRefs } from "pinia"
-import { computed, nextTick, onBeforeMount, watch } from "vue"
-import { TaskType, useTasksStore } from "@/views/Tasks/store"
-
-const tasksStore = useTasksStore()
-const { tasks } = storeToRefs(tasksStore)
+import { nextTick, watch } from "vue"
 
 const questsStore = useQuestsMenuStore()
 const { shouldElevateTaskQuests } = storeToRefs(questsStore)
@@ -38,7 +34,7 @@ watch(
       <br />
       Elevated as long as task is incomplete
       <br />
-      <span class="footnote">Might be not 100% accurate cuz Mike does not like me :(</span>
+      <span class="footnote">Now 100% accurate, thanks Mike :)</span>
     </template>
   </Checkbox>
 </template>
