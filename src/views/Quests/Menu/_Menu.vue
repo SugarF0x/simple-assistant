@@ -28,7 +28,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Controls to="main .col-span-2">
+  <Controls to="main .col-span-2" class="quest-controls">
     <Card class="card">
       <div id="elevation">
         <h2>Elevation</h2>
@@ -69,6 +69,11 @@ watchEffect(() => {
     margin-top: 0;
     margin-bottom: 1rem;
   }
+}
+
+.quest-controls {
+  margin-bottom: 0 !important;
+  margin-top: 1rem !important;
 }
 
 .sa-quests-markup-enabled {
