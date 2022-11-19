@@ -20,6 +20,7 @@ export enum TaskType {
   LIBRARY = "LIBRARY",
   WAVE = "WAVE",
   KEY = "KEY",
+  COLLECTION = "COLLECTION",
   UNKNOWN = "UNKNOWN",
 }
 

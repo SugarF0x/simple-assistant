@@ -46,6 +46,7 @@ const keywordToTaskTypeMap: Record<string, TaskType> = {
   board: TaskType.BOARD,
   key: TaskType.KEY,
   wave: TaskType.WAVE,
+  collection: TaskType.COLLECTION,
   orphanage: TaskType.ORPHANAGE,
 }
 
