@@ -1,21 +1,10 @@
 <script setup lang="ts">
 import Task from "./Task.vue"
 import Incomplete from "./Incomplete.vue"
+import { getQuestListElement } from "../helpers"
 
-import { onBeforeMount } from "vue"
-
-onBeforeMount(() => {
-  const ul = document.querySelector<HTMLUListElement>("ul[role=list]")
-  if (!ul) return
-
-  ul.classList.add("modified-list-style")
-
-  ul.innerHTML = ul.innerHTML.replaceAll("<li", "<button")
-  ul.innerHTML = ul.innerHTML.replaceAll("</li", "</button")
-  Array.from(ul.children).forEach((child) => {
-    child.classList.add("button-text-left")
-  })
-})
+const listElement = getQuestListElement()
+listElement.classList.add('modified-list-style')
 </script>
 
 <template>
@@ -31,9 +20,5 @@ onBeforeMount(() => {
 
 .elevated-item {
   order: -1;
-}
-
-.button-text-left {
-  text-align: left !important;
 }
 </style>

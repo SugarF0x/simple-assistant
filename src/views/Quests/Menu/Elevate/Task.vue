@@ -2,28 +2,22 @@
 import { Checkbox } from "@/components"
 import { useQuestsMenuStore } from "../store"
 import { storeToRefs } from "pinia"
-import { nextTick, watch } from "vue"
+import { nextTick, watchEffect } from "vue"
+import { TASK_QUEST_CLASS } from "@/views/Quests/Menu/helpers"
 
-const questsStore = useQuestsMenuStore()
-const { shouldElevateTaskQuests } = storeToRefs(questsStore)
+const { shouldElevateTaskQuests } = storeToRefs(useQuestsMenuStore())
 
-watch(
-  shouldElevateTaskQuests,
-  async (toggle) => {
-    await nextTick()
+watchEffect(async () => {
+  await nextTick()
 
-    const elements = document.querySelectorAll<HTMLButtonElement>(".incomplete-task-quest")
-    if (!elements.length) return
+  const elements = document.querySelectorAll<HTMLButtonElement>(`.${TASK_QUEST_CLASS}`)
+  if (!elements.length) return
 
-    for (const el of elements) {
-      if (toggle) el.classList.add("elevated-item")
-      else el.classList.remove("elevated-item")
-    }
-  },
-  {
-    immediate: true,
+  for (const el of elements) {
+    if (shouldElevateTaskQuests.value) el.classList.add("elevated-item")
+    else el.classList.remove("elevated-item")
   }
-)
+})
 </script>
 
 <template>

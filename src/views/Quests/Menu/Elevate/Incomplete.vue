@@ -2,38 +2,23 @@
 import { Checkbox } from "@/components"
 import { useQuestsMenuStore } from "@/views/Quests/Menu/store"
 import { storeToRefs } from "pinia"
-import { nextTick, onBeforeMount, watch } from "vue"
+import { nextTick, watchEffect } from "vue"
+import { LAST_INCOMPLETE_QUEST_ID } from "@/views/Quests/Menu/helpers"
 
-const questsStore = useQuestsMenuStore()
-const { shouldElevateLastIncompleteQuest } = storeToRefs(questsStore)
+const { shouldElevateLastIncompleteQuest } = storeToRefs(useQuestsMenuStore())
 
-onBeforeMount(() => {
-  const ul = document.querySelector<HTMLUListElement>("ul[role=list]")
-  if (!ul) return
+watchEffect(async () => {
+  await nextTick()
 
-  const children = Array.from(ul.children).reverse()
-  for (const child of children) {
-    if (child.querySelector("svg")) continue
-    child.id = "last-incomplete-quest"
-    break
-  }
+  const element = document.querySelector<HTMLButtonElement>(`#${LAST_INCOMPLETE_QUEST_ID}`)
+  if (!element) return
+
+  const listItem = element.parentElement
+  if (!listItem) return
+
+  if (shouldElevateLastIncompleteQuest.value) listItem.classList.add("elevated-item")
+  else listItem.classList.remove("elevated-item")
 })
-
-watch(
-  shouldElevateLastIncompleteQuest,
-  async (toggle) => {
-    await nextTick()
-
-    const element = document.querySelector<HTMLButtonElement>("#last-incomplete-quest")
-    if (!element) return
-
-    if (toggle) element.classList.add("elevated-item")
-    else element.classList.remove("elevated-item")
-  },
-  {
-    immediate: true,
-  }
-)
 </script>
 
 <template>
