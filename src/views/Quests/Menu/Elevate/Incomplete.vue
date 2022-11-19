@@ -44,15 +44,7 @@ watch(
 </template>
 
 <style lang="scss">
-$COLOR: green;
-
 .incomplete-color-highlight {
-  color: $COLOR;
-}
-
-#last-incomplete-quest {
-  &.elevated-item {
-    box-shadow: 0 0 0 1px $COLOR;
-  }
+  color: green;
 }
 </style>

@@ -2,6 +2,7 @@ import { TaskType, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { wrapQuestLiWithButton } from "./wrapQuestLiWithButton"
+import { getQuestListElement } from "./getQuestListElement"
 
 export const LAST_INCOMPLETE_QUEST_ID = "last-incomplete-quest"
 export const INCOMPLETE_QUEST_CLASS = "incomplete-quest"
@@ -14,8 +15,7 @@ export function markQuests() {
   const questTasks = computed(() => allTasks.value.filter((task) => task.type === TaskType.QUEST))
   const questUrls = computed(() => questTasks.value.map((task) => task.url))
 
-  const questListElement = document.querySelector<HTMLUListElement>("ul[role=list]")
-  if (!questListElement) throw new Error("Could not locale quest list element")
+  const questListElement = getQuestListElement()
 
   let isLastIncompleteFound = false
 
