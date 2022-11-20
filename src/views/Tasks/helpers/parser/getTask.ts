@@ -62,7 +62,7 @@ function getType(el: HTMLElement): TaskType {
 
 function getProgress(el: HTMLElement): [number, number] {
   const progressElement = el.querySelector<HTMLDivElement>("div > div:last-child > div:first-child")
-  return (progressElement?.innerText.split(" / ").map((e) => Number(e)) as [number, number]) ?? [0, 0]
+  return (progressElement?.innerText.replaceAll(',','').split(" / ").map((e) => Number(e)) as [number, number]) ?? [0, 0]
 }
 
 function getIsRedeemed(el: HTMLElement): boolean {
