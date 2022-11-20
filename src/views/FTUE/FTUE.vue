@@ -11,7 +11,7 @@ const { isDismissed } = storeToRefs(useFtueStore())
     <h1>Welcome!</h1>
 
     <div class="textContainer">
-      <p>Looks like this is your first time using Simple Assistant, so here you have a quick rundown:</p>
+      <p>Looks like this is your first time using Simple Assistant or the message has updated, so here you have a quick rundown:</p>
       <ul>
         <li>All features are optional and are disabled by default</li>
         <li>Enabling certain features might require a page refresh (marked by *)</li>
