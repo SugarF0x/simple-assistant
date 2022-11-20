@@ -20,8 +20,8 @@ const { isDismissed } = storeToRefs(useFtueStore())
           another device
         </li>
         <li>
-          The plugin was developed using light theme at desktop resolution - some features may not be working as
-          intended in dark theme and/or small resolution, however i am doing my best to keep that working as well. Feel
+          The plugin was developed using dark theme at desktop resolution - some features may not be working as
+          intended in light theme and/or small resolution, however i am doing my best to keep that working as well. Feel
           free to open an
           <a href="https://github.com/SugarF0x/simple-assistant/issues" target="_blank" class="text-indigo-600">
             issue
@@ -36,14 +36,17 @@ const { isDismissed } = storeToRefs(useFtueStore())
           issue
         </a>
       </p>
+      <p>
+        You can open this window again by pressing <b>&lsaquo; show disclaimer &rsaquo;</b> at the top left corner
+      </p>
       <h2>WARNING</h2>
       <p>
-        This plugin was developed with no association with the Simple MMO developers. The plugin developer bears no
-        responsibility for the usage of this plugin and the consequences it may bring
+        Although Mike, the CEO of Simple MMO, is aware of this plugin as has not banned a single player yet for using it,
+        myself included, the official seal of approval is yet to be acquired.
       </p>
       <p>
-        That being said, no actions are automatic and everything still requires user input, giving users no advantage
-        over other players and in no way impacting their experience, which <b>should</b> be fine
+        If you enjoy using this plugin, feel free to write a review on its Google Chrome Store page or leave a comment on
+        <a class="text-indigo-600" href="/user/view/656494">my SMMO page</a>
       </p>
       <p class="condition">By clicking "DISMISS" button below you consent to the implied risks</p>
     </div>
