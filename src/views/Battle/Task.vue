@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Checkbox, TaskTracker } from "@/components"
-import { KillAnyTask, KillSomeTask, TaskType, useTasksStore } from "@/views/Tasks/store"
+import { useTasksStore } from "@/views/Tasks/store"
 import { useBattleStore } from "./store"
 import { storeToRefs } from "pinia"
 import { computed, onBeforeMount } from "vue"
@@ -10,7 +10,7 @@ import { getAverageImageColor, getContrastingColor } from "@/utils"
 
 const tasksStore = useTasksStore()
 const { advanceTask } = tasksStore
-const { tasks, shouldTrackTasks } = storeToRefs(tasksStore)
+const { allTasks, shouldTrackTasks } = storeToRefs(tasksStore)
 const battleStore = useBattleStore()
 const { shouldHelpTrackTasks } = storeToRefs(battleStore)
 
@@ -18,21 +18,17 @@ const contrastingColor = getContrastingColor(getAverageImageColor(getBackgroundI
 
 const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>(".web-app-container a"))
 const npcAnchor = anchors.find((e) => e.href.includes("npc"))
-const npcName = npcAnchor?.innerText
+const npcName = npcAnchor?.innerText ?? ''
 
-const killTasks = computed(() =>
-  tasks.value.filter((task): task is KillSomeTask | KillAnyTask =>
-    [TaskType.KILL_ANY, TaskType.KILL_SOME].includes(task.type)
-  )
-)
-const matchingTasks = computed(() =>
-  killTasks.value.filter((task) => task.type === TaskType.KILL_ANY || task.target === npcName)
-)
+const validTasks = computed(() => allTasks.value.filter(task => [
+  task.title.toLowerCase().includes('kill'),
+  task.title.toLowerCase().includes(npcName)
+].some(Boolean)))
 
 useHealthObserver(shouldHelpTrackTasks, () => {
-  matchingTasks.value.forEach((task) => {
+  for (const task of validTasks.value) {
     advanceTask(task)
-  })
+  }
 })
 
 onBeforeMount(() => {
@@ -52,7 +48,7 @@ onBeforeMount(() => {
   <template v-if="shouldHelpTrackTasks">
     <Teleport to=".rounded-lg.h-96">
       <div class="tasks">
-        <TaskTracker v-for="task in killTasks" :key="task.title" :task="task" :color="contrastingColor" />
+        <TaskTracker v-for="task in validTasks" :key="task.title" :task="task" :color="contrastingColor" />
       </div>
     </Teleport>
   </template>
