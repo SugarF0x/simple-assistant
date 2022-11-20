@@ -7,9 +7,7 @@ import { watchEffect } from "vue"
 const jobsMenuStore = useJobsMenuStore()
 const { shouldAutoFocusGotoJobButton } = storeToRefs(jobsMenuStore)
 
-const gotoButton = document.querySelector<HTMLButtonElement>(
-  ".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.text-center button"
-)
+const gotoButton = document.querySelector<HTMLButtonElement>(".web-app-container .mt-2 button")
 
 watchEffect(() => {
   if (!shouldAutoFocusGotoJobButton.value) return

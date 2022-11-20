@@ -5,7 +5,7 @@ import { Controls } from "@/components"
 </script>
 
 <template>
-  <Controls to=".px-4.py-5.bg-white.shadow.rounded-lg.overflow-hidden.text-center">
+  <Controls to=".px-2.py-4.mx-6.my-4.text-center.rounded-lg.backdrop-blur-md">
     <AutoFocus />
   </Controls>
 </template>
