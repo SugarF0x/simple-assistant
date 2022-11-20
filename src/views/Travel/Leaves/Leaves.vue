@@ -3,13 +3,14 @@ import { useTravelStore } from "../store"
 import { storeToRefs } from "pinia"
 import { Checkbox } from "@/components"
 import Leaf from "./Leaf.vue"
+import { getTravelContainer } from "@/views/Travel/utils"
 
 const { shouldDisplayLeaves } = storeToRefs(useTravelStore())
 
 const leavesContainer = document.createElement("div")
 leavesContainer.id = "sa-leaves-container"
 
-const travelContainer = Array.from(document.querySelectorAll("#complete-travel-container > div"))[1]
+const travelContainer = getTravelContainer()
 const nativeWindow = travelContainer?.children[0] as HTMLDivElement
 
 if (travelContainer) travelContainer.prepend(leavesContainer)

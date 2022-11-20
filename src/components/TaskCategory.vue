@@ -17,11 +17,12 @@ defineProps<{
   border-radius: 50%;
   color: white;
   padding: .5rem;
-  aspect-ratio: 1;
-  height: 100%;
+  height: 40px;
+  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: default;
 }
 
 .daily { background-color: saddlebrown }
