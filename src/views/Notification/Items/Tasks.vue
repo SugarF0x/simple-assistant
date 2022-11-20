@@ -6,6 +6,7 @@ import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { taskCategoryToUrlMap } from "@/consts"
 import { add } from "date-fns"
+import { getCategory } from "@/views/Tasks/helpers/parser/getTask"
 
 const { shouldShowReminders, isRewardCollected, isRewardReady, tasks, resetTimestamp } = storeToRefs(useTasksStore())
 
@@ -20,9 +21,17 @@ const readyRewardCategoryStrings = computed<TaskCategory[]>(() =>
 
 const rewardReadyHref = computed<string>(() => taskCategoryToUrlMap[readyRewardCategoryStrings.value[0]] ?? "")
 
+const currentTaskCategory = computed<TaskCategory | null>(() => {
+  try {
+    return getCategory()
+  } catch {
+    return null
+  }
+})
+
 const tasksUpdatedCategoryStrings = computed<TaskCategory[]>(() =>
   Object.entries(tasks.value).reduce<TaskCategory[]>((acc, [key, val]) => {
-    if (!val.length) acc.push(key as TaskCategory)
+    if (!val.length && currentTaskCategory.value !== key) acc.push(key as TaskCategory)
     return acc
   }, [])
 )
