@@ -2,6 +2,7 @@
 import { Task, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed, toRefs } from "vue"
+import TaskCategory from './TaskCategory.vue'
 
 const tasksStore = useTasksStore()
 const { tasks } = storeToRefs(tasksStore)
@@ -23,6 +24,7 @@ const progressText = computed(() => {
   <div v-if="stack" class="stack" :class="{ 'color-override': color }">
     <div class="title">{{ task.title }}</div>
     <div>
+      <TaskCategory :category="task.category" />
       <img :src="task.icon" alt="step_icon" />
       <span class="progress" :class="{ completed: task.progress >= task.requirement }"> [{{ progressText }}] </span>
     </div>
@@ -30,6 +32,7 @@ const progressText = computed(() => {
 
   <div v-else class="task-tracker" :class="{ 'color-override': color }">
     <template v-if="task">
+      <TaskCategory :category="task.category" />
       <img :src="task.icon" alt="step_icon" />
       <span class="title">{{ task.title }}</span>
       <span class="progress" :class="{ completed: task.progress >= task.requirement }"> [{{ progressText }}] </span>
@@ -56,6 +59,10 @@ const progressText = computed(() => {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  img {
+    margin-left: .5rem;
+  }
 }
 
 .title {
