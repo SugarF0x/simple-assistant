@@ -23,3 +23,10 @@ onBeforeMount(() => {
     <Task />
   </Controls>
 </template>
+
+<style lang="scss">
+#marketControls {
+  display: flex;
+  justify-content: space-around;
+}
+</style>

@@ -10,14 +10,16 @@ import { TaskType, useTasksStore } from "../Tasks/store"
 const { shouldTrackPurchaseTask } = storeToRefs(useMarketStore())
 const tasksStore = useTasksStore()
 const { advanceTask } = tasksStore
-const { tasks } = storeToRefs(tasksStore)
+const { allTasks } = storeToRefs(tasksStore)
 
-const purchaseTask = computed(() => tasks.value.find((task) => task.type === TaskType.BUY))
+const tasks = computed(() => allTasks.value.filter((task) => task.type === TaskType.BUY))
 
 useSwalObserver({
   toggle: shouldTrackPurchaseTask,
   onResolve() {
-    if (purchaseTask.value) advanceTask(purchaseTask.value)
+    for (const task of tasks.value) {
+      advanceTask(task)
+    }
   },
 })
 </script>
@@ -29,6 +31,17 @@ useSwalObserver({
   </Checkbox>
 
   <Teleport v-if="shouldTrackPurchaseTask" :to="`#${marketControlsId}`">
-    <TaskTracker :task="purchaseTask" style="position: absolute; bottom: 0; right: 0" />
+    <div id="sa-market-task-tracker-container">
+      <TaskTracker v-for="task of tasks" :key="task.title" :task="task" />
+    </div>
   </Teleport>
 </template>
+
+<style lang="scss">
+#sa-market-task-tracker-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
