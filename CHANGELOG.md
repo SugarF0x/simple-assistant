@@ -1,3 +1,22 @@
+# [3.9.0](https://github.com/SugarF0x/simple-assistant/compare/v3.8.0...v3.9.0) (2022-11-20)
+
+
+### Bug Fixes
+
+* **carriage:** disable temporarily ([0c67289](https://github.com/SugarF0x/simple-assistant/commit/0c67289ef760126a1fd0797bb539f0f9cfe9d3ef))
+* **FTUE:** remove duplicate text ([d1a1e88](https://github.com/SugarF0x/simple-assistant/commit/d1a1e880fb9a21763f36f6ffa123abd27ac224cd))
+* **ftue:** update disclaimer ([cea973d](https://github.com/SugarF0x/simple-assistant/commit/cea973da2232a18e20d56b3c13daf08ddcb962b8))
+* **job:** missing menu controls ([295250a](https://github.com/SugarF0x/simple-assistant/commit/295250a10e8abd1d9ec32eb7153c743b264e4731))
+* **mahol:** daily reward controls anchor ([53932ad](https://github.com/SugarF0x/simple-assistant/commit/53932ad8f59a6ef040d65591553dfffa75d815ff))
+* **travel:** screen items overlapping dropdowns ([105cede](https://github.com/SugarF0x/simple-assistant/commit/105ceded2c3e7b11133a2da39c5ba3437b7a1dc5))
+
+
+### Features
+
+* **tasks:** overhaul tasks system to support the updated functionality ([9c28ad5](https://github.com/SugarF0x/simple-assistant/commit/9c28ad5e07a2b9d1544efd3bc16431216e71cc78))
+
+
+
 # [3.8.0](https://github.com/SugarF0x/simple-assistant/compare/v3.7.4...v3.8.0) (2022-11-09)
 
 
