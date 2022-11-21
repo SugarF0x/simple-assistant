@@ -1,6 +1,6 @@
 {
   "name": "simple-assistant",
-  "version": "3.9.0",
+  "version": "3.9.1",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service build --watch --no-clean --mode development",

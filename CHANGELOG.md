@@ -1,3 +1,12 @@
+## [3.9.1](https://github.com/SugarF0x/simple-assistant/compare/v3.9.0...v3.9.1) (2022-11-21)
+
+
+### Bug Fixes
+
+* **ci:** deployment version mismatch ([6ee2959](https://github.com/SugarF0x/simple-assistant/commit/6ee295975ce7d3a618e2f1710236df2757644f40))
+
+
+
 # [3.9.0](https://github.com/SugarF0x/simple-assistant/compare/v3.8.0...v3.9.0) (2022-11-20)
 
 
