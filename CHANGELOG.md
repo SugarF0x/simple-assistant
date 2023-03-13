@@ -1,3 +1,15 @@
+## [3.9.2](https://github.com/SugarF0x/simple-assistant/compare/v3.9.1...v3.9.2) (2023-03-13)
+
+
+### Bug Fixes
+
+* **notification:** tasks postpone logic ([3defb08](https://github.com/SugarF0x/simple-assistant/commit/3defb087d6c31b76cc825a79380dc03e6c3b09f1))
+* **travel:** encounters autofocus ([8c2629c](https://github.com/SugarF0x/simple-assistant/commit/8c2629c4deb92dca74e62819010696a8a0f11328))
+* **travel:** space out tracking step tasks ([8d05cf8](https://github.com/SugarF0x/simple-assistant/commit/8d05cf89a9658424e7dbc93194e50e835575f45e))
+* **travel:** verification autofocus ([7604a93](https://github.com/SugarF0x/simple-assistant/commit/7604a9340592ccdb6be95146333c7d65b9019bbd))
+
+
+
 ## [3.9.1](https://github.com/SugarF0x/simple-assistant/compare/v3.9.0...v3.9.1) (2022-11-21)
 
 
