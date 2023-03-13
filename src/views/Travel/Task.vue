@@ -47,11 +47,20 @@ travelContainer.append(tasksOverlayElement)
   </Checkbox>
 
   <Teleport v-if="shouldShowHUD" :to="`#${tasksOverlayId}`">
-    <TaskTracker v-for="task in tasks" :key="task.title" :task="task" />
+    <div class="travel-tasks">
+      <TaskTracker v-for="task in tasks" :key="task.title" :task="task" />
+    </div>
   </Teleport>
 </template>
 
 <style lang="scss">
+.travel-tasks {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 #sa-tasks-overlay {
   position: absolute;
   padding: 1rem;
