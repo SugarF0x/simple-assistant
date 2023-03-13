@@ -14,7 +14,7 @@ watch(lastStepResponse, (val) => {
 
   /** let dom hydrate */
   setTimeout(() => {
-    const verificationAnchor = document.querySelector<HTMLAnchorElement>(".travel-text a")
+    const verificationAnchor = document.querySelector<HTMLAnchorElement>("div:has(>.travel-text) a")
     if (!verificationAnchor) return
 
     verificationAnchor.removeAttribute("target")
