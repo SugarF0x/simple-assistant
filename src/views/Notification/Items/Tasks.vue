@@ -5,7 +5,7 @@ import { TaskCategory, useTasksStore } from "@/views/Tasks/store"
 import { storeToRefs } from "pinia"
 import { computed } from "vue"
 import { taskCategoryToUrlMap } from "@/consts"
-import { add } from "date-fns"
+import { add, isAfter } from "date-fns"
 import { getCategory } from "@/views/Tasks/helpers/parser/getTask"
 
 const { shouldShowReminders, isRewardCollected, isRewardReady, tasks, resetTimestamp } = storeToRefs(useTasksStore())
@@ -31,7 +31,8 @@ const currentTaskCategory = computed<TaskCategory | null>(() => {
 
 const tasksUpdatedCategoryStrings = computed<TaskCategory[]>(() =>
   Object.entries(tasks.value).reduce<TaskCategory[]>((acc, [key, val]) => {
-    if (!val.length && currentTaskCategory.value !== key) acc.push(key as TaskCategory)
+    const category = key as TaskCategory
+    if (!val.length && isAfter(new Date(), new Date(resetTimestamp.value[category] ?? 0)) && currentTaskCategory.value !== key) acc.push(category)
     return acc
   }, [])
 )
