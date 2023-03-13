@@ -82,7 +82,7 @@ jobs:
 
   release:
     name: Create release
-    needs: [ setup, build ]
+    needs: [ build ]
     if: ${{ needs.setup.outputs.skipped == 'false' }}
     runs-on: ubuntu-latest
 
@@ -98,3 +98,24 @@ jobs:
           name: ${{ needs.setup.outputs.tag }}
           body: ${{ needs.setup.outputs.clean_changelog }}
           files: ${{ env.RELEASE_PATH }}
+
+  publish:
+    name: Publish to chrome store
+    needs: [ release ]
+    if: ${{ needs.setup.outputs.skipped == 'false' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download release artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: release
+
+      - name: Publish
+        uses: trmcnvn/chrome-addon@v2
+        with:
+          zip: ${{ env.RELEASE_PATH }}
+          extension: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
