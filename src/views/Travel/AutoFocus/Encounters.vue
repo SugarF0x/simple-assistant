@@ -15,14 +15,15 @@ watch(lastStepResponse, (response) => {
   /** timeout to let native script hydrate dom */
   setTimeout(() => {
     if (response.step_type === "npc") {
-      const attackAnchor = document.querySelector<HTMLAnchorElement>(".travel-text a")
+      const attackAnchor = document.querySelector<HTMLAnchorElement>("div:has(>.travel-text) a")
+      console.log({ attackAnchor })
       if (!attackAnchor) return
 
       wrapAnchorWithButton(attackAnchor).focus()
     }
 
     if (response.step_type === "material") {
-      const collectButton = document.querySelector<HTMLButtonElement>(".travel-text button")
+      const collectButton = document.querySelector<HTMLButtonElement>("div:has(>.travel-text) button")
       if (!collectButton) return
       collectButton.focus()
     }
