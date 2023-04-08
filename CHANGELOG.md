@@ -1,3 +1,15 @@
+## [3.9.3](https://github.com/SugarF0x/simple-assistant/compare/v3.9.2...v3.9.3) (2023-04-08)
+
+
+### Bug Fixes
+
+* **quest:** broken auto-focus ([e9ca343](https://github.com/SugarF0x/simple-assistant/commit/e9ca343ea269ebc9398e21de7ac3cef6f4fe1152))
+* **quest:** specific quest tracking ([08ee716](https://github.com/SugarF0x/simple-assistant/commit/08ee7162d14be09cbea0311b1e359da5a5879bf3))
+* **quest:** task quest elevation & highlight ([cdf3009](https://github.com/SugarF0x/simple-assistant/commit/cdf300995ca7e48e62315290ed501ea1e6fc8b3f))
+* **travel:** bypass hidden trap button ([a3ef277](https://github.com/SugarF0x/simple-assistant/commit/a3ef2777fc7ad160f09ce6d0e97251bf1934a181))
+
+
+
 ## [3.9.2](https://github.com/SugarF0x/simple-assistant/compare/v3.9.1...v3.9.2) (2023-03-13)
 
 
