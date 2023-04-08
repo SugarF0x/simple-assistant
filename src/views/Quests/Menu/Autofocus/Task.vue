@@ -3,6 +3,7 @@ import { Checkbox } from "@/components"
 import { useQuestsMenuStore } from "../store"
 import { storeToRefs } from "pinia"
 import { nextTick, watch } from "vue"
+import { TASK_QUEST_CLASS } from "@/views/Quests/Menu/helpers"
 
 const questsStore = useQuestsMenuStore()
 const { shouldElevateTaskQuests, shouldAutoFocusTaskQuest } = storeToRefs(questsStore)
@@ -13,7 +14,7 @@ watch(
     await nextTick()
 
     if (!foo || !bar) return
-    document.querySelector<HTMLButtonElement>(".incomplete-task-quest")?.focus()
+    document.querySelector<HTMLButtonElement>(`.${TASK_QUEST_CLASS}`)?.focus()
   },
   {
     immediate: true,

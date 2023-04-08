@@ -18,7 +18,7 @@ const tasksStore = useTasksStore()
 const { advanceTask } = tasksStore
 const { shouldTrackTasks, allTasks } = storeToRefs(tasksStore)
 
-const validTasks = computed(() => allTasks.value.filter((task) => task.url === location.pathname || task.url.includes("quests/viewall")))
+const validTasks = computed(() => allTasks.value.filter((task) => task.url.includes(location.pathname) || task.url.includes("quests/viewall")))
 
 const resultsNode = document.querySelector("#result")
 const observer = new MutationObserver((mutations) => {
@@ -46,18 +46,27 @@ watchEffect(() => {
   <template v-if="shouldTrackTaskQuests && validTasks.length">
     <Teleport to="#sa-quest-tracker">
       <Card class="tasks">
-        <TaskTracker v-for="task in validTasks" :key="task.title" :task="task" />
+        <TaskTracker v-for="task in validTasks" :key="task.title" :task="task" class="task-item" />
       </Card>
     </Teleport>
   </template>
 </template>
 
+<style lang="scss">
+#sa-quest-tracker {
+  .task-item {
+    justify-content: center;
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 .tasks {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   margin: 0.5rem 0;
+  gap: .5rem;
 
   & > div {
     min-width: 40%;

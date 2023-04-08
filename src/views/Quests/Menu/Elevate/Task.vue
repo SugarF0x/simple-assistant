@@ -14,8 +14,11 @@ watchEffect(async () => {
   if (!elements.length) return
 
   for (const el of elements) {
-    if (shouldElevateTaskQuests.value) el.classList.add("elevated-item")
-    else el.classList.remove("elevated-item")
+    const parent = el.parentElement
+    if (!parent) continue
+
+    if (shouldElevateTaskQuests.value) parent.classList.add("elevated-item")
+    else parent.classList.remove("elevated-item")
   }
 })
 </script>

@@ -21,7 +21,7 @@ export function markQuests() {
 
   for (const questElement of Array.from(questListElement.children).reverse() as HTMLUListElement[]) {
     const button = wrapQuestLiWithButton(questElement)
-    const url = button.getAttribute("onclick")?.match(/\/quests\/.+/)?.[0] ?? ""
+    const url = button.getAttribute("onclick")?.match(/\/quests\/.+\?/)?.[0] ?? "unreachable"
 
     if (!button.querySelector("svg")) {
       if (!isLastIncompleteFound) {
@@ -31,6 +31,6 @@ export function markQuests() {
       button.classList.add(INCOMPLETE_QUEST_CLASS)
     }
 
-    if (questUrls.value.includes(url)) button.classList.add(TASK_QUEST_CLASS)
+    if (questUrls.value.some(questUrl => questUrl.includes(url))) button.classList.add(TASK_QUEST_CLASS)
   }
 }
