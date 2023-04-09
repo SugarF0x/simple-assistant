@@ -101,7 +101,7 @@ jobs:
 
   publish:
     name: Publish to chrome store
-    needs: [ setup, release ]
+    needs: [ setup, build ]
     if: ${{ needs.setup.outputs.skipped == 'false' }}
     runs-on: ubuntu-latest
 
