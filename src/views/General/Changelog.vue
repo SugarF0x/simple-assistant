@@ -56,7 +56,7 @@ if (lastSeenVersion.value !== currentVersion) {
 
 <style scoped lang="scss">
 .title {
-  font-size: 28px;
+  font-size: 2em;
   font-weight: bold;
   padding-bottom: 8px;
 }
@@ -70,13 +70,13 @@ if (lastSeenVersion.value !== currentVersion) {
     margin: 8px auto;
   }
   :deep(h1) {
-    font-size: 24px;
+    font-size: 1.71em;
   }
   :deep(h2) {
-    font-size: 20px;
+    font-size: 1.43em;
   }
   :deep(h3) {
-    font-size: 18px;
+    font-size: 1.29em;
     font-weight: bold;
   }
   :deep(ul) {

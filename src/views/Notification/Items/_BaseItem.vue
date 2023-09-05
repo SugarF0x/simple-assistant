@@ -2,6 +2,7 @@
 import { Card } from "@/components"
 
 const emit = defineEmits<{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (e: "dismiss"): void
 }>()
 
@@ -76,7 +77,7 @@ const isDark = document.querySelector("html")?.classList.contains("dark")
 }
 
 .titleWrapper {
-  font-size: 20px;
+  font-size: 1.43em;
   font-weight: bold;
   text-align: center;
 }

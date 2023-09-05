@@ -1,5 +1,5 @@
 <template>
-  <span class="subtitle">
+  <span class="subtitle text-xs sm:text-xs">
     <slot />
   </span>
 </template>
