@@ -5,6 +5,7 @@ import { computed, toRefs } from "vue"
 import TaskCategory from './TaskCategory.vue'
 
 const tasksStore = useTasksStore()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { tasks } = storeToRefs(tasksStore)
 
 const props = defineProps<{
@@ -30,7 +31,7 @@ const progressText = computed(() => {
     </div>
   </div>
 
-  <div v-else class="task-tracker" :class="{ 'color-override': color }">
+  <div v-else class="task-tracker text-sm" :class="{ 'color-override': color }">
     <template v-if="task">
       <TaskCategory :category="task.category" />
       <img :src="task.icon" alt="step_icon" />

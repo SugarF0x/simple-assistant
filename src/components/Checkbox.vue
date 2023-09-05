@@ -15,7 +15,9 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (e: "update:modelValue", value: boolean): void
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (e: "enable-required"): void
 }>()
 
@@ -36,7 +38,7 @@ const isChecked = computed(() => (!props.parent ? false : props.modelValue))
         v-bind="$attrs"
         @input="emit('update:modelValue', $event.target.checked)"
       />
-      <span class="labelText">
+      <span class="labelText text-xs sm:text-sm">
         <slot />
       </span>
     </label>

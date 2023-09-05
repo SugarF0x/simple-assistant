@@ -89,7 +89,7 @@ const { isDismissed } = storeToRefs(useFtueStore())
 
   h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 1.5em;
   }
 }
 
@@ -100,7 +100,7 @@ const { isDismissed } = storeToRefs(useFtueStore())
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 2.25em;
 }
 
 .actions {
