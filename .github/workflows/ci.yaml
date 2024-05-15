@@ -82,7 +82,7 @@ jobs:
 
   release:
     name: Create release
-    needs: [ build ]
+    needs: [ setup, build ]
     if: ${{ needs.setup.outputs.skipped == 'false' }}
     runs-on: ubuntu-latest
 
@@ -101,7 +101,7 @@ jobs:
 
   publish:
     name: Publish to chrome store
-    needs: [ release ]
+    needs: [ setup, build ]
     if: ${{ needs.setup.outputs.skipped == 'false' }}
     runs-on: ubuntu-latest
 

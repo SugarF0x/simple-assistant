@@ -38,10 +38,6 @@ const progressText = computed(() => {
       <span class="progress" :class="{ completed: task.progress >= task.requirement }"> [{{ progressText }}] </span>
     </template>
 
-    <template v-else-if="tasks.length">
-      <span class="title"> No task of this type today! </span>
-    </template>
-
     <template v-else>
       <span class="title"> No today tasks tracked. Please, visit Tasks page. </span>
     </template>

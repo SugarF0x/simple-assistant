@@ -9,7 +9,7 @@ const pinia = createPinia().use(piniaPluginPersistedstate)
 const app = createApp(App).use(router).use(pinia)
 
 const appElement = document.createElement("div")
-appElement.id = "app"
+appElement.id = "simple-assistant-app"
 document.querySelector("footer")?.after(appElement)
 
 /**
@@ -26,7 +26,7 @@ document.querySelector("footer")?.after(appElement)
  * though i am leaving this here should the issue return
  */
 
-app.mount("#app")
+app.mount("#simple-assistant-app")
 
 /**
  * TODO:
