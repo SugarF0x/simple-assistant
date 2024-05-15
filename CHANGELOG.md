@@ -1,3 +1,12 @@
+## [3.9.4](https://github.com/SugarF0x/simple-assistant/compare/v3.9.3...v3.9.4) (2024-05-15)
+
+
+### Bug Fixes
+
+* app crash on startup since v12.36 ([93c5d44](https://github.com/SugarF0x/simple-assistant/commit/93c5d447f1fdc33455d010a66be7866fc9e28999))
+
+
+
 ## [3.9.3](https://github.com/SugarF0x/simple-assistant/compare/v3.9.2...v3.9.3) (2023-04-08)
 
 
