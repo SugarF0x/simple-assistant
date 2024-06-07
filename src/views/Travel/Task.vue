@@ -47,7 +47,7 @@ travelContainer.append(tasksOverlayElement)
   </Checkbox>
 
   <Teleport v-if="shouldShowHUD" :to="`#${tasksOverlayId}`">
-    <div class="travel-tasks">
+    <div class="travel-tasks text-xs">
       <TaskTracker v-for="task in tasks" :key="task.title" :task="task" />
     </div>
   </Teleport>
